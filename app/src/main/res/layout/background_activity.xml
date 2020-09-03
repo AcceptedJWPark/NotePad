@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/ll_container"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:id="@+id/rl_toolbar"
+        android:elevation="5dp"
+        >
+
+
+        <ImageView
+            android:id="@+id/img_open_dl"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:src="@drawable/icon_menu"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_maintitle_home"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="NotePad"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="18dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_right_home"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="NotePad"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:layout_marginRight="20dp"
+            android:textStyle="bold"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:text="배경화면을 설정하세요."
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textSize="16dp"
+        android:textColor="#000"
+        android:text="(튜토리얼 종료 후 메인화면에서 변경할 수 있습니다.)"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/tv1"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/containerBgr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#00ffffff"
+            >
+
+            <EditText
+                android:id="@+id/et_apptitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:hint="App 제목을 입력해주세요."
+                android:textColor="#646464"
+                android:textSize="16dp"
+                android:background="#00ffffff"
+                />
+
+
+            <View
+                android:id="@+id/v_apptitle"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#949494"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_isdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:text="작성일 보기"
+                android:textColor="#646464"
+                android:textSize="16dp"
+                />
+
+            <ImageView
+                android:id="@+id/iv_isdate"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/icon_switchon"
+                />
+
+            <View
+                android:id="@+id/v_isdate"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#949494"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#00ffffff"
+            >
+
+            <TextView
+                android:id="@+id/tv_ismemo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:text="메모 요약 보기"
+                android:textColor="#646464"
+                android:textSize="16dp"
+                />
+
+            <ImageView
+                android:id="@+id/iv_ismemo"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/icon_switchon"
+                android:theme="@style/SwitchTheme"
+                />
+            <View
+                android:id="@+id/v_ismemo"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#949494"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#00ffffff"
+            >
+
+            <TextView
+                android:id="@+id/tv_issearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:text="검색창 보기"
+                android:textColor="#646464"
+                android:textSize="16dp"
+                />
+
+            <ImageView
+                android:id="@+id/iv_issearch"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/icon_switchon"
+                />
+            <View
+                android:id="@+id/v_issearch"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#949494"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_bgr"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:text="배경 설정"
+                android:textColor="#646464"
+                android:textSize="16dp"
+                android:gravity="bottom"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:clickable="false"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            >
+            <LinearLayout
+                android:id="@+id/ll_bgrchange"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_leftarrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/icon_arrowleft"
+                    android:layout_marginRight="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_bgrmode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="기본모드"
+                    android:gravity="center"
+                    android:layout_toRightOf="@id/iv_leftarrow"
+                    android:textSize="16dp"
+                    android:textColor="#F37A00"
+                    android:textStyle="bold"
+
+                    />
+
+                <LinearLayout
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:gravity="center"
+                    android:background="#949494"
+                    android:layout_marginLeft="20dp"
+                    >
+                    <View
+                        android:id="@+id/iv_color1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:gravity="center"
+                    android:background="#949494"
+                    android:layout_marginLeft="20dp"
+                    >
+                    <View
+                        android:id="@+id/iv_color2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:gravity="center"
+                    android:background="#949494"
+                    android:layout_marginLeft="20dp"
+                    >
+                    <View
+                        android:id="@+id/iv_color3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:gravity="center"
+                    android:background="#949494"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    >
+                    <View
+                        android:id="@+id/iv_color4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        />
+                </LinearLayout>
+
+
+
+                <ImageView
+                    android:id="@+id/iv_rightarrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/icon_arrowright"
+                    android:layout_marginLeft="20dp"
+                    />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_container_preview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="70dp"
+                android:layout_below="@+id/ll_bgrchange"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/bgr_container"
+                android:padding="2dp"
+                android:layout_marginTop="5dp"
+                >
+
+                <LinearLayout
+                    android:id="@+id/ll_searchContainer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:elevation="3dp"
+                    android:background="#fff"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        app:contentInsetLeft="0dp"
+                        app:contentInsetStart="0dp"
+                        android:id="@+id/rl_toolbar2"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        >
+
+
+                        <ImageView
+                            android:id="@+id/img_open_dl2"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="10dp"
+                            app:contentInsetLeft="0dp"
+                            app:contentInsetStart="0dp"
+                            android:src="@drawable/icon_menu"
+                            android:layout_centerVertical="true"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_maintitle_home2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="NotePad"
+                            android:gravity="center"
+                            android:textColor="#000"
+                            android:textSize="14dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            />
+
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_searchContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical|top"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+
+                        >
+
+                        <RelativeLayout
+                            android:id="@+id/rl_searchContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:paddingLeft="10dp"
+                            android:background="@drawable/bgr_edittext_tutorial"
+                            >
+
+                            <ImageView
+                                android:id="@+id/iv_search"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/icon_search"
+                                android:layout_centerVertical="true"/>
+
+
+                            <EditText
+                                android:id="@+id/et_search"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#00FFFFFF"
+                                android:hint="검색"
+                                android:paddingLeft="20dp"
+                                android:textSize="12dp"
+                                android:focusable="false"
+                                />
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_container_preview2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:elevation="3dp"
+                    android:padding="3dp"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_preview1"
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp"
+                            android:text="홈트레이닝하기 30분 루틴"
+                            android:gravity="center_vertical|left"
+                            android:layout_marginLeft="5dp"
+                            android:textStyle="bold"
+                            android:singleLine="true"
+                            android:textSize="12dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_preview2"
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp"
+                            android:text="1. 스쿼트 5세트 x 20개, 다리는 골반보다 조금 넓게 벌린 상태에서 상체를 세워주고"
+                            android:gravity="center_vertical|left"
+                            android:layout_marginLeft="5dp"
+                            android:singleLine="true"
+                            android:textSize="10dp"
+                            />
+
+
+                        <TextView
+                            android:id="@+id/tv_preview3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:text="최근작성일 : 2020-03-07 11:32AM"
+                            android:gravity="center_vertical|left"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="10dp"
+                            />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bgr_mainbtn"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="저장"
+                android:textSize="18dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

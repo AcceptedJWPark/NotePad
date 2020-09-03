@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/drawer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:id="@+id/container"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_searchContainer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:elevation="5dp"
+        android:background="#fff"
+        >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:id="@+id/rl_toolbar"
+        >
+
+
+        <ImageView
+            android:id="@+id/img_open_dl"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:src="@drawable/icon_menu"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_maintitle_home"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="NotePad"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_right_home"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="NotePad"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:layout_marginRight="20dp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_searchContainer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|top"
+
+        >
+
+        <RelativeLayout
+            android:id="@+id/rl_searchContainer"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingLeft="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/icon_search"
+                android:layout_centerVertical="true"/>
+
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00FFFFFF"
+                android:hint="검색"
+                android:paddingLeft="20dp"
+                android:textSize="14dp"
+                />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rl_container"
+        >
+
+        <ListView
+            android:id="@+id/lv_memo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:divider="#00FFFFFF"
+            android:dividerHeight="10dp"
+            android:overScrollMode="never"
+            />
+
+        <ImageView
+            android:id="@+id/btn_addmemo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:src="@drawable/icon_plus"
+            android:elevation="5dp"
+            />
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/view_drawerlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start">
+
+        <include
+            layout="@layout/drawer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

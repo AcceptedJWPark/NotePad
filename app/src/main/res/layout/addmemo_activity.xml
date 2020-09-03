@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:id="@+id/rootLayout"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:id="@+id/rl_toolbar"
+        android:elevation="5dp"
+        >
+
+
+        <ImageView
+            android:id="@+id/img_open_dl"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:src="@drawable/icon_menu"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_maintitle_home"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="NotePad"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="18dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_right_home"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="NotePad"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:focusable="true"
+
+        >
+
+        <TextView
+            android:id="@+id/tv_securityType"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#F5F5F5"
+            android:text="보안 방식을 선택하세요"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:textColor="#000"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_securityContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            >
+
+            <LinearLayout
+                android:id="@+id/ll_low"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/iv_low"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/low2"
+                        android:layout_centerHorizontal="true"
+                        />
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_low"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="일반메모"
+                    android:gravity="center_horizontal|top"
+                    android:textSize="14dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#039C17"
+                    android:textStyle="bold"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_mid"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/iv_mid"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/mid1"
+                        android:layout_centerHorizontal="true"
+                        />
+
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_mid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="비밀번호"
+                    android:gravity="center_horizontal|top"
+                    android:textSize="14dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#AEAEAE"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_high"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/iv_high"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/high1"
+                        android:layout_centerHorizontal="true"
+                        />
+
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_high"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="클릭 + 비밀번호"
+                    android:gravity="center_horizontal|top"
+                    android:textSize="13dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#AEAEAE"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tv_clicktype"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#F5F5F5"
+                android:text="보안설정 없음"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:textColor="#000"
+                />
+
+            <LinearLayout
+                android:id="@+id/ll_clicktype"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:visibility="gone"
+                android:background="#00FFFFFF"
+                >
+
+                <Button
+                    android:id="@+id/btn_normalclick"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bgr_click_selected"
+                    android:textSize="16dp"
+                    android:textColor="#F37A00"
+                    android:textStyle="bold"
+                    android:text="더블클릭"
+
+                    />
+
+                <Button
+                    android:id="@+id/btn_doubleclick"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="16dp"
+                    android:textColor="#AEAEAE"
+                    android:text="롱클릭(1초)"
+                    android:background="@drawable/bgr_click_unselected"
+                    />
+
+                <Button
+                    android:id="@+id/btn_longclick"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:textColor="#AEAEAE"
+                    android:text="롱클릭(3초)"
+                    android:background="@drawable/bgr_click_unselected"
+                    />
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_securityContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00FFFFFF"
+                >
+
+            <TextView
+                android:id="@+id/tv_fake"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#F5F5F5"
+                android:text="Fake 글 작성 (클릭방식 또는 비밀번호 틀렸을 때 노출)"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:textColor="#000"
+                android:layout_alignParentTop="true"
+                android:visibility="gone"
+                />
+
+                <TextView
+                    android:id="@+id/tv_low1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|top"
+                    android:lineSpacingExtra="10dp"
+                    android:letterSpacing="0.1"
+                    android:textSize="16dp"
+                    android:text="현재 보안방식에는 보안설정이 없습니다.\n비밀글이라면 보안수준을 올려주세요."
+                    android:layout_centerInParent="true"
+                    android:paddingBottom="50dp"
+                    android:textColor="#AEAEAE"
+                    />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:overScrollMode="never"
+                    android:visibility="gone"
+                    android:layout_below="@id/tv_fake"
+                    android:background="#00FFFFFF"
+                    />
+
+
+
+
+
+    <EditText
+        android:id="@+id/et_faketitle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bgr_edittext"
+        android:elevation="5dp"
+        android:hint="Fake 제목을 입력해주세요."
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="14dp"
+        android:layout_below="@+id/rcv"
+        android:visibility="gone"
+        />
+
+    <EditText
+        android:id="@+id/et_fakecontents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="110dp"
+        android:elevation="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bgr_edittext"
+        android:gravity="top|left"
+        android:hint="Fake 내용을 입력해주세요."
+        android:padding="10dp"
+        android:textSize="12dp"
+        android:layout_below="@+id/et_faketitle"
+        android:visibility="gone"
+        />
+
+                <Button
+                    android:id="@+id/btn_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bgr_mainbtn"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="다음"
+                    android:textSize="18dp"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="20dp"
+                    />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="30dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_drawer_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="120dp"
+                android:orientation="horizontal"
+                android:gravity="center|left"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                >
+                
+                <ImageView
+                    android:id="@+id/iv_drawer_login"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/icon_login"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_drawer_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="로그아웃"
+                    android:textColor="#000"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_drawer_pw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center|left"
+                android:paddingRight="120dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_drawer_pw"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/icon_manual"
+                    />
+
+
+                <TextView
+                    android:id="@+id/tv_drawer_pw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="비밀번호 변경/찾기"
+                    android:textColor="#000"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_drawer_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center|left"
+                android:paddingRight="120dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_drawer_click"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/icon_manual"
+                    />
+
+
+                <TextView
+                    android:id="@+id/tv_drawer_click"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="클릭 방식 변경"
+                    android:textColor="#000"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_drawer_bgr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center|left"
+                android:paddingRight="120dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                >
+                <ImageView
+                    android:id="@+id/iv_drawer_bgr"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/icon_login"
+                    />
+
+
+                <TextView
+                    android:id="@+id/tv_drawer_bgr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="화면 설정"
+                    android:textColor="#000"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_drawer_manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center|left"
+                android:paddingRight="120dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_drawer_manual"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/icon_manual"
+                    />
+
+
+                <TextView
+                    android:id="@+id/tv_drawer_manual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="사용자 매뉴얼"
+                    android:textColor="#000"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

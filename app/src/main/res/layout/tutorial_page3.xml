@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+    <LinearLayout
+        android:id="@+id/ll_searchContainer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:elevation="5dp"
+        android:background="#fff"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:id="@+id/rl_toolbar"
+            >
+
+
+            <ImageView
+                android:id="@+id/img_open_dl"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="8dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                android:src="@drawable/icon_menu"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:id="@+id/tv_maintitle_home"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="NotePad"
+                android:gravity="center"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:id="@+id/tv_right_home"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="NotePad"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"
+                android:layout_marginRight="20dp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/ll_searchContainer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical|top"
+
+            >
+
+            <RelativeLayout
+                android:id="@+id/rl_searchContainer"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="10dp"
+                android:background="@drawable/bgr_edittext_tutorial"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_search"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/icon_search"
+                    android:layout_centerVertical="true"/>
+
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#00FFFFFF"
+                    android:hint="검색"
+                    android:paddingLeft="20dp"
+                    android:textSize="14dp"
+                    />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="#FFF"
+                android:elevation="5dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="홈트레이닝하기 30분 루틴"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:textSize="15dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="1. 스쿼트 5세트 x 20개, 다리는 골반보다 조금 넓게 벌린 상태에서 상체를 세워주고"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="true"
+                    android:textSize="13dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="최근작성일 : 2020-03-07 11:32AM"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="13dp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="#FFF"
+                android:elevation="5dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="부동산 정보 유용한 사이트 모음"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:textSize="15dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="서울특별시 정보광장 → 부동산 종합정보, 건축물 정보, 가격정보(공시지가/개별주택 가격), 내게 맞는 아파트 찾기"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="true"
+                    android:textSize="13dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="최근작성일 : 2020-07-14 17:24PM"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="13dp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="#FFF"
+                android:elevation="5dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="알리오올리오 맛있게 만드는 법"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:textSize="15dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="스파게티 면 200g을 준비한다. 1인분은 파스타 100원짜리 동전 크기 만큼 사용하는데 양이 적다면 500원짜리 동전을 사용한다"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="true"
+                    android:textSize="13dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="최근작성일 : 2020-07-12 17:24PM"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="13dp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="#FFF"
+                android:elevation="5dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="무료 예능 드라마 영화 볼수 있는 사이트 모음"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:textSize="15dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="PC에서는 접속이 안되고 폰으로 열어야 함."
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="true"
+                    android:textSize="13dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="최근작성일 : 2020-07-29 17:24PM"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="13dp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="#FFF"
+                android:elevation="5dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="이마트 장 보기 리스트"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:textSize="15dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="1. 면도기 / 면도크림 : 면도기 탈부착 가능한거로"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="true"
+                    android:textSize="13dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="최근작성일 : 2020-08-12 17:24PM"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="13dp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="#FFF"
+                android:elevation="5dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="올해 나의 버킷리스트 100선"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:textSize="15dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="악기와 외국어 중 가장 흥미를 느낄만한 분야를 찾아서 시작한다. 중간에 포기하지 않고 다양한 악기와 외국어를 도전해본다."
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="true"
+                    android:textSize="13dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="최근작성일 : 2020-08-17 19:07PM"
+                    android:gravity="center_vertical|left"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="13dp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B3000000"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="90dp"
+        android:text="설정하신 클릭방식으로\n글쓰기를 클릭해보세요."
+        android:textColor="#fff"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="#fff"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:id="@+id/iv_addmemo_tutorial"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/icon_plus"
+            android:elevation="5dp"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
