@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#fff"
+    android:id="@+id/container_clickchange"
     >
 
     <TextView
@@ -68,7 +69,7 @@
                     android:id="@+id/iv_clicktype1"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/clicktype1_1"
+                    android:src="@drawable/clickchange1_1"
                     />
 
                 <TextView
@@ -78,7 +79,7 @@
                     android:text="일반클릭"
                     android:layout_marginTop="10dp"
                     android:textSize="18dp"
-                    android:textColor="#707070"
+                    android:textColor="#544f4f"
                     />
 
             </LinearLayout>
@@ -96,7 +97,7 @@
                     android:id="@+id/iv_clicktype2"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/clicktype2_1"
+                    android:src="@drawable/clickchange2_1"
                     />
 
                 <TextView
@@ -133,7 +134,7 @@
                     android:id="@+id/iv_clicktype3"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/clicktype3_1"
+                    android:src="@drawable/clickchange3_1"
                     />
 
                 <TextView
@@ -161,7 +162,7 @@
                     android:id="@+id/iv_clicktype4"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/clicktype4_1"
+                    android:src="@drawable/clickchange4_1"
                     />
 
                 <TextView
@@ -205,7 +206,7 @@
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="18dp"
-            android:text="다음"
+            android:text="완료"
             />
 
 

@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.main.MainActivity;
 import com.accepted.notepad.papermemo.Papermemo_MainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class Password_MainActivity extends AppCompatActivity {
 
     Context mContext;
     int colorMode = 1;
+    boolean isLostLock = false;
 
     String color1_basic = SaveSharedPreference.getBackColor1_basic();
     String color2_basic = SaveSharedPreference.getBackColor2_basic();
@@ -90,6 +92,7 @@ public class Password_MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode",1);
+        isLostLock = intent.getBooleanExtra("isLostLock",false);
 
         ((ImageView)findViewById(R.id.iv_cancel_password)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +115,12 @@ public class Password_MainActivity extends AppCompatActivity {
             choosedColor4 = color4_night;
         }
 
+        if(isLostLock) {
+            ((TextView) findViewById(R.id.tv_password1_main)).setText("잠금 번호를 변경합니다");
+        }else
+        {
+            ((TextView) findViewById(R.id.tv_password1_main)).setText("해당 메모는 보안되어 있습니다");
+        }
         background(choosedColor1,choosedColor2, choosedColor3, choosedColor4);
 
         shape3 = (GradientDrawable) ContextCompat.getDrawable(this,R.drawable.bgr_password_input);
@@ -148,19 +157,31 @@ public class Password_MainActivity extends AppCompatActivity {
 
                     if(InputPassword.length()==6)
                     {
-                        if(InputPassword.equals(UserPassword))
+                        if(isLostLock)
                         {
-                            Intent intent = new Intent(mContext,Papermemo_MainActivity.class);
-                            intent.putExtra("isReal",2);
+                            Intent intent = new Intent(mContext, MainActivity.class);
+                            intent.putExtra("ColorMode",colorMode);
                             startActivity(intent);
                             finish();
                         }else
                         {
-                            Intent intent = new Intent(mContext,Papermemo_MainActivity.class);
-                            intent.putExtra("isReal",3);
-                            startActivity(intent);
-                            finish();
+                            if(InputPassword.equals(UserPassword))
+                            {
+                                Intent intent = new Intent(mContext,Papermemo_MainActivity.class);
+                                intent.putExtra("ColorMode",colorMode);
+                                intent.putExtra("isReal",2);
+                                startActivity(intent);
+                                finish();
+                            }else
+                            {
+                                Intent intent = new Intent(mContext,Papermemo_MainActivity.class);
+                                intent.putExtra("isReal",3);
+                                intent.putExtra("ColorMode",colorMode);
+                                startActivity(intent);
+                                finish();
+                            }
                         }
+
                     }
                 }
             });

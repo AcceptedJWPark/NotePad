@@ -54,6 +54,7 @@ public class Background_MainActivity extends AppCompatActivity {
 
     boolean isTutorial;
 
+    boolean isMenu;
     boolean isDate;
     boolean isSearch;
     boolean isMemo;
@@ -122,12 +123,32 @@ public class Background_MainActivity extends AppCompatActivity {
             colorList.add(color4_night);
         }
 
+        isMenu = true;
         isDate = true;
         isSearch = true;
         isMemo = true;
 
         switchClick(colorList.get(3));
         background(colorList.get(0),colorList.get(1),colorList.get(2),colorList.get(3));
+
+        ((ImageView)findViewById(R.id.iv_ismenu)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isMenu)
+                {
+                    isMenu = false;
+                    ((ImageView)findViewById(R.id.iv_ismenu)).setImageResource(R.drawable.icon_switchoff);
+                    ((ImageView)findViewById(R.id.iv_ismenu)).setColorFilter(Color.parseColor("#c1c1c1"));
+                    ((ImageView)findViewById(R.id.img_open_dl2)).setColorFilter(Color.parseColor(colorList.get(1)));
+                }else
+                {
+                    isMenu = true;
+                    ((ImageView)findViewById(R.id.iv_ismenu)).setImageResource(R.drawable.icon_switchon);
+                    ((ImageView)findViewById(R.id.iv_ismenu)).setColorFilter(Color.parseColor(colorList.get(3)));
+                    ((ImageView)findViewById(R.id.img_open_dl2)).setColorFilter(Color.parseColor(colorList.get(2)));
+                }
+            }
+        });
 
         ((ImageView)findViewById(R.id.iv_issearch)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +231,7 @@ public class Background_MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(mContext,MainActivity.class);
                 intent.putExtra("ColorMode",colormode);
                 intent.putExtra("ismemo",isMemo);
+                intent.putExtra("ismenu",isMenu);
                 intent.putExtra("isdate",isDate);
                 intent.putExtra("issearch",isSearch);
                 startActivity(intent);
@@ -280,6 +302,16 @@ public class Background_MainActivity extends AppCompatActivity {
 
     public void switchClick(String color4)
     {
+        if(isMenu)
+        {
+            ((ImageView)findViewById(R.id.iv_ismenu)).setImageResource(R.drawable.icon_switchon);
+            ((ImageView)findViewById(R.id.iv_ismenu)).setColorFilter(Color.parseColor(color4));
+        }else
+        {
+            ((ImageView)findViewById(R.id.iv_ismenu)).setImageResource(R.drawable.icon_switchoff);
+            ((ImageView)findViewById(R.id.iv_ismenu)).setColorFilter(Color.parseColor("#c1c1c1"));
+        }
+
         if(isSearch)
         {
             ((ImageView)findViewById(R.id.iv_issearch)).setImageResource(R.drawable.icon_switchon);
@@ -349,12 +381,14 @@ public class Background_MainActivity extends AppCompatActivity {
         ((Button)findViewById(R.id.btn_next)).setBackground(shape1);
         ((Button)findViewById(R.id.btn_next)).setTextColor(Color.parseColor("#ffffff"));
 
+        ((TextView)findViewById(R.id.tv_ismenu)).setTextColor(Color.parseColor(color3));
         ((TextView)findViewById(R.id.tv_isdate)).setTextColor(Color.parseColor(color3));
         ((TextView)findViewById(R.id.tv_bgr)).setTextColor(Color.parseColor(color3));
         ((TextView)findViewById(R.id.tv_ismemo)).setTextColor(Color.parseColor(color3));
         ((TextView)findViewById(R.id.tv_issearch)).setTextColor(Color.parseColor(color3));
 
         ((View)findViewById(R.id.v_apptitle)).setBackgroundColor(Color.parseColor(color1));
+        ((View)findViewById(R.id.v_ismenu)).setBackgroundColor(Color.parseColor(color1));
         ((View)findViewById(R.id.v_isdate)).setBackgroundColor(Color.parseColor(color1));
         ((View)findViewById(R.id.v_ismemo)).setBackgroundColor(Color.parseColor(color1));
         ((View)findViewById(R.id.v_issearch)).setBackgroundColor(Color.parseColor(color1));
@@ -390,7 +424,16 @@ public class Background_MainActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_preview3)).setTextColor(Color.parseColor(color3));
 
         ((TextView)findViewById(R.id.tv_maintitle_home2)).setTextColor(Color.parseColor(color3));
-        ((ImageView)findViewById(R.id.img_open_dl2)).setColorFilter(Color.parseColor(color3));
+
+
+        if(isMenu)
+        {
+            ((ImageView)findViewById(R.id.img_open_dl2)).setColorFilter(Color.parseColor(color3));
+        }else
+        {
+            ((ImageView)findViewById(R.id.img_open_dl2)).setColorFilter(Color.parseColor(color2));
+        }
+
 
         ((ImageView)findViewById(R.id.iv_search)).setColorFilter(Color.parseColor(color3));
         ((EditText)findViewById(R.id.et_search)).setHintTextColor(Color.parseColor(color3));

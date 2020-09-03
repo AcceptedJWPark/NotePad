@@ -3,6 +3,7 @@ package com.accepted.notepad.papermemo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 
 public class Papermemo_MainActivity extends AppCompatActivity {
@@ -48,6 +50,7 @@ public class Papermemo_MainActivity extends AppCompatActivity {
     EditText et_contents;
     ImageView iv_pre;
 
+    GradientDrawable shape1;
     int colorMode = 1;
 
     int isReal;
@@ -83,6 +86,8 @@ public class Papermemo_MainActivity extends AppCompatActivity {
             Toast.makeText(context,"new", Toast.LENGTH_SHORT).show();
         }
 
+
+
         containerPaper = findViewById(R.id.ll_cotainer_paper);
         containerTxt = findViewById(R.id.ll_txtcontainer_paper);
         tv_comp = findViewById(R.id.tv_comp);
@@ -108,11 +113,11 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         }
 
 
-        colorChange(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
+        background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
     }
 
 
-    public void colorChange(String color1, String color2, String color3, String color4)
+    public void background(String color1, String color2, String color3, String color4)
     {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -123,7 +128,8 @@ public class Papermemo_MainActivity extends AppCompatActivity {
             flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             getWindow().getDecorView().setSystemUiVisibility(flags);
         }
-
+        shape1 = (GradientDrawable) ContextCompat.getDrawable(this,R.drawable.bgr_mainbtn);
+        shape1.setColor(Color.parseColor(color4));
 
         containerPaper.setBackgroundColor(Color.parseColor(color2));
         containerTxt.setBackgroundColor(Color.parseColor(color1));
@@ -133,9 +139,13 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         et_title.setTextColor(Color.parseColor(color3));
         et_contents.setTextColor(Color.parseColor(color3));
         et_title.setHintTextColor(Color.parseColor(color3));
-        et_contents.setHintTextColor(Color.parseColor("#949494"));
+        et_contents.setHintTextColor(Color.parseColor(color3));
 
         iv_pre.setColorFilter(Color.parseColor(color3));
+
+        ((LinearLayout)findViewById(R.id.ll_cotainer_paper)).setBackgroundColor(Color.parseColor(color2));
+        ((LinearLayout)findViewById(R.id.ll_txtcontainer_paper)).setBackgroundColor(Color.parseColor(color1));
+        ((ImageView)findViewById(R.id.iv_pre)).setColorFilter(Color.parseColor(color3));
 
     }
 

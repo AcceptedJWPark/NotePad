@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <activity
-            android:name=".join.Login_MainActivity"
+            android:name=".login.Login_MainActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,7 @@
         </activity>
 
         <activity android:name=".main.MainActivity" />
+        <activity android:name=".main.ClickChange_MainActivity" />
         <activity android:name=".join.Join_MainActivity" />
         <activity android:name=".join.LostID1_MainActivity" />
         <activity android:name=".join.LostID2_MainActivity" />

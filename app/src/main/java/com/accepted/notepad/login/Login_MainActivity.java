@@ -1,4 +1,4 @@
-package com.accepted.notepad.join;
+package com.accepted.notepad.login;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,8 +10,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.accepted.notepad.R;
+import com.accepted.notepad.join.Join_MainActivity;
+import com.accepted.notepad.join.LostID1_MainActivity;
+import com.accepted.notepad.join.LostPW1_MainActivity;
 import com.accepted.notepad.main.MainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,7 +55,7 @@ public class Login_MainActivity extends AppCompatActivity {
         ((Button)findViewById(R.id.btn_join)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,Join_MainActivity.class);
+                Intent intent = new Intent(context, Join_MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -59,8 +63,17 @@ public class Login_MainActivity extends AppCompatActivity {
         ((Button)findViewById(R.id.btn_login)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, MainActivity.class);
-                startActivity(intent);
+                if(((EditText)findViewById(R.id.et_id)).length() == 0){
+                    Toast.makeText(context,"아이디를 입력해주세요",Toast.LENGTH_SHORT).show();
+                }else if(((EditText)findViewById(R.id.et_pw)).length() == 0){
+                    Toast.makeText(context,"비밀번호를 입력해주세요",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Intent intent = new Intent(context, MainActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -80,6 +93,8 @@ public class Login_MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
 
 

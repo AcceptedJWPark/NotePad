@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.accepted.notepad.R;
-import com.accepted.notepad.main.MainActivity;
+import com.accepted.notepad.login.Login_MainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,7 +33,7 @@ public class LostID2_MainActivity extends AppCompatActivity {
         ((Button)findViewById(R.id.btn_login_lostid)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,Login_MainActivity.class);
+                Intent intent = new Intent(context, Login_MainActivity.class);
                 startActivity(intent);
             }
         });

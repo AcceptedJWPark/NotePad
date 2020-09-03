@@ -21,6 +21,7 @@ import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
 import com.accepted.notepad.addmemo.Addmemo_MainActivity;
 import com.accepted.notepad.backgound.Background_MainActivity;
+import com.accepted.notepad.join.LostID1_MainActivity;
 import com.accepted.notepad.password.Password_MainActivity;
 
 import java.util.ArrayList;
@@ -56,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
     DrawerLayout dl;
     View v_drawerlayout;
+    View footer;
 
+    boolean ismenu;
     boolean ismemo;
     boolean issearch;
     boolean isdate;
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode",1);
 
+        ismenu = intent.getBooleanExtra("ismenu",true);
         ismemo = intent.getBooleanExtra("ismemo",true);
         issearch = intent.getBooleanExtra("issearch",true);
         isdate = intent.getBooleanExtra("isdate",true);
@@ -123,8 +127,9 @@ public class MainActivity extends AppCompatActivity {
             choosedColor3 = color3_night;
             choosedColor4 = color4_night;
         }
-
         listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,ismemo,isdate);
+        footer = getLayoutInflater().inflate(R.layout.memolist_footer,null,false);
+        listView.addFooterView(footer);
         listView.setAdapter(listAdapter_memo);
 
         ((ImageView)findViewById(R.id.btn_addmemo)).setOnClickListener(new View.OnClickListener() {
@@ -143,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         colorChange(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -155,6 +161,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        drawerLayout();
+    }
+
+    public void drawerLayout()
+    {
+        ((LinearLayout)findViewById(R.id.ll_drawer_login)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        ((LinearLayout)findViewById(R.id.ll_drawer_pw)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, LostID1_MainActivity.class);
+                intent.putExtra("ColorMode",colorMode);
+                intent.putExtra("isLostLock",true);
+                startActivity(intent);
+            }
+        });
+
+        ((LinearLayout)findViewById(R.id.ll_drawer_click)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, ClickChange_MainActivity.class);
+                intent.putExtra("ColorMode",colorMode);
+                startActivity(intent);
+            }
+        });
+
+        ((LinearLayout)findViewById(R.id.ll_drawer_bgr)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        ((LinearLayout)findViewById(R.id.ll_drawer_manual)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
 
@@ -173,9 +224,6 @@ public class MainActivity extends AppCompatActivity {
         GradientDrawable shape =  new GradientDrawable();
         shape.setCornerRadius( 30 );
         shape.setColor(Color.parseColor(color1));
-
-
-        ((ImageView)findViewById(R.id.img_open_dl)).setColorFilter(Color.parseColor(color3));
 
         ((RelativeLayout)findViewById(R.id.rl_toolbar)).setBackgroundColor(Color.parseColor(color2));
         ((TextView)findViewById(R.id.tv_maintitle_home)).setTextColor(Color.parseColor(color3));
@@ -210,6 +258,18 @@ public class MainActivity extends AppCompatActivity {
         ((ImageView)findViewById(R.id.iv_drawer_pw)).setColorFilter(Color.parseColor(color3));
         ((ImageView)findViewById(R.id.iv_drawer_click)).setColorFilter(Color.parseColor(color3));
         ((ImageView)findViewById(R.id.iv_drawer_manual)).setColorFilter(Color.parseColor(color3));
+
+        footer.setBackgroundColor(Color.parseColor(color1));
+
+        if(ismenu)
+        {
+            ((ImageView)findViewById(R.id.img_open_dl)).setColorFilter(Color.parseColor(color3));
+        }else
+        {
+            ((ImageView)findViewById(R.id.img_open_dl)).setColorFilter(Color.parseColor(color2));
+        }
+
+
     }
 
 }

@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="완료"
+            android:text="보안수정"
             android:textSize="16dp"
             android:textColor="#F37A00"
             android:textStyle="bold"
@@ -50,6 +50,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         >
 
     <EditText
@@ -63,32 +65,54 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:singleLine="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:letterSpacing="0.2"
         android:textSize="16dp"
 
         />
 
-    <EditText
-        android:id="@+id/et_contents"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:hint="제목을 입력해주세요"
-        android:background="#00FFFFFF"
-        android:textColorHint="#AEAEAE"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:singleLine="false"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:letterSpacing="0.1"
-        android:textSize="14dp"
-        android:gravity="top"
-        android:paddingTop="5dp"
-        android:includeFontPadding="true"
-        />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        <EditText
+            android:id="@+id/et_contents"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
+            android:background="#00FFFFFF"
+            android:gravity="top"
+            android:hint="내용을 입력해주세요"
+            android:includeFontPadding="true"
+            android:letterSpacing="0.1"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:singleLine="false"
+            android:textColorHint="#AEAEAE"
+            android:textSize="14dp"
+            android:layout_alignParentTop="true"
+            />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp">
+            <Button
+                android:id="@+id/btn_next_papermemo"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="완료"
+                android:textSize="18dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:background="@drawable/bgr_mainbtn"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:elevation="5dp"
+                />
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

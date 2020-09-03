@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.accepted.notepad.R;
@@ -36,7 +37,7 @@ public class Tutorial_Page1 extends Fragment {
         mContext=getActivity();
 
         shape1 = (GradientDrawable) ContextCompat.getDrawable(mContext,R.drawable.bgr_password_input);
-        shape1.setColor(Color.parseColor("#66F37A00"));
+        shape1.setColor(Color.parseColor("#77F37A00"));
 
         View view = inflater.inflate(R.layout.tutorial_page1, container, false);
         findViewById(view);
@@ -73,7 +74,7 @@ public class Tutorial_Page1 extends Fragment {
             });
         }
 
-        ((ImageView)view.findViewById(R.id.iv_del_password_tutorial)).setOnClickListener(new View.OnClickListener() {
+        ((LinearLayout)view.findViewById(R.id.ll_del_password_tutorial)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(InputPassword.length()==0)
@@ -96,6 +97,18 @@ public class Tutorial_Page1 extends Fragment {
                 }
             }
         });
+
+        ((LinearLayout)view.findViewById(R.id.ll_pwrefresh)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputPassword = "";
+                for(int j=0; j<6; j++)
+                {
+                    password[j].setBackground(shape1);
+                }
+            }
+        });
+
 
 
 
