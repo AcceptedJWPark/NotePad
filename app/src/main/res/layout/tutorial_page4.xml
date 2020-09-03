@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:text="보안방식 세 가지 종류를\n확인해보세요."
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="40dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_securityType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_below="@id/tv1"
+        android:layout_marginTop="20dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_low"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_low"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/low2"
+                    android:layout_centerHorizontal="true"
+                    />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_low"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="일반메모"
+                android:gravity="center_horizontal|top"
+                android:textSize="14dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#039C17"
+                android:textStyle="bold"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_mid"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_mid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/mid1"
+                    android:layout_centerHorizontal="true"
+                    />
+
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_mid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="잠금번호"
+                android:gravity="center_horizontal|top"
+                android:textSize="14dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#AEAEAE"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_high"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_high"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/high1"
+                    android:layout_centerHorizontal="true"
+                    />
+
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_high"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="클릭 + 잠금번호"
+                android:gravity="center_horizontal|top"
+                android:textSize="13dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#AEAEAE"
+                />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_secType1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:gravity="left"
+        android:textColor="#000"
+        android:text="별도의 보안방식이 없습니다.\n일반글 작성 시에만 사용하시고\n비밀글에는 보통 이상의 보안 방식을 설정해주세요."
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:lineSpacingExtra="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/ll_securityType"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_secType2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/ll_securityType"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:gravity="left"
+            android:textColor="#000"
+            android:text="메모는 Fake 제목과 내용으로 노출됩니다."
+            android:lineSpacingExtra="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textSize="16dp"
+            android:textColor="#000"
+            android:text="초기 설정한 잠금번호를 확인하여 진짜글을 노출합니다."
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textSize="16dp"
+            android:textColor="#000"
+            android:text="잠금번호가 틀리면 Fake 글이 노출됩니다."
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textSize="16dp"
+            android:textColor="#000"
+            android:text="Fake글은 글 작성시 선택/작성 할 수 있습니다."
+            android:layout_marginTop="10dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_secType3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/ll_securityType"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:gravity="left"
+            android:textColor="#000"
+            android:text="메모는 Fake 제목과 내용으로 노출됩니다."
+            android:lineSpacingExtra="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:gravity="left"
+            android:textColor="#000"
+            android:text="글 작성 시 선택한 클릭 방식과 잠금번호를 확인하여 진짜글을 노출합니다."
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:gravity="left"
+            android:textColor="#000"
+            android:text="클릭 방식, 잠금번호가 둘 중 하나라도 틀리면 Fake 글이 노출됩니다."
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:gravity="left"
+            android:textColor="#000"
+            android:text="클릭 방식과 Fake글은 글 작성시 선택/작성 할 수 있습니다."
+            android:layout_marginTop="10dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        >
+
+
+        <Button
+            android:id="@+id/btn_next_page4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bgr_mainbtn"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:text="다음"
+            />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

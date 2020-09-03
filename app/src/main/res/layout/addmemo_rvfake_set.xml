@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#00FFFFFF"
+    >
+
+
+    <TextView
+        android:id="@+id/tv_faketap"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:background="@drawable/bgr_fake_selected"
+        android:text="직접입력"
+        android:textColor="#F37A00"
+        android:textStyle="bold"
+        android:textSize="13dp"
+        android:layout_marginRight="10dp"
+        />
+
+
+
+</LinearLayout>
