@@ -141,51 +141,13 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_mid"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    >
-
-                    <ImageView
-                        android:id="@+id/iv_mid"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/mid1"
-                        android:layout_centerHorizontal="true"
-                        />
-
-
-
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/tv_mid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="잠금번호"
-                    android:gravity="center_horizontal|top"
-                    android:textSize="14dp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="#AEAEAE"
-                    />
-
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_high"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginLeft="50dp"
                 >
 
                 <RelativeLayout
@@ -373,7 +335,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="110dp"
+        android:layout_marginBottom="80dp"
         android:elevation="5dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/bgr_edittext"

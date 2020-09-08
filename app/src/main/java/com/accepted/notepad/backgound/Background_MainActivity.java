@@ -215,7 +215,13 @@ public class Background_MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                ((TextView)findViewById(R.id.tv_maintitle_home2)).setText(((EditText)findViewById(R.id.et_apptitle)).getText());
+                if(((EditText)findViewById(R.id.et_apptitle)).getText().length() == 0){
+                    ((TextView)findViewById(R.id.tv_maintitle_home2)).setText("Notepad");
+                }else
+                {
+                    ((TextView)findViewById(R.id.tv_maintitle_home2)).setText(((EditText)findViewById(R.id.et_apptitle)).getText());
+                }
+
             }
 
             @Override

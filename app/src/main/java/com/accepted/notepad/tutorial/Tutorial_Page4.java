@@ -23,9 +23,9 @@ public class Tutorial_Page4 extends Fragment {
 
     Context mContext;
 
-    LinearLayout ll_clicktype[] = new LinearLayout[3];
-    ImageView iv_clicktype[] = new ImageView[3];
-    TextView tv_clicktype[] = new TextView[3];
+    LinearLayout ll_clicktype[] = new LinearLayout[2];
+    ImageView iv_clicktype[] = new ImageView[2];
+    TextView tv_clicktype[] = new TextView[2];
     Button btn_next;
 
     TextView tvSecType;
@@ -54,10 +54,7 @@ public class Tutorial_Page4 extends Fragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isSecType2Clicked)
-                {
-                    Toast.makeText(mContext,"보통 보안방식을 확인해주세요.", Toast.LENGTH_SHORT).show();
-                }else if(!isSecType3Clicked)
+                if(!isSecType3Clicked)
                 {
                     Toast.makeText(mContext,"높음 보안방식을 확인해주세요.", Toast.LENGTH_SHORT).show();
                 }else
@@ -80,64 +77,33 @@ public class Tutorial_Page4 extends Fragment {
             @Override
             public void onClick(View view) {
                 iv_clicktype[0].setImageResource(R.drawable.low2);
-                iv_clicktype[1].setImageResource(R.drawable.mid1);
-                iv_clicktype[2].setImageResource(R.drawable.high1);
+                iv_clicktype[1].setImageResource(R.drawable.high1);
 
                 tv_clicktype[0].setTextColor(Color.parseColor("#039C17"));
                 tv_clicktype[1].setTextColor(Color.parseColor("#949494"));
-                tv_clicktype[2].setTextColor(Color.parseColor("#949494"));
 
                 tv_clicktype[0].setTypeface(Typeface.DEFAULT_BOLD);
                 tv_clicktype[1].setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                tv_clicktype[2].setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
                 tvSecType.setVisibility(View.VISIBLE);
-                llSecType2.setVisibility(View.GONE);
                 llSecType3.setVisibility(View.GONE);
             }
         });
+
 
         ll_clicktype[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 iv_clicktype[0].setImageResource(R.drawable.low1);
-                iv_clicktype[1].setImageResource(R.drawable.mid2);
-                iv_clicktype[2].setImageResource(R.drawable.high1);
+                iv_clicktype[1].setImageResource(R.drawable.high2);
 
                 tv_clicktype[0].setTextColor(Color.parseColor("#949494"));
-                tv_clicktype[1].setTextColor(Color.parseColor("#FF9100"));
-                tv_clicktype[2].setTextColor(Color.parseColor("#949494"));
+                tv_clicktype[1].setTextColor(Color.parseColor("#FF0911"));
 
                 tv_clicktype[1].setTypeface(Typeface.DEFAULT_BOLD);
                 tv_clicktype[0].setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                tv_clicktype[2].setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
                 tvSecType.setVisibility(View.GONE);
-                llSecType2.setVisibility(View.VISIBLE);
-                llSecType3.setVisibility(View.GONE);
-
-                isSecType2Clicked = true;
-
-            }
-        });
-
-        ll_clicktype[2].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                iv_clicktype[0].setImageResource(R.drawable.low1);
-                iv_clicktype[1].setImageResource(R.drawable.mid1);
-                iv_clicktype[2].setImageResource(R.drawable.high2);
-
-                tv_clicktype[0].setTextColor(Color.parseColor("#949494"));
-                tv_clicktype[1].setTextColor(Color.parseColor("#949494"));
-                tv_clicktype[2].setTextColor(Color.parseColor("#FF0911"));
-
-                tv_clicktype[2].setTypeface(Typeface.DEFAULT_BOLD);
-                tv_clicktype[0].setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                tv_clicktype[1].setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-
-                tvSecType.setVisibility(View.GONE);
-                llSecType2.setVisibility(View.GONE);
                 llSecType3.setVisibility(View.VISIBLE);
 
                 isSecType3Clicked = true;
@@ -149,20 +115,17 @@ public class Tutorial_Page4 extends Fragment {
     public void findViewById(View view)
     {
         ll_clicktype[0] = view.findViewById(R.id.ll_low);
-        ll_clicktype[1] = view.findViewById(R.id.ll_mid);
-        ll_clicktype[2] = view.findViewById(R.id.ll_high);
+        ll_clicktype[1] = view.findViewById(R.id.ll_high);
 
         tv_clicktype[0] = view.findViewById(R.id.tv_low);
-        tv_clicktype[1] = view.findViewById(R.id.tv_mid);
-        tv_clicktype[2] = view.findViewById(R.id.tv_high);
+        tv_clicktype[1] = view.findViewById(R.id.tv_high);
 
         iv_clicktype[0] = view.findViewById(R.id.iv_low);
-        iv_clicktype[1] = view.findViewById(R.id.iv_mid);
-        iv_clicktype[2] = view.findViewById(R.id.iv_high);
+        iv_clicktype[1] = view.findViewById(R.id.iv_high);
 
         tvSecType = view.findViewById(R.id.tv_secType1);
         llSecType2 = view.findViewById(R.id.ll_secType2);
-        llSecType3 = view.findViewById(R.id.ll_secType3);
+        llSecType3 = view.findViewById(R.id.ll_secType2);
 
         btn_next = view.findViewById(R.id.btn_next_page4);
     }
