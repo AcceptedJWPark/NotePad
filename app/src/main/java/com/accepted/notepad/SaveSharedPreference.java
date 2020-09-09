@@ -29,7 +29,7 @@ public class SaveSharedPreference {
     static final String txtColor1_night = "#e7e7e7";
     static final String iconColor1_night = "#00a8ff";
 
-    static final String SERVER_IP = "http://175.213.4.39:8081";
+    static final String SERVER_IP = "http://175.213.4.39";
 
     public static String getBackColor1_basic() {
         return backColor1_basic;

@@ -42,17 +42,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class Addmemo_MainActivity extends AppCompatActivity {
 
     LinearLayout ll_low;
-    LinearLayout ll_mid;
     LinearLayout ll_high;
     TextView tv_low;
-    TextView tv_mid;
     TextView tv_high;
     ImageView iv_low;
-    ImageView iv_mid;
     ImageView iv_high;
     ArrayList<String> arrayList;
     Rcv_Adapter rcv_adapter;
     RecyclerView recyclerView;
+    int memoCode;
 
     EditText fakeTitle;
     EditText fakeContent;
@@ -101,6 +99,12 @@ public class Addmemo_MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode", 1);
+        memoCode = intent.getIntExtra("MemoCode", -1);
+
+        // 메모 수정인 경우
+        if (memoCode > 0) {
+
+        }
 
         if (colorMode == 1) {
             choosedColor1 = color1_basic;
@@ -115,13 +119,10 @@ public class Addmemo_MainActivity extends AppCompatActivity {
         }
 
         ll_low = findViewById(R.id.ll_low);
-        ll_mid = findViewById(R.id.ll_mid);
         ll_high = findViewById(R.id.ll_high);
         tv_low = findViewById(R.id.tv_low);
-        tv_mid = findViewById(R.id.tv_mid);
         tv_high = findViewById(R.id.tv_high);
         iv_low = findViewById(R.id.iv_low);
-        iv_mid = findViewById(R.id.iv_mid);
         iv_high = findViewById(R.id.iv_high);
 
 
@@ -199,12 +200,22 @@ public class Addmemo_MainActivity extends AppCompatActivity {
                     } else {
                         Intent intent = new Intent(context, Papermemo_MainActivity.class);
                         intent.putExtra("ColorMode", colorMode);
+                        intent.putExtra("SecureType", securityType);
+                        intent.putExtra("ClickType", clickType);
+                        intent.putExtra("FTitle", fakeTitle.getText().toString());
+                        intent.putExtra("FContent", fakeContent.getText().toString());
+                        intent.putExtra("MemoCode", memoCode);
                         startActivity(intent);
                         finish();
                     }
                 } else {
                     Intent intent = new Intent(context, Papermemo_MainActivity.class);
                     intent.putExtra("ColorMode", colorMode);
+                    intent.putExtra("SecureType", securityType);
+                    intent.putExtra("ClickType", clickType);
+                    intent.putExtra("FTitle", fakeTitle.getText().toString());
+                    intent.putExtra("FContent", fakeContent.getText().toString());
+                    intent.putExtra("MemoCode", memoCode);
                     startActivity(intent);
                     finish();
                 }
@@ -281,15 +292,12 @@ public class Addmemo_MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 iv_low.setImageResource(R.drawable.low2);
-                iv_mid.setImageResource(R.drawable.mid1);
                 iv_high.setImageResource(R.drawable.high1);
 
                 tv_low.setTextColor(Color.parseColor("#039C17"));
-                tv_mid.setTextColor(Color.parseColor("#949494"));
                 tv_high.setTextColor(Color.parseColor("#949494"));
 
                 tv_low.setTypeface(Typeface.DEFAULT_BOLD);
-                tv_mid.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
                 tv_high.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
                 ((TextView) findViewById(R.id.tv_low1)).setVisibility(View.VISIBLE);
@@ -312,56 +320,18 @@ public class Addmemo_MainActivity extends AppCompatActivity {
             }
         });
 
-        ll_mid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                iv_low.setImageResource(R.drawable.low1);
-                iv_mid.setImageResource(R.drawable.mid2);
-                iv_high.setImageResource(R.drawable.high1);
-
-                tv_low.setTextColor(Color.parseColor("#949494"));
-                tv_mid.setTextColor(Color.parseColor("#FF9100"));
-                tv_high.setTextColor(Color.parseColor("#949494"));
-
-                tv_mid.setTypeface(Typeface.DEFAULT_BOLD);
-                tv_low.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                tv_high.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-
-
-                ((TextView) findViewById(R.id.tv_low1)).setVisibility(View.GONE);
-
-                ((TextView) findViewById(R.id.tv_clicktype)).setVisibility(View.GONE);
-
-                ((LinearLayout) findViewById(R.id.ll_clicktype)).setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-
-                ((TextView) findViewById(R.id.tv_fake)).setVisibility(View.VISIBLE);
-                fakeTitle.setVisibility(View.VISIBLE);
-                fakeContent.setVisibility(View.VISIBLE);
-
-                ((TextView) findViewById(R.id.tv_fake)).setText("Fake 글 작성 (잠금번호 틀렸을 때 노출)");
-
-                fakeTitle.clearFocus();
-                fakeContent.clearFocus();
-
-                securityType = 2;
-            }
-        });
 
         ll_high.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 iv_low.setImageResource(R.drawable.low1);
-                iv_mid.setImageResource(R.drawable.mid1);
                 iv_high.setImageResource(R.drawable.high2);
 
                 tv_low.setTextColor(Color.parseColor("#949494"));
-                tv_mid.setTextColor(Color.parseColor("#949494"));
                 tv_high.setTextColor(Color.parseColor("#FF0911"));
 
                 tv_high.setTypeface(Typeface.DEFAULT_BOLD);
                 tv_low.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                tv_mid.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
                 ((TextView) findViewById(R.id.tv_low1)).setVisibility(View.GONE);
 
