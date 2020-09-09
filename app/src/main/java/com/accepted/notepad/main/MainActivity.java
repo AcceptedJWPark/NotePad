@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             choosedColor3 = color3_night;
             choosedColor4 = color4_night;
         }
-        listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,ismemo,isdate);
+        listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,choosedColor4,ismemo,isdate);
         footer = getLayoutInflater().inflate(R.layout.memolist_footer,null,false);
         listView.addFooterView(footer);
         listView.setAdapter(listAdapter_memo);
