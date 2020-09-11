@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -37,21 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
     Context mContext;
 
-    String color1_basic = SaveSharedPreference.getBackColor1_basic();
-    String color2_basic = SaveSharedPreference.getBackColor2_basic();
-    String color3_basic = SaveSharedPreference.gettxtColor1_basic();
-    String color4_basic = SaveSharedPreference.geticonColor1_basic();
-
-    String color1_night = SaveSharedPreference.getBackColor1_night();
-    String color2_night = SaveSharedPreference.getBackColor2_night();
-    String color3_night = SaveSharedPreference.getTxtColor1_night();
-    String color4_night = SaveSharedPreference.getIconColor1_night();
-
     String choosedColor1;
     String choosedColor2;
     String choosedColor3;
     String choosedColor4;
-    int colorMode = 1;
+
+    int colorMode;
 
     MainActivity mainActivity;
 
@@ -72,9 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
         mainActivity = this;
 
-
-        ((TextView)findViewById(R.id.tv_maintitle_home)).setText("Notepad");
         mContext = getApplicationContext();
+
+        String userAppName = SaveSharedPreference.getAppName(mContext);
+        ((TextView)findViewById(R.id.tv_maintitle_home)).setText(userAppName);
 
         arrayList = new ArrayList<>();
         listView = findViewById(R.id.lv_memo);
@@ -89,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         arrayList.add(new Listitem_Memo("홈트레이닝하기 30분 루틴","최근 작성일 : 2020-03-07 11:32AM","1. 스쿼트 5세트 x 20개, 다리는 골반보다 조금 넓게 벌린 상태에서 상체를 세워주고"));
         arrayList.add(new Listitem_Memo("알리오올리오 맛있게 만드는 법","최근 작성일 : 2020-07-12 17:24PM","스파게티 면 200g을 준비한다. 1인분은 파스타 100원짜리 동전 크기 만큼 사용하는데 양이 적다면 500원짜리 동전을 사용한다"));
         arrayList.add(new Listitem_Memo("부동산 정보 유용한 사이트 모음","최근 작성일 : 2020-07-14 17:24PM","서울특별시 정보광장 → 부동산 종합정보, 건축물 정보, 가격정보(공시지가/개별주택 가격), 내게 맞는 아파트 찾기"));
@@ -99,12 +91,15 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode",1);
+        choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
+        choosedColor2 = SaveSharedPreference.getBackColor2(mContext);
+        choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
+        choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
 
-        ismenu = intent.getBooleanExtra("ismenu",true);
-        ismemo = intent.getBooleanExtra("ismemo",true);
-        issearch = intent.getBooleanExtra("issearch",true);
-        isdate = intent.getBooleanExtra("isdate",true);
-
+        ismenu = SaveSharedPreference.getMenubarFlag(mContext).equals("Y") ? true : false;
+        ismemo = SaveSharedPreference.getSummaryFlag(mContext).equals("Y") ? true : false;
+        issearch = SaveSharedPreference.getSearchFlag(mContext).equals("Y") ? true : false;
+        isdate = SaveSharedPreference.getRegDateFlag(mContext).equals("Y") ? true : false;
 
         if(issearch)
         {
@@ -114,19 +109,11 @@ public class MainActivity extends AppCompatActivity {
             ((LinearLayout)findViewById(R.id.ll_searchContainer)).setVisibility(View.GONE);
         }
 
-        if(colorMode == 1)
-        {
-            choosedColor1 = color1_basic;
-            choosedColor2 = color2_basic;
-            choosedColor3 = color3_basic;
-            choosedColor4 = color4_basic;
-        }else if(colorMode ==2)
-        {
-            choosedColor1 = color1_night;
-            choosedColor2 = color2_night;
-            choosedColor3 = color3_night;
-            choosedColor4 = color4_night;
-        }
+        choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
+        choosedColor2 = SaveSharedPreference.getBackColor2(mContext);
+        choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
+        choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
+
         listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,ismemo,isdate);
         footer = getLayoutInflater().inflate(R.layout.memolist_footer,null,false);
         listView.addFooterView(footer);
@@ -271,5 +258,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 }
