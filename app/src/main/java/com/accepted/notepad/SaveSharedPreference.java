@@ -36,7 +36,7 @@ public class SaveSharedPreference {
 
     static final String PREF_USER_ID = "userid";
     static final String PREF_CLICK_TYPE = "clicktype";
-    static final String SERVER_IP = "http://175.213.4.39:8081";
+    static final String SERVER_IP = "http://175.213.4.39";
 
     static SharedPreferences getSharedPreferences(Context ctx){
         return PreferenceManager.getDefaultSharedPreferences(ctx);
