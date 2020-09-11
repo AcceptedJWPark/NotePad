@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Listitem_Memo> arrayList;
     ListAdapter_Memo listAdapter_memo;
 
+
+    //
     Context mContext;
     String memID;
 
