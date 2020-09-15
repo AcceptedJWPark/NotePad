@@ -142,6 +142,7 @@ public class Login_MainActivity extends AppCompatActivity {
                         SaveSharedPreference.setPrefUsrId(context, idTxt);
 
                         Intent intent = new Intent(context, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     } else {
                         Toast.makeText(context, "아이디와 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();

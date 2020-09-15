@@ -21,6 +21,7 @@ import com.accepted.notepad.SaveSharedPreference;
 import com.accepted.notepad.VolleySingleton;
 import com.accepted.notepad.main.ListAdapter_Memo;
 import com.accepted.notepad.main.Listitem_Memo;
+import com.accepted.notepad.main.MainActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -198,6 +199,10 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 
                     if (obj.getString("result").equals("success")) {
                         Toast.makeText(mContext, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(mContext, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(mContext, "저장이 실패했습니다.", Toast.LENGTH_SHORT).show();
                     }
