@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -81,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
         mContext = getApplicationContext();
 
-//        memID = SaveSharedPreference.getUserID(mContext);
-        memID = "mkh9012";
+        memID = SaveSharedPreference.getUserID(mContext);
+
         String userAppName = SaveSharedPreference.getAppName(mContext);
         ((TextView)findViewById(R.id.tv_maintitle_home)).setText(userAppName);
 
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
         choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
 
-        listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,ismemo,isdate);
+        listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,choosedColor4,ismemo,isdate);
         footer = getLayoutInflater().inflate(R.layout.memolist_footer,null,false);
         listView.addFooterView(footer);
         listView.setAdapter(listAdapter_memo);
@@ -289,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                         arrayList.add(memo);
                     }
 
-                    listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,ismemo,isdate);
+                    listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,choosedColor4,ismemo,isdate);
                     footer = getLayoutInflater().inflate(R.layout.memolist_footer,null,false);
                     listView.addFooterView(footer);
                     listView.setAdapter(listAdapter_memo);
@@ -310,6 +309,5 @@ public class MainActivity extends AppCompatActivity {
         };
         postRequestQueue.add(postJsonRequest);
     }
-
 
 }
