@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         mContext = getApplicationContext();
 
-        memID = SaveSharedPreference.getUserID(mContext);
+        memID = SaveSharedPreference.getPrefUserId(mContext);
 
         String userAppName = SaveSharedPreference.getAppName(mContext);
         ((TextView)findViewById(R.id.tv_maintitle_home)).setText(userAppName);

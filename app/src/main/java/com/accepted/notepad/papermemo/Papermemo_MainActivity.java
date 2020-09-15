@@ -76,8 +76,8 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         setContentView(R.layout.papermemo_main);
 
         mContext = getApplicationContext();
-//        memID = SaveSharedPreference.getUserID(mContext);
-        memID = "mkh9012";
+        memID = SaveSharedPreference.getPrefUserId(mContext);
+
         ((ImageView)findViewById(R.id.iv_pre)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
