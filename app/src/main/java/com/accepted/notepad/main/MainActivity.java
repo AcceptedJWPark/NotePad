@@ -16,18 +16,32 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.VolleySingleton;
 import com.accepted.notepad.addmemo.Addmemo_MainActivity;
 import com.accepted.notepad.backgound.Background_MainActivity;
 import com.accepted.notepad.join.LostID1_MainActivity;
 import com.accepted.notepad.password.Password_MainActivity;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +49,10 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Listitem_Memo> arrayList;
     ListAdapter_Memo listAdapter_memo;
 
+
+    //
     Context mContext;
+    String memID;
 
     String color1_basic = SaveSharedPreference.getBackColor1_basic();
     String color2_basic = SaveSharedPreference.getBackColor2_basic();
@@ -72,10 +89,11 @@ public class MainActivity extends AppCompatActivity {
 
         mainActivity = this;
 
-
         ((TextView)findViewById(R.id.tv_maintitle_home)).setText("Notepad");
         mContext = getApplicationContext();
 
+//        memID = SaveSharedPreference.getUserID(mContext);
+        memID = "mkh9012";
         arrayList = new ArrayList<>();
         listView = findViewById(R.id.lv_memo);
 
@@ -88,14 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 dl.openDrawer(v_drawerlayout);
             }
         });
-
-
-        arrayList.add(new Listitem_Memo("홈트레이닝하기 30분 루틴","최근 작성일 : 2020-03-07 11:32AM","1. 스쿼트 5세트 x 20개, 다리는 골반보다 조금 넓게 벌린 상태에서 상체를 세워주고"));
-        arrayList.add(new Listitem_Memo("알리오올리오 맛있게 만드는 법","최근 작성일 : 2020-07-12 17:24PM","스파게티 면 200g을 준비한다. 1인분은 파스타 100원짜리 동전 크기 만큼 사용하는데 양이 적다면 500원짜리 동전을 사용한다"));
-        arrayList.add(new Listitem_Memo("부동산 정보 유용한 사이트 모음","최근 작성일 : 2020-07-14 17:24PM","서울특별시 정보광장 → 부동산 종합정보, 건축물 정보, 가격정보(공시지가/개별주택 가격), 내게 맞는 아파트 찾기"));
-        arrayList.add(new Listitem_Memo("무료 예능 드라마 영화 볼수 있는 사이트 모음","최근 작성일 : 2020-07-29 17:24PM","PC에서는 접속이 안되고 폰으로 열어야 함."));
-        arrayList.add(new Listitem_Memo("이마트 장 보기 리스트","최근 작성일 : 2020-08-12 17:24PM","1. 면도기 & 면도크림 : 면도기 탈부착 가능한거로"));
-        arrayList.add(new Listitem_Memo("올해 나의 버킷리스트 100선","최근 작성일 : 2020-08-17 19:07PM","악기와 외국어 중 가장 흥미를 느낄만한 분야를 찾아서 시작한다. 중간에 포기하지 않고 다양한 악기와 외국어를 도전해본다."));
 
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode",1);
@@ -149,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        colorChange(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -161,8 +170,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        drawerLayout();
+        getBasicMemoList();
     }
 
     public void drawerLayout()
@@ -206,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
 
@@ -268,8 +277,51 @@ public class MainActivity extends AppCompatActivity {
         {
             ((ImageView)findViewById(R.id.img_open_dl)).setColorFilter(Color.parseColor(color2));
         }
+    }
 
+    public void getBasicMemoList() {
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(mContext).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Memo/getBasicMemoList.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray objArray = new JSONArray(response);
 
+                    for (int i = 0; i < objArray.length(); i++) {
+                        JSONObject obj = objArray.getJSONObject(i);
+                        Listitem_Memo memo;
+
+                        long dateTimestamp = obj.getLong("RegDate");
+                        Date regDate = new Date(dateTimestamp);
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        String regDateStr = sdf.format(regDate);
+
+                        memo = new Listitem_Memo(obj.getString("RTitle"), regDateStr, obj.getString("RContent"));
+
+                        arrayList.add(memo);
+                    }
+
+                    listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,ismemo,isdate);
+                    footer = getLayoutInflater().inflate(R.layout.memolist_footer,null,false);
+                    listView.addFooterView(footer);
+                    listView.setAdapter(listAdapter_memo);
+                    colorChange(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
+                    drawerLayout();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(mContext)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("MemID", memID);
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
     }
 
 }

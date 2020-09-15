@@ -50,6 +50,7 @@ public class Addmemo_MainActivity extends AppCompatActivity {
     ArrayList<String> arrayList;
     Rcv_Adapter rcv_adapter;
     RecyclerView recyclerView;
+    int memoCode;
 
     EditText fakeTitle;
     EditText fakeContent;
@@ -98,6 +99,12 @@ public class Addmemo_MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode", 1);
+        memoCode = intent.getIntExtra("MemoCode", -1);
+
+        // 메모 수정인 경우
+        if (memoCode > 0) {
+
+        }
 
         if (colorMode == 1) {
             choosedColor1 = color1_basic;
@@ -193,12 +200,22 @@ public class Addmemo_MainActivity extends AppCompatActivity {
                     } else {
                         Intent intent = new Intent(context, Papermemo_MainActivity.class);
                         intent.putExtra("ColorMode", colorMode);
+                        intent.putExtra("SecureType", securityType);
+                        intent.putExtra("ClickType", clickType);
+                        intent.putExtra("FTitle", fakeTitle.getText().toString());
+                        intent.putExtra("FContent", fakeContent.getText().toString());
+                        intent.putExtra("MemoCode", memoCode);
                         startActivity(intent);
                         finish();
                     }
                 } else {
                     Intent intent = new Intent(context, Papermemo_MainActivity.class);
                     intent.putExtra("ColorMode", colorMode);
+                    intent.putExtra("SecureType", securityType);
+                    intent.putExtra("ClickType", clickType);
+                    intent.putExtra("FTitle", fakeTitle.getText().toString());
+                    intent.putExtra("FContent", fakeContent.getText().toString());
+                    intent.putExtra("MemoCode", memoCode);
                     startActivity(intent);
                     finish();
                 }

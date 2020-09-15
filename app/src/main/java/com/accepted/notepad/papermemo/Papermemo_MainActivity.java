@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,15 +18,32 @@ import android.widget.Toast;
 
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.VolleySingleton;
+import com.accepted.notepad.main.ListAdapter_Memo;
+import com.accepted.notepad.main.Listitem_Memo;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Papermemo_MainActivity extends AppCompatActivity {
 
 
-    Context context;
+    Context mContext;
+    String memID;
 
     String color1_basic = SaveSharedPreference.getBackColor1_basic();
     String color2_basic = SaveSharedPreference.getBackColor2_basic();
@@ -42,12 +60,18 @@ public class Papermemo_MainActivity extends AppCompatActivity {
     String choosedColor3;
     String choosedColor4;
 
+    String fTitle;
+    String fContent;
+    int secureType;
+    int clickType;
+    int memoCode;
 
     LinearLayout containerPaper;
     LinearLayout containerTxt;
     TextView tv_comp;
     EditText et_title;
     EditText et_contents;
+    Button btn_next_papermemo;
     ImageView iv_pre;
 
     GradientDrawable shape1;
@@ -61,8 +85,9 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.papermemo_main);
 
-        context = getApplicationContext();
-
+        mContext = getApplicationContext();
+//        memID = SaveSharedPreference.getUserID(mContext);
+        memID = "mkh9012";
         ((ImageView)findViewById(R.id.iv_pre)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,20 +95,24 @@ public class Papermemo_MainActivity extends AppCompatActivity {
             }
         });
 
-
         Intent intent2 = getIntent();
 
         isReal = intent2.getIntExtra("isReal",1);
 
         if(isReal==2)
         {
-            Toast.makeText(context,"real", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext,"real", Toast.LENGTH_SHORT).show();
         }else if(isReal==3)
         {
-            Toast.makeText(context,"fake", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext,"fake", Toast.LENGTH_SHORT).show();
         }else
         {
-            Toast.makeText(context,"new", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext,"new", Toast.LENGTH_SHORT).show();
+            memoCode = intent2.getIntExtra("MemoCode", -1);
+            fTitle = intent2.getStringExtra("FTitle");
+            fContent = intent2.getStringExtra("FContent");
+            secureType = intent2.getIntExtra("SecureType", 1);
+            clickType = intent2.getIntExtra("ClickType", 1);
         }
 
 
@@ -94,6 +123,7 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         et_title = findViewById(R.id.et_title);
         et_contents = findViewById(R.id.et_contents);
         iv_pre = findViewById(R.id.iv_pre);
+        btn_next_papermemo = findViewById(R.id.btn_next_papermemo);
 
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode",1);
@@ -112,8 +142,14 @@ public class Papermemo_MainActivity extends AppCompatActivity {
             choosedColor4 = color4_night;
         }
 
-
         background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
+
+        btn_next_papermemo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                insertMemo();
+            }
+        });
     }
 
 
@@ -149,5 +185,48 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 
     }
 
+    public void insertMemo() {
+        if (et_title.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        if (et_contents.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(mContext).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Memo/insertMemo.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+
+                    if (obj.getString("result").equals("success")) {
+                        Toast.makeText(mContext, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(mContext, "저장이 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(mContext)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("MemID", memID);
+                params.put("SecureType", String.valueOf(secureType));
+                params.put("ClickType", String.valueOf(clickType));
+                params.put("RTitle", et_title.getText().toString());
+                params.put("RContent", et_contents.getText().toString());
+                params.put("FTitle", fTitle);
+                params.put("FContent", fContent);
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
+    }
 }
