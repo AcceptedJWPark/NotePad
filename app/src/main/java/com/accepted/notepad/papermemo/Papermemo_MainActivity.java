@@ -62,6 +62,8 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 
     String fTitle;
     String fContent;
+    String rTitle;
+    String rContent;
     int secureType;
     int clickType;
     int memoCode;
@@ -78,7 +80,6 @@ public class Papermemo_MainActivity extends AppCompatActivity {
     int colorMode = 1;
 
     int isReal;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,21 +99,29 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         Intent intent2 = getIntent();
 
         isReal = intent2.getIntExtra("isReal",1);
-
-        if(isReal==2)
-        {
-            Toast.makeText(mContext,"real", Toast.LENGTH_SHORT).show();
-        }else if(isReal==3)
-        {
-            Toast.makeText(mContext,"fake", Toast.LENGTH_SHORT).show();
-        }else
-        {
-            Toast.makeText(mContext,"new", Toast.LENGTH_SHORT).show();
-            memoCode = intent2.getIntExtra("MemoCode", -1);
+        memoCode = intent2.getIntExtra("MemoCode", -1);
+        secureType = intent2.getIntExtra("SecureType", 1);
+        clickType = intent2.getIntExtra("ClickType", 1);
+        if(isReal==2) {
+//            Toast.makeText(mContext,"real", Toast.LENGTH_SHORT).show();
+            String title = intent2.getStringExtra("Title");
+            String content = intent2.getStringExtra("Content");
             fTitle = intent2.getStringExtra("FTitle");
             fContent = intent2.getStringExtra("FContent");
-            secureType = intent2.getIntExtra("SecureType", 1);
-            clickType = intent2.getIntExtra("ClickType", 1);
+            et_title.setText(title);
+            et_contents.setText(content);
+        } else if(isReal==3) {
+//            Toast.makeText(mContext,"fake", Toast.LENGTH_SHORT).show();
+            String title = intent2.getStringExtra("Title");
+            String content = intent2.getStringExtra("Content");
+            rTitle = intent2.getStringExtra("RTitle");
+            rContent = intent2.getStringExtra("RContent");
+            et_title.setText(title);
+            et_contents.setText(content);
+        } else {
+//            Toast.makeText(mContext,"new", Toast.LENGTH_SHORT).show();
+            fTitle = intent2.getStringExtra("FTitle");
+            fContent = intent2.getStringExtra("FContent");
         }
 
 

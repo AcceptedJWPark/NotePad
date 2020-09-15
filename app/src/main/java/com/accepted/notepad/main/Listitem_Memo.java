@@ -3,23 +3,64 @@ package com.accepted.notepad.main;
 
 public class Listitem_Memo {
 
-    String title;
+    int memoCode;
+    String rTitle;
+    String rContent;
+    String fTitle;
+    String fContent;
     String date;
-    String contents;
+    String secureType;
+    String clickType;
 
-
-    public Listitem_Memo(String title, String date, String contents) {
-        this.title = title;
+    public Listitem_Memo(int memoCode, String rTitle,  String rContent, String fTitle,  String fContent, String date, String secureType, String clickType) {
+        this.memoCode = memoCode;
+        this.rTitle = rTitle;
+        this.rContent = rContent;
+        this.fTitle = fTitle;
+        this.fContent = fContent;
         this.date = date;
-        this.contents = contents;
+        this.secureType = secureType;
+        this.clickType = clickType;
     }
 
-    public String getTitle() {
-        return title;
+    public int getMemoCode() {
+        return memoCode;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setMemoCode(int memoCode) {
+        this.memoCode = memoCode;
+    }
+
+    public String getRTitle() {
+        return rTitle;
+    }
+
+    public void setRTitle(String rTitle) {
+        this.rTitle = rTitle;
+    }
+
+    public String getRContent() {
+        return rContent;
+    }
+
+    public void setRContent(String rContent) {
+        this.rContent = rContent;
+    }
+
+    public String getFTitle() {
+        return fTitle;
+    }
+
+    public void setFTitle(String fTitle) {
+        this.fTitle = fTitle;
+    }
+
+    public String getFContent() {
+        return fContent;
+    }
+
+    public void setFContent(String fContent) {
+        this.fContent = fContent;
     }
 
     public String getDate() {
@@ -30,11 +71,20 @@ public class Listitem_Memo {
         this.date = date;
     }
 
-    public String getContents() {
-        return contents;
+
+    public String getClickType() {
+        return clickType;
     }
 
-    public void setContents(String contents) {
-        this.contents = contents;
+    public void setClickType(String clickType) {
+        this.clickType = clickType;
+    }
+
+    public String getSecureType() {
+        return secureType;
+    }
+
+    public void setSecureType(String secureType) {
+        this.secureType = secureType;
     }
 }

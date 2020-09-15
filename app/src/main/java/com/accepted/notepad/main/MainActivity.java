@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,10 +21,12 @@ import android.widget.Toast;
 
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.TabListView;
 import com.accepted.notepad.VolleySingleton;
 import com.accepted.notepad.addmemo.Addmemo_MainActivity;
 import com.accepted.notepad.backgound.Background_MainActivity;
 import com.accepted.notepad.join.LostID1_MainActivity;
+import com.accepted.notepad.papermemo.Papermemo_MainActivity;
 import com.accepted.notepad.password.Password_MainActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -45,7 +48,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView listView;
+    TabListView listView;
     ArrayList<Listitem_Memo> arrayList;
     ListAdapter_Memo listAdapter_memo;
 
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 //        memID = SaveSharedPreference.getUserID(mContext);
         memID = "mkh9012";
         arrayList = new ArrayList<>();
-        listView = findViewById(R.id.lv_memo);
+        listView = (TabListView) ((ListView)findViewById(R.id.lv_memo));
 
         dl = (DrawerLayout)findViewById(R.id.drawer);
         v_drawerlayout = (View)findViewById(R.id.view_drawerlayout);
@@ -154,13 +157,69 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemTapListener(new TabListView.OnItemTapLister() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(mContext, Password_MainActivity.class);
-                intent.putExtra("ColorMode",colorMode);
-                intent.putExtra("isTutorial",true);
-                startActivity(intent);
+            public void OnDoubleTap(AdapterView<?> parent, View view, int position, long id) {
+                Listitem_Memo item = arrayList.get(position);
+
+                if (item.getSecureType().equals("1")) {
+                    return;
+                }
+
+                if (item.getClickType().equals("1")) {
+                    Intent intent = new Intent(mContext, Password_MainActivity.class);
+                    intent.putExtra("ColorMode",colorMode);
+                    intent.putExtra("isTutorial",true);
+                }
+            }
+
+            @Override
+            public void OnSingleTap(AdapterView<?> parent, View view, int position, long id) {
+                Listitem_Memo item = arrayList.get(position);
+
+                int isReal = item.getSecureType().equals("1") ? 2 : 3;
+                if (isReal == 2) {
+                    Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+                    intent.putExtra("isReal", isReal);
+                    intent.putExtra("MemoCode", item.getMemoCode());
+                    intent.putExtra("Title", item.getRTitle());
+                    intent.putExtra("Content", item.getRContent());
+                    intent.putExtra("FTitle", item.getFTitle());
+                    intent.putExtra("FContent", item.getFContent());
+                    intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+                    intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+                    intent.putExtra("isReal", isReal);
+                    intent.putExtra("MemoCode", item.getMemoCode());
+                    intent.putExtra("Title", item.getFTitle());
+                    intent.putExtra("Content", item.getFContent());
+                    intent.putExtra("RTitle", item.getRTitle());
+                    intent.putExtra("RContent", item.getRContent());
+                    intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+                    intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+                    startActivity(intent);
+                }
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                final Handler h = new Handler();
+                h.postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+
+                    }
+                }, 3000); // milliseconds added to longpress
+
+                return true;
             }
         });
 
@@ -291,8 +350,9 @@ public class MainActivity extends AppCompatActivity {
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                         String regDateStr = sdf.format(regDate);
 
-                        memo = new Listitem_Memo(obj.getString("RTitle"), regDateStr, obj.getString("RContent"));
-
+                        int memoCode = obj.getInt("MemoCode");
+                        String secureType = obj.getString("SecureType");
+                        memo = new Listitem_Memo(memoCode, obj.getString("RTitle"), obj.getString("RContent"), obj.getString("FTitle"), obj.getString("FContent"), regDateStr, secureType, obj.getString("ClickType"));
                         arrayList.add(memo);
                     }
 

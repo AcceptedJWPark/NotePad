@@ -91,10 +91,15 @@ public class ListAdapter_Memo extends BaseAdapter {
         } else {
             holder = (ViewHolder)convertView.getTag();
         }
-
-        holder.tv_title.setText(arrayList.get(position).title);
-        holder.tv_contents.setText(arrayList.get(position).contents);
-        holder.tv_date.setText(arrayList.get(position).date);
+        Listitem_Memo item = arrayList.get(position);
+        if (item.getSecureType().equals("1")) {
+            holder.tv_title.setText(item.getRTitle());
+            holder.tv_contents.setText(item.getRContent());
+        } else {
+            holder.tv_title.setText(item.getFTitle());
+            holder.tv_contents.setText(item.getFContent());
+        }
+        holder.tv_date.setText(item.getDate());
 
         return convertView;
     }
