@@ -62,16 +62,6 @@ public class Addmemo_MainActivity extends AppCompatActivity {
     int securityType = 1;
     int clickType = 1;
 
-    String color1_basic = SaveSharedPreference.getBackColor1_basic();
-    String color2_basic = SaveSharedPreference.getBackColor2_basic();
-    String color3_basic = SaveSharedPreference.gettxtColor1_basic();
-    String color4_basic = SaveSharedPreference.geticonColor1_basic();
-
-    String color1_night = SaveSharedPreference.getBackColor1_night();
-    String color2_night = SaveSharedPreference.getBackColor2_night();
-    String color3_night = SaveSharedPreference.getTxtColor1_night();
-    String color4_night = SaveSharedPreference.getIconColor1_night();
-
     String choosedColor1;
     String choosedColor2;
     String choosedColor3;
@@ -106,17 +96,10 @@ public class Addmemo_MainActivity extends AppCompatActivity {
 
         }
 
-        if (colorMode == 1) {
-            choosedColor1 = color1_basic;
-            choosedColor2 = color2_basic;
-            choosedColor3 = color3_basic;
-            choosedColor4 = color4_basic;
-        } else if (colorMode == 2) {
-            choosedColor1 = color1_night;
-            choosedColor2 = color2_night;
-            choosedColor3 = color3_night;
-            choosedColor4 = color4_night;
-        }
+        choosedColor1 = SaveSharedPreference.getBackColor1(context);
+        choosedColor2 = SaveSharedPreference.getBackColor2(context);
+        choosedColor3 = SaveSharedPreference.gettxtColor1(context);
+        choosedColor4 = SaveSharedPreference.geticonColor1(context);
 
         ll_low = findViewById(R.id.ll_low);
         ll_high = findViewById(R.id.ll_high);

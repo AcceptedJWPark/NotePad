@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
 import com.accepted.notepad.VolleySingleton;
+import com.accepted.notepad.main.MainActivity;
 import com.accepted.notepad.tutorial.Tutorial_MainActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -106,8 +107,7 @@ public class Join_MainActivity extends AppCompatActivity {
                     Toast.makeText(context,"휴대폰 인증을 진행해주세요",Toast.LENGTH_SHORT).show();
                 }else
                 {
-                    Intent intent = new Intent(context,Tutorial_MainActivity.class);
-                    startActivity(intent);
+                    insertNewMember();
                 }
 
 
@@ -121,6 +121,8 @@ public class Join_MainActivity extends AppCompatActivity {
                 {
                     Toast.makeText(context,"휴대폰 번호를 확인해주세요",Toast.LENGTH_SHORT).show();
                 } else {
+                    InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     sendSMS();
                 }
             }
@@ -207,6 +209,86 @@ public class Join_MainActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("sRecieveNum", (((EditText)findViewById(R.id.et_phone_join)).getText()).toString());
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
+    }
+
+    public void insertNewMember() {
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(context).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Member/insertNewMember.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.get("result").equals("success")) {
+                        Toast.makeText(context,"가입이 완료되었습니다.",Toast.LENGTH_SHORT).show();
+
+                        SaveSharedPreference.setPrefUsrId(context, (((EditText)findViewById(R.id.et_id_join)).getText()).toString());
+                        memberLogin();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(context)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("MemID", (((EditText)findViewById(R.id.et_id_join)).getText()).toString());
+                params.put("Password", (((EditText)findViewById(R.id.et_pw_join)).getText()).toString());
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
+    }
+
+    public void memberLogin() {
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(context).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Member/memberLogin.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.get("result").equals("success")) {
+                        String idTxt = (((EditText)findViewById(R.id.et_id_join)).getText()).toString();
+                        // 사용자 지정 색
+                        String bg1 = (String) obj.get("BackColor1");
+                        String bg2 = (String) obj.get("BackColor2");
+                        String txtColor = (String) obj.get("TextColor");
+                        String iconColor = (String) obj.get("IconColor");
+                        // 사용자 지정 설정
+                        String MenubarFlag = (String) obj.get("MenubarFlag");
+                        String RegDateFlag = (String) obj.get("RegDateFlag");
+                        String SummaryFlag = (String) obj.get("SummaryFlag");
+                        String SearchFlag = (String) obj.get("SearchFlag");
+
+                        String AppName = obj.has("AppName") ? (String) obj.get("AppName") : "";
+
+                        int BackgroundCode = (int) obj.get("BackgroundCode");
+                        SaveSharedPreference.setColorMode(context, ""+BackgroundCode);
+                        // 사용자 지정 정보 저장
+                        SaveSharedPreference.setBackgroundColor(context, bg1, bg2, txtColor, iconColor);
+                        SaveSharedPreference.settingUserOption(context, MenubarFlag, RegDateFlag, SummaryFlag, SearchFlag, AppName);
+                        // 로그인 후 아이디 저장
+                        SaveSharedPreference.setPrefUsrId(context, idTxt);
+
+                        Intent intent = new Intent(context,Tutorial_MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(context, "아이디와 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(context)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("MemID", (((EditText)findViewById(R.id.et_id_join)).getText()).toString());
+                params.put("Password", (((EditText)findViewById(R.id.et_pw_join)).getText()).toString());
                 return params;
             }
         };

@@ -15,6 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.accepted.notepad.R;
+import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.VolleySingleton;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -114,8 +126,9 @@ public class Tutorial_Page2 extends Fragment {
                     Toast.makeText(mContext,"클릭 방식을 선택해주세요.", Toast.LENGTH_SHORT).show();
                 }else
                 {
-                    Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
-                    mainActivity.nextPage(1);
+                    // 클릭타입 저장하는 부분
+                    // clickType
+                    updateClickType();
                 }
             }
         });
@@ -144,6 +157,34 @@ public class Tutorial_Page2 extends Fragment {
         iv_clicktype[3] = view.findViewById(R.id.iv_clicktype4);
 
         btn_next = view.findViewById(R.id.btn_next_page2);
+    }
+
+    public void updateClickType() {
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(mContext).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Setting/updateClickType.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.get("result").equals("success")) {
+                        SaveSharedPreference.setPrefClickType(mContext, String.valueOf(clickType));
+                        Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
+                        mainActivity.nextPage(1);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(mContext)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("MemID", SaveSharedPreference.getPrefUserId(mContext));
+                params.put("ClickType", String.valueOf(clickType));
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
     }
 
 }

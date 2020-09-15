@@ -1,6 +1,7 @@
 package com.accepted.notepad.tutorial;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -8,11 +9,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.accepted.notepad.R;
+import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.VolleySingleton;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -67,8 +82,8 @@ public class Tutorial_Page1 extends Fragment {
 
                     if(InputPassword.length()==6)
                     {
-                        Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
-                        mainActivity.nextPage(0);
+                        updateSecurityCode();
+
                     }
                 }
             });
@@ -109,9 +124,6 @@ public class Tutorial_Page1 extends Fragment {
             }
         });
 
-
-
-
         return view;
     }
 
@@ -136,4 +148,30 @@ public class Tutorial_Page1 extends Fragment {
         btnPw[9] = view.findViewById(R.id.btn_9_tutorial);
     }
 
+    public void updateSecurityCode() {
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(mContext).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Member/updateSecurityCode.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.get("result").equals("success")) {
+                        Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
+                        mainActivity.nextPage(0);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(mContext)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("MemID", SaveSharedPreference.getPrefUserId(mContext));
+                params.put("SecurityCode", InputPassword);
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
+    }
 }

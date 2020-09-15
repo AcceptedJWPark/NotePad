@@ -1,10 +1,26 @@
 package com.accepted.notepad.tutorial;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.accepted.notepad.R;
+import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.VolleySingleton;
+import com.accepted.notepad.main.MainActivity;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -49,4 +65,5 @@ public class Tutorial_MainActivity extends AppCompatActivity {
             viewPager.setCurrentItem(4);
         }
     }
+
 }

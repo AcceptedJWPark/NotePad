@@ -21,6 +21,7 @@ import com.accepted.notepad.SaveSharedPreference;
 import com.accepted.notepad.VolleySingleton;
 import com.accepted.notepad.main.ListAdapter_Memo;
 import com.accepted.notepad.main.Listitem_Memo;
+import com.accepted.notepad.main.MainActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -44,16 +45,6 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 
     Context mContext;
     String memID;
-
-    String color1_basic = SaveSharedPreference.getBackColor1_basic();
-    String color2_basic = SaveSharedPreference.getBackColor2_basic();
-    String color3_basic = SaveSharedPreference.gettxtColor1_basic();
-    String color4_basic = SaveSharedPreference.geticonColor1_basic();
-
-    String color1_night = SaveSharedPreference.getBackColor1_night();
-    String color2_night = SaveSharedPreference.getBackColor2_night();
-    String color3_night = SaveSharedPreference.getTxtColor1_night();
-    String color4_night = SaveSharedPreference.getIconColor1_night();
 
     String choosedColor1;
     String choosedColor2;
@@ -87,8 +78,8 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         setContentView(R.layout.papermemo_main);
 
         mContext = getApplicationContext();
-//        memID = SaveSharedPreference.getUserID(mContext);
-        memID = "mkh9012";
+        memID = SaveSharedPreference.getPrefUserId(mContext);
+
         ((ImageView)findViewById(R.id.iv_pre)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,20 +127,23 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode",1);
-
-        if(colorMode == 1)
-        {
-            choosedColor1 = color1_basic;
-            choosedColor2 = color2_basic;
-            choosedColor3 = color3_basic;
-            choosedColor4 = color4_basic;
-        }else if(colorMode ==2)
-        {
-            choosedColor1 = color1_night;
-            choosedColor2 = color2_night;
-            choosedColor3 = color3_night;
-            choosedColor4 = color4_night;
-        }
+        choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
+        choosedColor2 = SaveSharedPreference.getBackColor2(mContext);
+        choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
+        choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
+//        if(colorMode == 1)
+//        {
+//            choosedColor1 = color1_basic;
+//            choosedColor2 = color2_basic;
+//            choosedColor3 = color3_basic;
+//            choosedColor4 = color4_basic;
+//        }else if(colorMode ==2)
+//        {
+//            choosedColor1 = color1_night;
+//            choosedColor2 = color2_night;
+//            choosedColor3 = color3_night;
+//            choosedColor4 = color4_night;
+//        }
 
         background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
 
@@ -214,6 +208,10 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 
                     if (obj.getString("result").equals("success")) {
                         Toast.makeText(mContext, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(mContext, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(mContext, "저장이 실패했습니다.", Toast.LENGTH_SHORT).show();
                     }

@@ -18,12 +18,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.VolleySingleton;
 import com.accepted.notepad.main.MainActivity;
+import com.accepted.notepad.tutorial.Tutorial_MainActivity;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -33,22 +45,16 @@ public class Background_MainActivity extends AppCompatActivity {
 
     Context mContext;
 
-
-
-    String color1_basic = SaveSharedPreference.getBackColor1_basic();
-    String color2_basic = SaveSharedPreference.getBackColor2_basic();
-    String color3_basic = SaveSharedPreference.gettxtColor1_basic();
-    String color4_basic = SaveSharedPreference.geticonColor1_basic();
-
-    String color1_night = SaveSharedPreference.getBackColor1_night();
-    String color2_night = SaveSharedPreference.getBackColor2_night();
-    String color3_night = SaveSharedPreference.getTxtColor1_night();
-    String color4_night = SaveSharedPreference.getIconColor1_night();
+    String choosedColor1;
+    String choosedColor2;
+    String choosedColor3;
+    String choosedColor4;
 
     Background_MainActivity background_mainActivity;
 
     ArrayList<String> colorList;
 
+    // 테마리스트 토탈
     int colorCount = 2;
     int colormode = 1;
 
@@ -59,6 +65,10 @@ public class Background_MainActivity extends AppCompatActivity {
     boolean isSearch;
     boolean isMemo;
 
+    String mFlag;
+    String rFlag;
+    String sFlag;
+    String searchFlag;
 
     GradientDrawable shape;
     GradientDrawable shape1;
@@ -75,13 +85,21 @@ public class Background_MainActivity extends AppCompatActivity {
         background_mainActivity = this;
 
         Intent intent = getIntent();
-        colormode = intent.getIntExtra("ColorMode",1);
+        colormode = Integer.valueOf(SaveSharedPreference.getColorMode(mContext));
+        choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
+        choosedColor2 = SaveSharedPreference.getBackColor2(mContext);
+        choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
+        choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
+
+        ((EditText)findViewById(R.id.et_apptitle)).setText(SaveSharedPreference.getAppName(mContext));
+
         isTutorial = intent.getBooleanExtra("isTutorial",false);
 
         mPaint = new Paint();
 
         if(isTutorial)
         {
+
             ((ImageView)findViewById(R.id.img_open_dl)).setVisibility(View.GONE);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             ((RelativeLayout)findViewById(R.id.rl_toolbar)).setVisibility(View.GONE);
@@ -107,26 +125,15 @@ public class Background_MainActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_maintitle_home)).setText("배경설정");
 
         colorList = new ArrayList<>();
+        colorList.add(choosedColor1);
+        colorList.add(choosedColor2);
+        colorList.add(choosedColor3);
+        colorList.add(choosedColor4);
 
-
-        if(colormode==1)
-        {
-            colorList.add(color1_basic);
-            colorList.add(color2_basic);
-            colorList.add(color3_basic);
-            colorList.add(color4_basic);
-        }else
-        {
-            colorList.add(color1_night);
-            colorList.add(color2_night);
-            colorList.add(color3_night);
-            colorList.add(color4_night);
-        }
-
-        isMenu = true;
-        isDate = true;
-        isSearch = true;
-        isMemo = true;
+        isMenu = SaveSharedPreference.getMenubarFlag(mContext).equals("Y") ? true : false;
+        isDate = SaveSharedPreference.getRegDateFlag(mContext).equals("Y") ? true : false;
+        isSearch = SaveSharedPreference.getSearchFlag(mContext).equals("Y") ? true : false;
+        isMemo = SaveSharedPreference.getSummaryFlag(mContext).equals("Y") ? true : false;
 
         switchClick(colorList.get(3));
         background(colorList.get(0),colorList.get(1),colorList.get(2),colorList.get(3));
@@ -234,72 +241,34 @@ public class Background_MainActivity extends AppCompatActivity {
         ((Button)findViewById(R.id.btn_next)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,MainActivity.class);
-                intent.putExtra("ColorMode",colormode);
-                intent.putExtra("ismemo",isMemo);
-                intent.putExtra("ismenu",isMenu);
-                intent.putExtra("isdate",isDate);
-                intent.putExtra("issearch",isSearch);
-                startActivity(intent);
+                updateBackground();
             }
         });
 
         ((ImageView)findViewById(R.id.iv_leftarrow)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(colormode==1)
-                {
+                if(colormode==1) {
                     colormode = colorCount;
-                }else
-                {
+                }else {
                     colormode = colormode-1;
                 }
                 colorList.clear();
-                if(colormode==1)
-                {
-                    colorList.add(color1_basic);
-                    colorList.add(color2_basic);
-                    colorList.add(color3_basic);
-                    colorList.add(color4_basic);
-                }else
-                {
-                    colorList.add(color1_night);
-                    colorList.add(color2_night);
-                    colorList.add(color3_night);
-                    colorList.add(color4_night);
-                }
-                background(colorList.get(0),colorList.get(1),colorList.get(2),colorList.get(3));
+                getBackground(colormode);
             }
         });
 
         ((ImageView)findViewById(R.id.iv_rightarrow)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(colormode == colorCount)
-                {
+                if(colormode == colorCount) {
                     colormode = 1;
-                }else
-                {
+                }else {
                     colormode = colormode + 1;
                 }
-
                 colorList.clear();
-                if(colormode==1)
-                {
-                    colorList.add(color1_basic);
-                    colorList.add(color2_basic);
-                    colorList.add(color3_basic);
-                    colorList.add(color4_basic);
-                }else
-                {
-                    colorList.add(color1_night);
-                    colorList.add(color2_night);
-                    colorList.add(color3_night);
-                    colorList.add(color4_night);
-                }
-                background(colorList.get(0),colorList.get(1),colorList.get(2),colorList.get(3));
+                getBackground(colormode);
             }
-
         });
 
     }
@@ -448,4 +417,121 @@ public class Background_MainActivity extends AppCompatActivity {
 
 
     }
+
+    public void getBackground(int val) {
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(mContext).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Background/getBackground.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String bg1 = (String) obj.get("BackColor1");
+                    String bg2 = (String) obj.get("BackColor2");
+                    String txtColor = (String) obj.get("TextColor");
+                    String iconColor = (String) obj.get("IconColor");
+
+                    colorList.add(bg1);
+                    colorList.add(bg2);
+                    colorList.add(txtColor);
+                    colorList.add(iconColor);
+
+                    background(colorList.get(0),colorList.get(1),colorList.get(2),colorList.get(3));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(mContext)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("BackgroundCode", String.valueOf(val));
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
+    }
+
+    public void updateSetting() {
+        String appName = ((TextView)findViewById(R.id.tv_maintitle_home2)).getText().toString();
+        mFlag = isMenu == true ? "Y" : "N";
+        rFlag = isDate == true ? "Y" : "N";
+        sFlag = isMemo == true ? "Y" : "N";
+        searchFlag = isSearch == true ? "Y" : "N";
+
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(mContext).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Setting/updateSetting.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.get("result").equals("success")) {
+                        Toast.makeText(mContext, "설정이 저장되었습니다.", Toast.LENGTH_SHORT).show();
+
+                        SaveSharedPreference.settingUserOption(mContext, mFlag, rFlag, sFlag, searchFlag, appName);
+
+                        Intent intent = new Intent(mContext,MainActivity.class);
+                        intent.putExtra("ColorMode",colormode);
+                        intent.putExtra("ismemo",isMemo);
+                        intent.putExtra("ismenu",isMenu);
+                        intent.putExtra("isdate",isDate);
+                        intent.putExtra("issearch",isSearch);
+                        startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(mContext)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("AppName", appName);
+                params.put("MenubarFlag", mFlag);
+                params.put("RegDateFlag", rFlag);
+                params.put("SummaryFlag", sFlag);
+                params.put("SearchFlag", searchFlag);
+                params.put("BackgroundCode", colormode + "");
+                params.put("MemID", SaveSharedPreference.getPrefUserId(mContext));
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
+    }
+
+    public void updateBackground() {
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(mContext).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Setting/updateBackground.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.get("result").equals("success")) {
+                        String bg1 = colorList.get(0);
+                        String bg2 = colorList.get(1);
+                        String txtColor = colorList.get(2);
+                        String iconColor = colorList.get(3);
+
+                        SaveSharedPreference.setBackgroundColor(mContext, bg1, bg2, txtColor, iconColor);
+                        updateSetting();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(mContext)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("MemID", SaveSharedPreference.getPrefUserId(mContext));
+                params.put("BackgroundCode", colormode+"");
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
+    }
+
+//    public void setTutorial() {
+//        SaveSharedPreference.setBackgroundColor(mContext);
+//        SaveSharedPreference.settingUserOption(mContext);
+//    }
 }

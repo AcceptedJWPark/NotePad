@@ -55,21 +55,12 @@ public class MainActivity extends AppCompatActivity {
     Context mContext;
     String memID;
 
-    String color1_basic = SaveSharedPreference.getBackColor1_basic();
-    String color2_basic = SaveSharedPreference.getBackColor2_basic();
-    String color3_basic = SaveSharedPreference.gettxtColor1_basic();
-    String color4_basic = SaveSharedPreference.geticonColor1_basic();
-
-    String color1_night = SaveSharedPreference.getBackColor1_night();
-    String color2_night = SaveSharedPreference.getBackColor2_night();
-    String color3_night = SaveSharedPreference.getTxtColor1_night();
-    String color4_night = SaveSharedPreference.getIconColor1_night();
-
     String choosedColor1;
     String choosedColor2;
     String choosedColor3;
     String choosedColor4;
-    int colorMode = 1;
+
+    int colorMode;
 
     MainActivity mainActivity;
 
@@ -90,11 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
         mainActivity = this;
 
-        ((TextView)findViewById(R.id.tv_maintitle_home)).setText("Notepad");
         mContext = getApplicationContext();
 
-//        memID = SaveSharedPreference.getUserID(mContext);
-        memID = "mkh9012";
+        memID = SaveSharedPreference.getPrefUserId(mContext);
+
+        String userAppName = SaveSharedPreference.getAppName(mContext);
+        ((TextView)findViewById(R.id.tv_maintitle_home)).setText(userAppName);
+
         arrayList = new ArrayList<>();
         listView = (TabListView) ((ListView)findViewById(R.id.lv_memo));
 
@@ -110,12 +103,15 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode",1);
+        choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
+        choosedColor2 = SaveSharedPreference.getBackColor2(mContext);
+        choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
+        choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
 
-        ismenu = intent.getBooleanExtra("ismenu",true);
-        ismemo = intent.getBooleanExtra("ismemo",true);
-        issearch = intent.getBooleanExtra("issearch",true);
-        isdate = intent.getBooleanExtra("isdate",true);
-
+        ismenu = SaveSharedPreference.getMenubarFlag(mContext).equals("Y") ? true : false;
+        ismemo = SaveSharedPreference.getSummaryFlag(mContext).equals("Y") ? true : false;
+        issearch = SaveSharedPreference.getSearchFlag(mContext).equals("Y") ? true : false;
+        isdate = SaveSharedPreference.getRegDateFlag(mContext).equals("Y") ? true : false;
 
         if(issearch)
         {
@@ -125,19 +121,15 @@ public class MainActivity extends AppCompatActivity {
             ((LinearLayout)findViewById(R.id.ll_searchContainer)).setVisibility(View.GONE);
         }
 
-        if(colorMode == 1)
-        {
-            choosedColor1 = color1_basic;
-            choosedColor2 = color2_basic;
-            choosedColor3 = color3_basic;
-            choosedColor4 = color4_basic;
-        }else if(colorMode ==2)
-        {
-            choosedColor1 = color1_night;
-            choosedColor2 = color2_night;
-            choosedColor3 = color3_night;
-            choosedColor4 = color4_night;
-        }
+        choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
+        choosedColor2 = SaveSharedPreference.getBackColor2(mContext);
+        choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
+        choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
+
+        listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,choosedColor4,ismemo,isdate);
+        footer = getLayoutInflater().inflate(R.layout.memolist_footer,null,false);
+        listView.addFooterView(footer);
+        listView.setAdapter(listAdapter_memo);
 
         ((ImageView)findViewById(R.id.btn_addmemo)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -356,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
                         arrayList.add(memo);
                     }
 
-                    listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,ismemo,isdate);
+                    listAdapter_memo = new ListAdapter_Memo (mContext,arrayList,choosedColor1,choosedColor2,choosedColor3,choosedColor4,ismemo,isdate);
                     footer = getLayoutInflater().inflate(R.layout.memolist_footer,null,false);
                     listView.addFooterView(footer);
                     listView.setAdapter(listAdapter_memo);
