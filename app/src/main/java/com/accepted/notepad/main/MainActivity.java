@@ -7,6 +7,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,6 +30,7 @@ import com.accepted.notepad.backgound.Background_MainActivity;
 import com.accepted.notepad.join.LostID1_MainActivity;
 import com.accepted.notepad.papermemo.Papermemo_MainActivity;
 import com.accepted.notepad.password.Password_MainActivity;
+import com.accepted.notepad.tutorial.Tutorial_MainActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -48,7 +51,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    TabListView listView;
+    ListView listView;
     ArrayList<Listitem_Memo> arrayList;
     ListAdapter_Memo listAdapter_memo;
 
@@ -74,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isdate;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_maintitle_home)).setText(userAppName);
 
         arrayList = new ArrayList<>();
-        listView = (TabListView) ((ListView)findViewById(R.id.lv_memo));
+        listView = findViewById(R.id.lv_memo);
 
         dl = (DrawerLayout)findViewById(R.id.drawer);
         v_drawerlayout = (View)findViewById(R.id.view_drawerlayout);
@@ -145,73 +149,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, Background_MainActivity.class);
                 startActivity(intent);
-            }
-        });
-
-
-        listView.setOnItemTapListener(new TabListView.OnItemTapLister() {
-            @Override
-            public void OnDoubleTap(AdapterView<?> parent, View view, int position, long id) {
-                Listitem_Memo item = arrayList.get(position);
-
-                if (item.getSecureType().equals("1")) {
-                    return;
-                }
-
-                if (item.getClickType().equals("1")) {
-                    Intent intent = new Intent(mContext, Password_MainActivity.class);
-                    intent.putExtra("ColorMode",colorMode);
-                    intent.putExtra("isTutorial",true);
-                }
-            }
-
-            @Override
-            public void OnSingleTap(AdapterView<?> parent, View view, int position, long id) {
-                Listitem_Memo item = arrayList.get(position);
-
-                int isReal = item.getSecureType().equals("1") ? 2 : 3;
-                if (isReal == 2) {
-                    Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
-                    intent.putExtra("isReal", isReal);
-                    intent.putExtra("MemoCode", item.getMemoCode());
-                    intent.putExtra("Title", item.getRTitle());
-                    intent.putExtra("Content", item.getRContent());
-                    intent.putExtra("FTitle", item.getFTitle());
-                    intent.putExtra("FContent", item.getFContent());
-                    intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
-                    intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
-                    intent.putExtra("isReal", isReal);
-                    intent.putExtra("MemoCode", item.getMemoCode());
-                    intent.putExtra("Title", item.getFTitle());
-                    intent.putExtra("Content", item.getFContent());
-                    intent.putExtra("RTitle", item.getRTitle());
-                    intent.putExtra("RContent", item.getRContent());
-                    intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
-                    intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
-                    startActivity(intent);
-                }
-            }
-        });
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-                final Handler h = new Handler();
-                h.postDelayed(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-
-                    }
-                }, 3000); // milliseconds added to longpress
-
-                return true;
             }
         });
 
@@ -331,7 +268,6 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONArray objArray = new JSONArray(response);
-
                     for (int i = 0; i < objArray.length(); i++) {
                         JSONObject obj = objArray.getJSONObject(i);
                         Listitem_Memo memo;
@@ -344,6 +280,8 @@ public class MainActivity extends AppCompatActivity {
 
                         int memoCode = obj.getInt("MemoCode");
                         String secureType = obj.getString("SecureType");
+
+
                         memo = new Listitem_Memo(memoCode, obj.getString("RTitle"), obj.getString("RContent"), obj.getString("FTitle"), obj.getString("FContent"), regDateStr, secureType, obj.getString("ClickType"));
                         arrayList.add(memo);
                     }
@@ -369,5 +307,6 @@ public class MainActivity extends AppCompatActivity {
         };
         postRequestQueue.add(postJsonRequest);
     }
+
 
 }

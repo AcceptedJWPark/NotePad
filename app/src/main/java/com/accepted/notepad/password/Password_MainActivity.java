@@ -46,8 +46,6 @@ public class Password_MainActivity extends AppCompatActivity {
     GradientDrawable shape4;
     GradientDrawable shape5;
 
-
-
     String InputPassword = "";
 
     String UserPassword = "123456";

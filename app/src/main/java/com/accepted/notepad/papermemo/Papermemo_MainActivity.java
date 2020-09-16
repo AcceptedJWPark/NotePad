@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -86,6 +87,13 @@ public class Papermemo_MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        containerPaper = findViewById(R.id.ll_cotainer_paper);
+        containerTxt = findViewById(R.id.ll_txtcontainer_paper);
+        tv_comp = findViewById(R.id.tv_comp);
+        et_title = findViewById(R.id.et_title);
+        et_contents = findViewById(R.id.et_contents);
+        iv_pre = findViewById(R.id.iv_pre);
+        btn_next_papermemo = findViewById(R.id.btn_next_papermemo);
 
         Intent intent2 = getIntent();
 
@@ -114,16 +122,6 @@ public class Papermemo_MainActivity extends AppCompatActivity {
             fTitle = intent2.getStringExtra("FTitle");
             fContent = intent2.getStringExtra("FContent");
         }
-
-
-
-        containerPaper = findViewById(R.id.ll_cotainer_paper);
-        containerTxt = findViewById(R.id.ll_txtcontainer_paper);
-        tv_comp = findViewById(R.id.tv_comp);
-        et_title = findViewById(R.id.et_title);
-        et_contents = findViewById(R.id.et_contents);
-        iv_pre = findViewById(R.id.iv_pre);
-        btn_next_papermemo = findViewById(R.id.btn_next_papermemo);
 
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode",1);

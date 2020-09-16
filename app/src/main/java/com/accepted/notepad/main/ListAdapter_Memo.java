@@ -1,16 +1,25 @@
 package com.accepted.notepad.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.accepted.notepad.R;
+import com.accepted.notepad.papermemo.Papermemo_MainActivity;
+import com.accepted.notepad.password.Password_MainActivity;
+import com.accepted.notepad.tutorial.Tutorial_MainActivity;
 
 import java.util.ArrayList;
 
@@ -20,6 +29,7 @@ public class ListAdapter_Memo extends BaseAdapter {
 
     private Context mContext;
     private ArrayList<Listitem_Memo> arrayList;
+    private long btnPressTime = 0;
     String backColor1;
     String backColor2;
     String txtcolor;
@@ -106,6 +116,8 @@ public class ListAdapter_Memo extends BaseAdapter {
         }
         holder.tv_date.setText(item.getDate());
 
+        setClickTypeEvent(item, convertView);
+
         return convertView;
     }
 
@@ -116,4 +128,100 @@ public class ListAdapter_Memo extends BaseAdapter {
         TextView tv_date;
         ImageView iv_delete;
     }
+
+    public void setClickTypeEvent(Listitem_Memo item, View convertView ) {
+        String secureType = item.getSecureType();
+        String clickType = item.getClickType();
+
+        if (secureType.equals("3")) {
+            switch (clickType) {
+                case "1":
+                    // 더블 클릭
+                    convertView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (System.currentTimeMillis() > btnPressTime + 1000) {
+                                btnPressTime = System.currentTimeMillis();
+                                return;
+                            }
+                            if (System.currentTimeMillis() <= btnPressTime + 1000) {
+                                Intent intent = new Intent(mContext, Password_MainActivity.class);
+                                intent.putExtra("isTutorial",true);
+                                mContext.startActivity(intent);
+                            }
+                        }
+                    });
+                    break;
+                case "2":
+                    // 롱 클릭 1초
+                    convertView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            switch (event.getAction()) {
+                                case MotionEvent.ACTION_DOWN:
+                                    handler.sendEmptyMessageAtTime(100, event.getDownTime() + 1000);
+                                    break;
+                                case MotionEvent.ACTION_UP:
+                                case MotionEvent.ACTION_MOVE:
+                                    handler.removeMessages(0);
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    break;
+                case "3":
+                    // 롱 클릭 3초
+                    convertView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            switch (event.getAction()) {
+                                case MotionEvent.ACTION_DOWN:
+                                    handler.sendEmptyMessageAtTime(100, event.getDownTime() + 3000);
+                                    break;
+                                case MotionEvent.ACTION_UP:
+                                case MotionEvent.ACTION_MOVE:
+                                    handler.removeMessages(0);
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    break;
+            }
+        } else {
+            // 보안이 없는 일반 메모
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+                    intent.putExtra("MemoCode", item.getMemoCode());
+                    intent.putExtra("Title", item.getFTitle());
+                    intent.putExtra("Content", item.getFContent());
+                    intent.putExtra("RTitle", item.getRTitle());
+                    intent.putExtra("RContent", item.getRContent());
+                    intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+                    intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+                    mContext.startActivity(intent);
+                }
+            });
+        }
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 100:
+                    Intent intent = new Intent(mContext, Password_MainActivity.class);
+                    intent.putExtra("isTutorial",true);
+                    mContext.startActivity(intent);
+                    break;
+                case 0:
+                    Toast.makeText(mContext, "해당 이벤트가 아닐때", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+
+        }
+    };
 }
