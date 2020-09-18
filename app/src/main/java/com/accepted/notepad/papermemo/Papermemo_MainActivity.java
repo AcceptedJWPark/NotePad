@@ -101,12 +101,14 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         memoCode = intent2.getIntExtra("MemoCode", -1);
         secureType = intent2.getIntExtra("SecureType", 1);
         clickType = intent2.getIntExtra("ClickType", 1);
+        Log.d("isReal", "" + isReal);
         if(isReal==2) {
 //            Toast.makeText(mContext,"real", Toast.LENGTH_SHORT).show();
-            String title = intent2.getStringExtra("Title");
-            String content = intent2.getStringExtra("Content");
-            fTitle = intent2.getStringExtra("FTitle");
-            fContent = intent2.getStringExtra("FContent");
+            String title = intent2.getStringExtra("RTitle");
+            String content = intent2.getStringExtra("RContent");
+            fTitle = intent2.getStringExtra("Title");
+
+            fContent = intent2.getStringExtra("Content");
             et_title.setText(title);
             et_contents.setText(content);
         } else if(isReal==3) {
@@ -119,8 +121,8 @@ public class Papermemo_MainActivity extends AppCompatActivity {
             et_contents.setText(content);
         } else {
 //            Toast.makeText(mContext,"new", Toast.LENGTH_SHORT).show();
-            fTitle = intent2.getStringExtra("FTitle");
-            fContent = intent2.getStringExtra("FContent");
+            fTitle = intent2.getStringExtra("Title");
+            fContent = intent2.getStringExtra("Content");
         }
 
         Intent intent = getIntent();

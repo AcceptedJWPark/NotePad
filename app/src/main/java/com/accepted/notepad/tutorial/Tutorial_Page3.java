@@ -78,13 +78,17 @@ public class Tutorial_Page3 extends Fragment {
                     public boolean onTouch(View v, MotionEvent event) {
                         switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
-                                handler.sendEmptyMessageAtTime(3, event.getDownTime() + 1000);
-                                break;
+                                btnPressTime = (Long) System.currentTimeMillis();
+                                return true;
                             case MotionEvent.ACTION_UP:
-                            case MotionEvent.ACTION_MOVE:
-                                handler.removeMessages(3);
+                                if(((Long) System.currentTimeMillis() - btnPressTime) > 1000){
+                                    handler.sendEmptyMessageAtTime(3, event.getDownTime() + 1000);
+                                } else {
+                                    // 가짜 켜기
+                                }
                                 break;
                         }
+
                         return false;
                     }
                 });
@@ -95,13 +99,18 @@ public class Tutorial_Page3 extends Fragment {
                     public boolean onTouch(View v, MotionEvent event) {
                         switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
-                                handler.sendEmptyMessageAtTime(4, event.getDownTime() + 3000);
-                                break;
+                                btnPressTime = (Long) System.currentTimeMillis();
+                                return true;
                             case MotionEvent.ACTION_UP:
-                            case MotionEvent.ACTION_MOVE:
-                                handler.removeMessages(4);
+                                if(((Long) System.currentTimeMillis() - btnPressTime) > 3000){
+                                    handler.sendEmptyMessageAtTime(4, event.getDownTime() + 3000);
+                                    return true;
+                                } else {
+                                    // 가짜 켜기
+                                }
                                 break;
                         }
+
                         return false;
                     }
                 });

@@ -2,6 +2,7 @@ package com.accepted.notepad.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapRegionDecoder;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
@@ -159,11 +160,34 @@ public class ListAdapter_Memo extends BaseAdapter {
                         public boolean onTouch(View v, MotionEvent event) {
                             switch (event.getAction()) {
                                 case MotionEvent.ACTION_DOWN:
-                                    handler.sendEmptyMessageAtTime(100, event.getDownTime() + 1000);
-                                    break;
+                                    btnPressTime = (Long) System.currentTimeMillis();
+                                    return true;
                                 case MotionEvent.ACTION_UP:
-                                case MotionEvent.ACTION_MOVE:
-                                    handler.removeMessages(0);
+                                    if(((Long) System.currentTimeMillis() - btnPressTime) > 1000){
+                                        // 진짜 켜기
+                                        Intent intent = new Intent(mContext, Password_MainActivity.class);
+                                        intent.putExtra("MemoCode", item.getMemoCode());
+                                        intent.putExtra("Title", item.getFTitle());
+                                        intent.putExtra("Content", item.getFContent());
+                                        intent.putExtra("RTitle", item.getRTitle());
+                                        intent.putExtra("RContent", item.getRContent());
+                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+                                        intent.putExtra("isTutorial",true);
+                                        mContext.startActivity(intent);
+                                    } else {
+                                        // 가짜 켜기
+                                        Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+                                        intent.putExtra("MemoCode", item.getMemoCode());
+                                        intent.putExtra("Title", item.getFTitle());
+                                        intent.putExtra("Content", item.getFContent());
+                                        intent.putExtra("RTitle", item.getRTitle());
+                                        intent.putExtra("RContent", item.getRContent());
+                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+                                        intent.putExtra("isReal", 3);
+                                        mContext.startActivity(intent);
+                                    }
                                     break;
                             }
                             return false;
@@ -177,11 +201,34 @@ public class ListAdapter_Memo extends BaseAdapter {
                         public boolean onTouch(View v, MotionEvent event) {
                             switch (event.getAction()) {
                                 case MotionEvent.ACTION_DOWN:
-                                    handler.sendEmptyMessageAtTime(100, event.getDownTime() + 3000);
-                                    break;
+                                    btnPressTime = (Long) System.currentTimeMillis();
+                                    return true;
                                 case MotionEvent.ACTION_UP:
-                                case MotionEvent.ACTION_MOVE:
-                                    handler.removeMessages(0);
+                                    if(((Long) System.currentTimeMillis() - btnPressTime) > 3000){
+                                        // 진짜 켜기
+                                        Intent intent = new Intent(mContext, Password_MainActivity.class);
+                                        intent.putExtra("MemoCode", item.getMemoCode());
+                                        intent.putExtra("Title", item.getFTitle());
+                                        intent.putExtra("Content", item.getFContent());
+                                        intent.putExtra("RTitle", item.getRTitle());
+                                        intent.putExtra("RContent", item.getRContent());
+                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+                                        intent.putExtra("isTutorial",true);
+                                        mContext.startActivity(intent);
+                                    } else {
+                                        // 가짜 켜기
+                                        Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+                                        intent.putExtra("MemoCode", item.getMemoCode());
+                                        intent.putExtra("Title", item.getFTitle());
+                                        intent.putExtra("Content", item.getFContent());
+                                        intent.putExtra("RTitle", item.getRTitle());
+                                        intent.putExtra("RContent", item.getRContent());
+                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+                                        intent.putExtra("isReal", 3);
+                                        mContext.startActivity(intent);
+                                    }
                                     break;
                             }
                             return false;

@@ -48,14 +48,33 @@ public class Password_MainActivity extends AppCompatActivity {
 
     String InputPassword = "";
 
-    String UserPassword = "123456";
+    String UserPassword;
 
+    String fTitle;
+    String fContent;
+    String rTitle;
+    String rContent;
+    int secureType;
+    int clickType;
+    int memoCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.password_activity);
         mContext = getApplicationContext();
+
+        UserPassword = SaveSharedPreference.getSecurityCode(mContext);
+
+        Intent paperMemoIntent = getIntent();
+        fTitle = paperMemoIntent.getStringExtra("Title");
+        fContent = paperMemoIntent.getStringExtra("Content");
+        rTitle = paperMemoIntent.getStringExtra("RTitle");
+        rContent = paperMemoIntent.getStringExtra("RContent");
+        secureType = paperMemoIntent.getIntExtra("SecureType", 1);
+        clickType = paperMemoIntent.getIntExtra("ClickType", 1);
+        memoCode = paperMemoIntent.getIntExtra("MemoCode", -1);
+
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -79,7 +98,7 @@ public class Password_MainActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        colorMode = intent.getIntExtra("ColorMode",1);
+        colorMode = Integer.valueOf(SaveSharedPreference.getColorMode(mContext));
 
         choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
         choosedColor2 = SaveSharedPreference.getBackColor2(mContext);
@@ -161,21 +180,35 @@ public class Password_MainActivity extends AppCompatActivity {
                         {
                             if(InputPassword.equals(UserPassword))
                             {
+                                Log.d("input", InputPassword.equals(UserPassword) + "");
                                 Intent intent = new Intent(mContext,Papermemo_MainActivity.class);
                                 intent.putExtra("ColorMode",colorMode);
                                 intent.putExtra("isReal",2);
+                                intent.putExtra("MemoCode", memoCode);
+                                intent.putExtra("Title", fTitle);
+                                intent.putExtra("Content", fContent);
+                                intent.putExtra("RTitle", rTitle);
+                                intent.putExtra("RContent", rContent);
+                                intent.putExtra("SecureType", secureType);
+                                intent.putExtra("ClickType", clickType);
                                 startActivity(intent);
                                 finish();
-                            }else
-                            {
+                            } else {
+                                Log.d("input", InputPassword.equals(UserPassword) + "");
                                 Intent intent = new Intent(mContext,Papermemo_MainActivity.class);
                                 intent.putExtra("isReal",3);
                                 intent.putExtra("ColorMode",colorMode);
+                                intent.putExtra("MemoCode", memoCode);
+                                intent.putExtra("Title", fTitle);
+                                intent.putExtra("Content", fContent);
+                                intent.putExtra("RTitle", rTitle);
+                                intent.putExtra("RContent", rContent);
+                                intent.putExtra("SecureType", secureType);
+                                intent.putExtra("ClickType", clickType);
                                 startActivity(intent);
                                 finish();
                             }
                         }
-
                     }
                 }
             });

@@ -32,6 +32,8 @@ public class SaveSharedPreference {
 
     static final String colorMode = "colorMode";
 
+    static final String securityCode = "securityCode";
+
     static final String appName = "appName";
 
     static final String PREF_USER_ID = "userid";
@@ -80,6 +82,10 @@ public class SaveSharedPreference {
 
     public static String getAppName(Context ctx) {
         return getSharedPreferences(ctx).getString(appName, "");
+    }
+
+    public static String getSecurityCode(Context ctx) {
+        return getSharedPreferences(ctx).getString(securityCode, "");
     }
 
     public static void setBackColor1(Context ctx, String color1){
@@ -149,6 +155,13 @@ public class SaveSharedPreference {
         Log.d("perf AppName", name);
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(appName, name);
+        editor.commit();
+    }
+
+    public static void setSecurityCode(Context ctx, String code){
+        Log.d("perf SecurityCode", code);
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(securityCode, code);
         editor.commit();
     }
 

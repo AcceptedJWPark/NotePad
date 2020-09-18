@@ -133,8 +133,11 @@ public class Login_MainActivity extends AppCompatActivity {
 
                         String AppName = obj.has("AppName") ? (String) obj.get("AppName") : "";
 
+                        String SecurityCode = (String) obj.get("SecurityCode");
                         int BackgroundCode = (int) obj.get("BackgroundCode");
+                        SaveSharedPreference.setSecurityCode(context, SecurityCode);
                         SaveSharedPreference.setColorMode(context, ""+BackgroundCode);
+
                         // 사용자 지정 정보 저장
                         SaveSharedPreference.setBackgroundColor(context, bg1, bg2, txtColor, iconColor);
                         SaveSharedPreference.settingUserOption(context, MenubarFlag, RegDateFlag, SummaryFlag, SearchFlag, AppName);
