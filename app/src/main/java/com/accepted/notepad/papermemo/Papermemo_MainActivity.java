@@ -121,8 +121,8 @@ public class Papermemo_MainActivity extends AppCompatActivity {
             et_contents.setText(content);
         } else {
 //            Toast.makeText(mContext,"new", Toast.LENGTH_SHORT).show();
-            fTitle = intent2.getStringExtra("Title");
-            fContent = intent2.getStringExtra("Content");
+            fTitle = intent2.getStringExtra("FTitle");
+            fContent = intent2.getStringExtra("FContent");
         }
 
         Intent intent = getIntent();
