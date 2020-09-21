@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
     Context mContext;
     String memID;
+    String writeType;
+    private long btnPressTime = 0;
 
     String choosedColor1;
     String choosedColor2;
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         mContext = getApplicationContext();
 
         memID = SaveSharedPreference.getPrefUserId(mContext);
+        writeType = SaveSharedPreference.getPrefClickType(mContext);
 
         String userAppName = SaveSharedPreference.getAppName(mContext);
         ((TextView)findViewById(R.id.tv_maintitle_home)).setText(userAppName);
@@ -135,14 +138,118 @@ public class MainActivity extends AppCompatActivity {
         listView.addFooterView(footer);
         listView.setAdapter(listAdapter_memo);
 
-        ((ImageView)findViewById(R.id.btn_addmemo)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, Addmemo_MainActivity.class);
-                intent.putExtra("ColorMode",colorMode);
-                startActivity(intent);
-            }
-        });
+        if (writeType.equals("1")) {
+            ((ImageView) findViewById(R.id.btn_addmemo)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, Addmemo_MainActivity.class);
+                    intent.putExtra("ColorMode", colorMode);
+                    startActivity(intent);
+                }
+            });
+        } else {
+//            switch (writeType) {
+//                case "2":
+//                    // 더블 클릭
+//                    ((ImageView) findViewById(R.id.btn_addmemo)).setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            if (System.currentTimeMillis() > btnPressTime + 1000) {
+//                                btnPressTime = System.currentTimeMillis();
+//                                return;
+//                            }
+//                            if (System.currentTimeMillis() <= btnPressTime + 1000) {
+//                                Intent intent = new Intent(mContext, Password_MainActivity.class);
+//                                intent.putExtra("isTutorial",true);
+//                                mContext.startActivity(intent);
+//                            }
+//                        }
+//                    });
+//                    break;
+//                case "3":
+//                    // 롱 클릭 1초
+//                    ((ImageView) findViewById(R.id.btn_addmemo)).setOnTouchListener(new View.OnTouchListener() {
+//                        @Override
+//                        public boolean onTouch(View v, MotionEvent event) {
+//                            switch (event.getAction()) {
+//                                case MotionEvent.ACTION_DOWN:
+//                                    btnPressTime = (Long) System.currentTimeMillis();
+//                                    return true;
+//                                case MotionEvent.ACTION_UP:
+//                                    if(((Long) System.currentTimeMillis() - btnPressTime) > 1000){
+//                                        // 진짜 켜기
+//                                        Intent intent = new Intent(mContext, Password_MainActivity.class);
+//                                        intent.putExtra("MemoCode", item.getMemoCode());
+//                                        intent.putExtra("Title", item.getFTitle());
+//                                        intent.putExtra("Content", item.getFContent());
+//                                        intent.putExtra("RTitle", item.getRTitle());
+//                                        intent.putExtra("RContent", item.getRContent());
+//                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+//                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+//                                        intent.putExtra("isTutorial",true);
+//                                        mContext.startActivity(intent);
+//                                    } else {
+//                                        // 가짜 켜기
+//                                        Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+//                                        intent.putExtra("MemoCode", item.getMemoCode());
+//                                        intent.putExtra("Title", item.getFTitle());
+//                                        intent.putExtra("Content", item.getFContent());
+//                                        intent.putExtra("RTitle", item.getRTitle());
+//                                        intent.putExtra("RContent", item.getRContent());
+//                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+//                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+//                                        intent.putExtra("isReal", 3);
+//                                        mContext.startActivity(intent);
+//                                    }
+//                                    break;
+//                            }
+//                            return false;
+//                        }
+//                    });
+//                    break;
+//                case "4":
+//                    // 롱 클릭 3초
+//                    ((ImageView) findViewById(R.id.btn_addmemo)).setOnTouchListener(new View.OnTouchListener() {
+//                        @Override
+//                        public boolean onTouch(View v, MotionEvent event) {
+//                            switch (event.getAction()) {
+//                                case MotionEvent.ACTION_DOWN:
+//                                    btnPressTime = (Long) System.currentTimeMillis();
+//                                    return true;
+//                                case MotionEvent.ACTION_UP:
+//                                    if(((Long) System.currentTimeMillis() - btnPressTime) > 3000){
+//                                        // 진짜 켜기
+//                                        Intent intent = new Intent(mContext, Password_MainActivity.class);
+//                                        intent.putExtra("MemoCode", item.getMemoCode());
+//                                        intent.putExtra("Title", item.getFTitle());
+//                                        intent.putExtra("Content", item.getFContent());
+//                                        intent.putExtra("RTitle", item.getRTitle());
+//                                        intent.putExtra("RContent", item.getRContent());
+//                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+//                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+//                                        intent.putExtra("isTutorial",true);
+//                                        mContext.startActivity(intent);
+//                                    } else {
+//                                        // 가짜 켜기
+//                                        Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+//                                        intent.putExtra("MemoCode", item.getMemoCode());
+//                                        intent.putExtra("Title", item.getFTitle());
+//                                        intent.putExtra("Content", item.getFContent());
+//                                        intent.putExtra("RTitle", item.getRTitle());
+//                                        intent.putExtra("RContent", item.getRContent());
+//                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+//                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+//                                        intent.putExtra("isReal", 3);
+//                                        mContext.startActivity(intent);
+//                                    }
+//                                    break;
+//                            }
+//                            return false;
+//                        }
+//                    });
+//                    break;
+//            }
+        }
 
         ((TextView)findViewById(R.id.tv_right_home)).setOnClickListener(new View.OnClickListener() {
             @Override
