@@ -179,12 +179,20 @@ public class ListAdapter_Memo extends BaseAdapter {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 Log.d("press", "single");
+                if (!secureType.equals("3")) {
+                    showRealMemo(item);
+                } else {
+                    showFakeMemo(item);
+                }
                 return false;
             }
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 Log.d("press", "double");
+                if (secureType.equals("3") && clickType.equals("1")) {
+                    showRealMemo(item);
+                }
                 return true;
             }
 
@@ -194,168 +202,79 @@ public class ListAdapter_Memo extends BaseAdapter {
             }
         };
 
-        LongPressChecker mLongPressChecker = new LongPressChecker(mContext, 3000);
-        mLongPressChecker.setOnLongPressListener( new LongPressChecker.OnLongPressListener() {
-            @Override
-            public void onLongPressed() {
-                Log.d("press", "longpress");
+        // 롱클릭 리스너
+        int pressTimeOut = 1000;
+        if (secureType.equals("3")) {
+            if (clickType.equals("2")) {
+                pressTimeOut = 1000;
+            } else if (clickType.equals("3")) {
+                pressTimeOut = 3000;
             }
-        });
+            LongPressChecker mLongPressChecker = new LongPressChecker(mContext, pressTimeOut);
+            mLongPressChecker.setOnLongPressListener( new LongPressChecker.OnLongPressListener() {
+                @Override
+                public void onLongPressed() {
+                    Log.d("press", "longpress");
+                    if (!clickType.equals("1")) {
+                        showRealMemo(item);
+                    }
+                }
+            });
+
+            convertView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    mLongPressChecker.deliverMotionEvent( v, event );
+
+                    if(gd != null) {
+                        gd.onTouchEvent(event);
+                        return true;
+                    }
+
+                    return false;
+                }
+            });
+        } else {
+            convertView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+
+                    if(gd != null) {
+                        gd.onTouchEvent(event);
+                        return true;
+                    }
+
+                    return false;
+                }
+            });
+        }
 
         gd.setOnDoubleTapListener(listener);
-        convertView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                mLongPressChecker.deliverMotionEvent( v, event );
-
-                if(gd != null) {
-                    gd.onTouchEvent(event);
-                    return true;
-                }
-
-                return false;
-            }
-        });
-
-
-
-
-
-//        if (secureType.equals("3")) {
-//            switch (clickType) {
-//                case "1":
-//                    // 더블 클릭
-//                    convertView.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            if (System.currentTimeMillis() > btnPressTime + 1000) {
-//                                btnPressTime = System.currentTimeMillis();
-//                                return;
-//                            }
-//                            if (System.currentTimeMillis() <= btnPressTime + 1000) {
-//                                Intent intent = new Intent(mContext, Password_MainActivity.class);
-//                                intent.putExtra("isTutorial",true);
-//                                mContext.startActivity(intent);
-//                            }
-//                        }
-//                    });
-//                    break;
-//                case "2":
-//                    // 롱 클릭 1초
-//                    convertView.setOnTouchListener(new View.OnTouchListener() {
-//                        @Override
-//                        public boolean onTouch(View v, MotionEvent event) {
-//                            switch (event.getAction()) {
-//                                case MotionEvent.ACTION_DOWN:
-//                                    btnPressTime = (Long) System.currentTimeMillis();
-//                                    return true;
-//                                case MotionEvent.ACTION_UP:
-//                                    if(((Long) System.currentTimeMillis() - btnPressTime) > 1000){
-//                                        // 진짜 켜기
-//                                        Intent intent = new Intent(mContext, Password_MainActivity.class);
-//                                        intent.putExtra("MemoCode", item.getMemoCode());
-//                                        intent.putExtra("Title", item.getFTitle());
-//                                        intent.putExtra("Content", item.getFContent());
-//                                        intent.putExtra("RTitle", item.getRTitle());
-//                                        intent.putExtra("RContent", item.getRContent());
-//                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
-//                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
-//                                        intent.putExtra("isTutorial",true);
-//                                        mContext.startActivity(intent);
-//                                    } else {
-//                                        // 가짜 켜기
-//                                        Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
-//                                        intent.putExtra("MemoCode", item.getMemoCode());
-//                                        intent.putExtra("Title", item.getFTitle());
-//                                        intent.putExtra("Content", item.getFContent());
-//                                        intent.putExtra("RTitle", item.getRTitle());
-//                                        intent.putExtra("RContent", item.getRContent());
-//                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
-//                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
-//                                        intent.putExtra("isReal", 3);
-//                                        mContext.startActivity(intent);
-//                                    }
-//                                    break;
-//                            }
-//                            return false;
-//                        }
-//                    });
-//                    break;
-//                case "3":
-//                    // 롱 클릭 3초
-//                    convertView.setOnTouchListener(new View.OnTouchListener() {
-//                        @Override
-//                        public boolean onTouch(View v, MotionEvent event) {
-//                            switch (event.getAction()) {
-//                                case MotionEvent.ACTION_DOWN:
-//                                    btnPressTime = (Long) System.currentTimeMillis();
-//                                    return true;
-//                                case MotionEvent.ACTION_UP:
-//                                    if(((Long) System.currentTimeMillis() - btnPressTime) > 3000){
-//                                        // 진짜 켜기
-//                                        Intent intent = new Intent(mContext, Password_MainActivity.class);
-//                                        intent.putExtra("MemoCode", item.getMemoCode());
-//                                        intent.putExtra("Title", item.getFTitle());
-//                                        intent.putExtra("Content", item.getFContent());
-//                                        intent.putExtra("RTitle", item.getRTitle());
-//                                        intent.putExtra("RContent", item.getRContent());
-//                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
-//                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
-//                                        intent.putExtra("isTutorial",true);
-//                                        mContext.startActivity(intent);
-//                                    } else {
-//                                        // 가짜 켜기
-//                                        Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
-//                                        intent.putExtra("MemoCode", item.getMemoCode());
-//                                        intent.putExtra("Title", item.getFTitle());
-//                                        intent.putExtra("Content", item.getFContent());
-//                                        intent.putExtra("RTitle", item.getRTitle());
-//                                        intent.putExtra("RContent", item.getRContent());
-//                                        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
-//                                        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
-//                                        intent.putExtra("isReal", 3);
-//                                        mContext.startActivity(intent);
-//                                    }
-//                                    break;
-//                            }
-//                            return false;
-//                        }
-//                    });
-//                    break;
-//            }
-//        } else {
-//            // 보안이 없는 일반 메모
-//            convertView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
-//                    intent.putExtra("MemoCode", item.getMemoCode());
-//                    intent.putExtra("Title", item.getFTitle());
-//                    intent.putExtra("Content", item.getFContent());
-//                    intent.putExtra("RTitle", item.getRTitle());
-//                    intent.putExtra("RContent", item.getRContent());
-//                    intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
-//                    intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
-//                    mContext.startActivity(intent);
-//                }
-//            });
-//        }
     }
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 100:
-                    Intent intent = new Intent(mContext, Password_MainActivity.class);
-                    intent.putExtra("isTutorial",true);
-                    mContext.startActivity(intent);
-                    break;
-                case 0:
-                    Toast.makeText(mContext, "해당 이벤트가 아닐때", Toast.LENGTH_SHORT).show();
-                    break;
-            }
+    public void showFakeMemo(Listitem_Memo item) {
+        Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+        intent.putExtra("MemoCode", item.getMemoCode());
+        intent.putExtra("Title", item.getFTitle());
+        intent.putExtra("Content", item.getFContent());
+        intent.putExtra("RTitle", item.getRTitle());
+        intent.putExtra("RContent", item.getRContent());
+        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+        intent.putExtra("isReal", 3);
+        mContext.startActivity(intent);
+    }
 
-        }
-    };
+    public void showRealMemo(Listitem_Memo item) {
+        Intent intent = new Intent(mContext, Password_MainActivity.class);
+        intent.putExtra("MemoCode", item.getMemoCode());
+        intent.putExtra("Title", item.getFTitle());
+        intent.putExtra("Content", item.getFContent());
+        intent.putExtra("RTitle", item.getRTitle());
+        intent.putExtra("RContent", item.getRContent());
+        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
+        intent.putExtra("isTutorial",true);
+        mContext.startActivity(intent);
+    }
 }
