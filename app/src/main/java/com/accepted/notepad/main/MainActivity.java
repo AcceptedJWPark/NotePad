@@ -148,6 +148,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         setClickTypeEvent();
+//        getBasicMemoList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         getBasicMemoList();
     }
 
@@ -194,7 +201,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
     public void colorChange(String color1, String color2, String color3, String color4)
     {
@@ -258,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getBasicMemoList() {
+        arrayList = new ArrayList<>();
         RequestQueue postRequestQueue = VolleySingleton.getInstance(mContext).getRequestQueue();
         StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Memo/getBasicMemoList.do", new Response.Listener<String>() {
             @Override

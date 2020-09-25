@@ -29,9 +29,24 @@ import android.widget.Toast;
 
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.VolleySingleton;
+import com.accepted.notepad.main.ListAdapter_Memo;
+import com.accepted.notepad.main.Listitem_Memo;
 import com.accepted.notepad.papermemo.Papermemo_MainActivity;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -83,18 +98,11 @@ public class Addmemo_MainActivity extends AppCompatActivity {
 
         context = getApplicationContext();
 
-
         initKeyBoardListener();
-
 
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode", 1);
         memoCode = intent.getIntExtra("MemoCode", -1);
-
-        // 메모 수정인 경우
-        if (memoCode > 0) {
-
-        }
 
         choosedColor1 = SaveSharedPreference.getBackColor1(context);
         choosedColor2 = SaveSharedPreference.getBackColor2(context);
@@ -107,7 +115,6 @@ public class Addmemo_MainActivity extends AppCompatActivity {
         tv_high = findViewById(R.id.tv_high);
         iv_low = findViewById(R.id.iv_low);
         iv_high = findViewById(R.id.iv_high);
-
 
         fakeTitle = findViewById(R.id.et_faketitle);
         fakeContent = findViewById(R.id.et_fakecontents);
@@ -172,14 +179,58 @@ public class Addmemo_MainActivity extends AppCompatActivity {
         clickFakeType();
         clickClickType();
 
+        // 메모 수정인 경우
+        if (memoCode > 0) {
+            securityType = intent.getIntExtra("SecureType", 1);
+            clickType = intent.getIntExtra("ClickType", 1);
+            if (securityType > 1) {
+                ll_high.performClick();
+            }
+
+            fakeTitle.setText(intent.getStringExtra("Title"));
+            fakeContent.setText(intent.getStringExtra("Content"));
+            ((Button) findViewById(R.id.btn_next)).setText("저장");
+
+            Log.d("memoCode", memoCode+ "");
+            Log.d("Title", intent.getStringExtra("Title"));
+            Log.d("Content", intent.getStringExtra("Content"));
+            Log.d("SecureType", intent.getIntExtra("SecureType", 1) + "");
+            Log.d("ClickType", intent.getIntExtra("ClickType", 1) + "");
+
+            if (clickType == 1) {
+                ((TextView) findViewById(R.id.btn_normalclick)).performClick();
+            } else if (clickType == 2) {
+                ((TextView) findViewById(R.id.btn_doubleclick)).performClick();
+            } else if (clickType == 3) {
+                ((TextView) findViewById(R.id.btn_longclick)).performClick();
+            }
+
+        }
+
         ((Button) findViewById(R.id.btn_next)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (securityType != 1) {
-                    if (fakeTitle.length() == 0) {
-                        Toast.makeText(context, "Fake 제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    } else if (fakeContent.length() == 0) {
-                        Toast.makeText(context, "Fake 내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                if (memoCode > 0) {
+                    // 수정하기
+                    editSecureType();
+
+                } else {
+                    if (securityType != 1) {
+                        if (fakeTitle.length() == 0) {
+                            Toast.makeText(context, "Fake 제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                        } else if (fakeContent.length() == 0) {
+                            Toast.makeText(context, "Fake 내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent intent = new Intent(context, Papermemo_MainActivity.class);
+                            intent.putExtra("ColorMode", colorMode);
+                            intent.putExtra("SecureType", securityType);
+                            intent.putExtra("ClickType", clickType);
+                            intent.putExtra("FTitle", fakeTitle.getText().toString());
+                            intent.putExtra("FContent", fakeContent.getText().toString());
+                            intent.putExtra("MemoCode", memoCode);
+                            startActivity(intent);
+                            finish();
+                        }
                     } else {
                         Intent intent = new Intent(context, Papermemo_MainActivity.class);
                         intent.putExtra("ColorMode", colorMode);
@@ -191,21 +242,9 @@ public class Addmemo_MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
-                } else {
-                    Intent intent = new Intent(context, Papermemo_MainActivity.class);
-                    intent.putExtra("ColorMode", colorMode);
-                    intent.putExtra("SecureType", securityType);
-                    intent.putExtra("ClickType", clickType);
-                    intent.putExtra("FTitle", fakeTitle.getText().toString());
-                    intent.putExtra("FContent", fakeContent.getText().toString());
-                    intent.putExtra("MemoCode", memoCode);
-                    startActivity(intent);
-                    finish();
                 }
             }
         });
-
-
     }
 
     public void clickClickType() {
@@ -383,7 +422,6 @@ public class Addmemo_MainActivity extends AppCompatActivity {
         return px;
     }
 
-
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -469,5 +507,36 @@ public class Addmemo_MainActivity extends AppCompatActivity {
 
     }
 
+    public void editSecureType() {
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(context).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Memo/editSecureType.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.get("result").equals("success")) {
+                        Toast.makeText(context, "수정되었습니다.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(context, "수정 실패.", Toast.LENGTH_SHORT).show();
+                    }
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(context)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("MemoCode", memoCode + "");
+                params.put("Title", fakeTitle.getText().toString());
+                params.put("Content", fakeContent.getText().toString());
+                params.put("SecureType", securityType + "");
+                params.put("ClickType", clickType + "");
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
+    }
 }

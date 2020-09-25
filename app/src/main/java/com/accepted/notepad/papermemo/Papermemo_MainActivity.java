@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
 import com.accepted.notepad.VolleySingleton;
+import com.accepted.notepad.addmemo.Addmemo_MainActivity;
 import com.accepted.notepad.main.ListAdapter_Memo;
 import com.accepted.notepad.main.Listitem_Memo;
 import com.accepted.notepad.main.MainActivity;
@@ -101,29 +102,33 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         memoCode = intent2.getIntExtra("MemoCode", -1);
         secureType = intent2.getIntExtra("SecureType", 1);
         clickType = intent2.getIntExtra("ClickType", 1);
-        Log.d("isReal", "" + isReal);
+        fTitle = intent2.getStringExtra("Title");
+        fContent = intent2.getStringExtra("Content");
+        rTitle = intent2.getStringExtra("RTitle");
+        rContent = intent2.getStringExtra("RContent");
+
         if(isReal==2) {
 //            Toast.makeText(mContext,"real", Toast.LENGTH_SHORT).show();
             String title = intent2.getStringExtra("RTitle");
             String content = intent2.getStringExtra("RContent");
-            fTitle = intent2.getStringExtra("Title");
-
-            fContent = intent2.getStringExtra("Content");
+//            fTitle = intent2.getStringExtra("Title");
+//            fContent = intent2.getStringExtra("Content");
             et_title.setText(title);
             et_contents.setText(content);
         } else if(isReal==3) {
 //            Toast.makeText(mContext,"fake", Toast.LENGTH_SHORT).show();
             String title = intent2.getStringExtra("Title");
             String content = intent2.getStringExtra("Content");
-            rTitle = intent2.getStringExtra("RTitle");
-            rContent = intent2.getStringExtra("RContent");
+//            rTitle = intent2.getStringExtra("RTitle");
+//            rContent = intent2.getStringExtra("RContent");
             et_title.setText(title);
             et_contents.setText(content);
-        } else {
-//            Toast.makeText(mContext,"new", Toast.LENGTH_SHORT).show();
-            fTitle = intent2.getStringExtra("FTitle");
-            fContent = intent2.getStringExtra("FContent");
         }
+//        else {
+////            Toast.makeText(mContext,"new", Toast.LENGTH_SHORT).show();
+//            fTitle = intent2.getStringExtra("FTitle");
+//            fContent = intent2.getStringExtra("FContent");
+//        }
 
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode",1);
@@ -186,6 +191,22 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         ((LinearLayout)findViewById(R.id.ll_txtcontainer_paper)).setBackgroundColor(Color.parseColor(color1));
         ((ImageView)findViewById(R.id.iv_pre)).setColorFilter(Color.parseColor(color3));
 
+        tv_comp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, Addmemo_MainActivity.class);
+                intent.putExtra("MemoCode", memoCode);
+
+                intent.putExtra("Title", fTitle);
+                intent.putExtra("Content", fContent);
+                intent.putExtra("RTitle", rTitle);
+                intent.putExtra("RContent", rContent);
+                intent.putExtra("SecureType", secureType);
+                intent.putExtra("ClickType", clickType);
+
+                startActivity(intent);
+            }
+        });
     }
 
     public void insertMemo() {

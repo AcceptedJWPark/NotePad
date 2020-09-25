@@ -180,7 +180,8 @@ public class ListAdapter_Memo extends BaseAdapter {
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 Log.d("press", "single");
                 if (!secureType.equals("3")) {
-                    showRealMemo(item);
+                    showInsecureMemo(item);
+//                    showRealMemo(item);
                 } else {
                     showFakeMemo(item);
                 }
@@ -275,6 +276,19 @@ public class ListAdapter_Memo extends BaseAdapter {
         intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
         intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
         intent.putExtra("isTutorial",true);
+        mContext.startActivity(intent);
+    }
+
+    public void showInsecureMemo(Listitem_Memo item) {
+        Intent intent = new Intent(mContext,Papermemo_MainActivity.class);
+        intent.putExtra("isReal",2);
+        intent.putExtra("MemoCode", item.getMemoCode());
+        intent.putExtra("Title", item.getFTitle());
+        intent.putExtra("Content", item.getFContent());
+        intent.putExtra("RTitle", item.getRTitle());
+        intent.putExtra("RContent", item.getRContent());
+        intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
+        intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
         mContext.startActivity(intent);
     }
 }
