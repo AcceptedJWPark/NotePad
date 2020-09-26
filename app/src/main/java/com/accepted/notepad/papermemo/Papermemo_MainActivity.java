@@ -130,6 +130,11 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 //            fContent = intent2.getStringExtra("FContent");
 //        }
 
+        if (fTitle == null) {
+            fTitle = "";
+            fContent = "";
+        }
+
         Intent intent = getIntent();
         colorMode = intent.getIntExtra("ColorMode",1);
         choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
@@ -155,7 +160,11 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         btn_next_papermemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                insertMemo();
+                if (memoCode < 0) {
+                    insertMemo();
+                } else {
+                    updateMemo();
+                }
             }
         });
     }
@@ -190,6 +199,10 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         ((LinearLayout)findViewById(R.id.ll_cotainer_paper)).setBackgroundColor(Color.parseColor(color2));
         ((LinearLayout)findViewById(R.id.ll_txtcontainer_paper)).setBackgroundColor(Color.parseColor(color1));
         ((ImageView)findViewById(R.id.iv_pre)).setColorFilter(Color.parseColor(color3));
+
+        if (memoCode < 0 || secureType == 1 || isReal == 3) {
+            tv_comp.setVisibility(View.GONE);
+        }
 
         tv_comp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,6 +265,56 @@ public class Papermemo_MainActivity extends AppCompatActivity {
                 params.put("RContent", et_contents.getText().toString());
                 params.put("FTitle", fTitle);
                 params.put("FContent", fContent);
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
+    }
+
+    public void updateMemo() {
+        if (et_title.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (et_contents.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(mContext).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Memo/updateMemo.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+
+                    if (obj.getString("result").equals("success")) {
+                        Toast.makeText(mContext, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(mContext, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(mContext, "저장이 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(mContext)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("MemID", memID);
+                params.put("SecureType", String.valueOf(secureType));
+                params.put("ClickType", String.valueOf(clickType));
+                params.put("RTitle", et_title.getText().toString());
+                params.put("RContent", et_contents.getText().toString());
+                params.put("FTitle", fTitle);
+                params.put("FContent", fContent);
+                params.put("MemoCode", String.valueOf(memoCode));
                 return params;
             }
         };

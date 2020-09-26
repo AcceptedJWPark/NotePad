@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        setClickTypeEvent();
         getBasicMemoList();
     }
 
@@ -359,6 +359,9 @@ public class MainActivity extends AppCompatActivity {
                 if (writeType.equals("1")) {
                     Intent intent = new Intent(mContext, Addmemo_MainActivity.class);
                     startActivity(intent);
+                } else {
+                    Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+                    startActivity(intent);
                 }
                 return false;
             }
@@ -368,6 +371,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("press", "Add btn double");
                 if (writeType.equals("2")) {
                     Intent intent = new Intent(mContext, Addmemo_MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
                     startActivity(intent);
                 }
                 return true;
@@ -386,6 +392,9 @@ public class MainActivity extends AppCompatActivity {
                 pressTimeOut = 1000;
             } else if (writeType.equals("4")) {
                 pressTimeOut = 3000;
+            } else {
+                Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+                startActivity(intent);
             }
         }
         LongPressChecker mLongPressChecker = new LongPressChecker(mContext, pressTimeOut);

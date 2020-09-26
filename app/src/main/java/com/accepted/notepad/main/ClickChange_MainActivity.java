@@ -54,19 +54,45 @@ public class ClickChange_MainActivity extends AppCompatActivity {
         choosedColor2 = SaveSharedPreference.getBackColor2(context);
         choosedColor3 = SaveSharedPreference.gettxtColor1(context);
         choosedColor4 = SaveSharedPreference.geticonColor1(context);
+        clickType = Integer.parseInt(SaveSharedPreference.getPrefClickType(context));
+
+        colorChange(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
 
         for(int i=0; i<ll_clicktype.length; i++)
         {
             final int finalI = i;
             final int finalI1 = i;
+            if (i + 1 == clickType) {
+                clickType = finalI1 +1;
+                tv_clicktype[i].setTypeface(Typeface.DEFAULT_BOLD);
+                tv_clicktype[i].setTextColor(Color.parseColor(choosedColor4));
+                if(i==0)
+                {
+                    iv_clicktype[i].setImageResource(R.drawable.clickchange1_2);
+                    iv_clicktype[i].setColorFilter(Color.parseColor(choosedColor4));
+                }else if(i==1)
+                {
+                    iv_clicktype[i].setImageResource(R.drawable.clickchange2_2);
+                    iv_clicktype[i].setColorFilter(Color.parseColor(choosedColor4));
+                }else if(i==2)
+                {
+                    iv_clicktype[i].setImageResource(R.drawable.clickchange3_2);
+                    iv_clicktype[i].setColorFilter(Color.parseColor(choosedColor4));
+                }else
+                {
+                    iv_clicktype[i].setImageResource(R.drawable.clickchange4_2);
+                    iv_clicktype[i].setColorFilter(Color.parseColor(choosedColor4));
+                }
+            }
             ll_clicktype[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     for(int j=0;j<ll_clicktype.length;j++)
                     {
-                        clickType = finalI1 +1;
+
                         if(finalI ==j)
                         {
+                            clickType = finalI1 +1;
                             tv_clicktype[j].setTextColor(Color.parseColor(choosedColor4));
                             tv_clicktype[j].setTypeface(Typeface.DEFAULT_BOLD);
 
@@ -123,12 +149,10 @@ public class ClickChange_MainActivity extends AppCompatActivity {
         ((Button)findViewById(R.id.btn_next_page2)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SaveSharedPreference.setPrefClickType(context, String.valueOf(clickType));
                 finish();
             }
         });
-
-
-        colorChange(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
 
     }
 
