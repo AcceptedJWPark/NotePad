@@ -332,6 +332,9 @@ public class Background_MainActivity extends AppCompatActivity {
 
         switchClick(color4);
 
+        shape= (GradientDrawable) ContextCompat.getDrawable(this,R.drawable.bgr_edittext_login);
+        shape.setColor(Color.parseColor(color2));
+
         shape1 = (GradientDrawable) ContextCompat.getDrawable(this,R.drawable.bgr_mainbtn);
         shape1.setColor(Color.parseColor(color4));
 

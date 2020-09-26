@@ -22,11 +22,25 @@ import android.widget.Toast;
 
 import com.accepted.notepad.LongPressChecker;
 import com.accepted.notepad.R;
+import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.VolleySingleton;
 import com.accepted.notepad.papermemo.Papermemo_MainActivity;
 import com.accepted.notepad.password.Password_MainActivity;
 import com.accepted.notepad.tutorial.Tutorial_MainActivity;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ListAdapter_Memo extends BaseAdapter {
@@ -121,6 +135,12 @@ public class ListAdapter_Memo extends BaseAdapter {
         }
         holder.tv_date.setText(item.getDate());
 
+        holder.iv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteMemo(String.valueOf(item.getMemoCode()), position);
+            }
+        });
         setClickTypeEvent(item, convertView);
 
         return convertView;
@@ -193,6 +213,8 @@ public class ListAdapter_Memo extends BaseAdapter {
                 Log.d("press", "double");
                 if (secureType.equals("3") && clickType.equals("1")) {
                     showRealMemo(item);
+                } else {
+                    showFakeMemo(item);
                 }
                 return true;
             }
@@ -216,8 +238,10 @@ public class ListAdapter_Memo extends BaseAdapter {
                 @Override
                 public void onLongPressed() {
                     Log.d("press", "longpress");
-                    if (!clickType.equals("1")) {
+                    if (!clickType.equals("1") && secureType.equals("3")) {
                         showRealMemo(item);
+                    } else {
+                        showFakeMemo(item);
                     }
                 }
             });
@@ -251,6 +275,38 @@ public class ListAdapter_Memo extends BaseAdapter {
         }
 
         gd.setOnDoubleTapListener(listener);
+    }
+
+    public void deleteMemo(String memoCode, int position) {
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(mContext).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Memo/deleteMemo.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+
+                    if (obj.getString("result").equals("success")) {
+                        Toast.makeText(mContext, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                        arrayList.remove(position);
+                        notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(mContext, "삭제 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(mContext)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("MemoCode", memoCode);
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
     }
 
     public void showFakeMemo(Listitem_Memo item) {

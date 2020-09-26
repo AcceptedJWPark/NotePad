@@ -225,8 +225,8 @@ public class Addmemo_MainActivity extends AppCompatActivity {
                             intent.putExtra("ColorMode", colorMode);
                             intent.putExtra("SecureType", securityType);
                             intent.putExtra("ClickType", clickType);
-                            intent.putExtra("FTitle", fakeTitle.getText().toString());
-                            intent.putExtra("FContent", fakeContent.getText().toString());
+                            intent.putExtra("Title", fakeTitle.getText().toString());
+                            intent.putExtra("Content", fakeContent.getText().toString());
                             intent.putExtra("MemoCode", memoCode);
                             startActivity(intent);
                             finish();
