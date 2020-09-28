@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -116,9 +117,9 @@ public class Join_MainActivity extends AppCompatActivity {
         ((Button)findViewById(R.id.btn_phone_join)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String PhoneNum = ((EditText)findViewById(R.id.et_phone_join)).getText().toString();
 
-                if(((EditText)findViewById(R.id.et_phone_join)).length() != 11)
-                {
+                if(!Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", PhoneNum)) {
                     Toast.makeText(context,"휴대폰 번호를 확인해주세요",Toast.LENGTH_SHORT).show();
                 } else {
                     InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -191,6 +192,9 @@ public class Join_MainActivity extends AppCompatActivity {
     }
 
     public void sendSMS() {
+        String PhoneNum = (((EditText)findViewById(R.id.et_phone_join)).getText()).toString();
+
+
         RequestQueue postRequestQueue = VolleySingleton.getInstance(context).getRequestQueue();
         StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Member/sendJoinSMS.do", new Response.Listener<String>() {
             @Override
@@ -208,7 +212,7 @@ public class Join_MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("sRecieveNum", (((EditText)findViewById(R.id.et_phone_join)).getText()).toString());
+                params.put("sRecieveNum", PhoneNum);
                 return params;
             }
         };
