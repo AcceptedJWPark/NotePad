@@ -7,6 +7,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -143,10 +145,26 @@ public class MainActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_right_home)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, Background_MainActivity.class);
+                Intent intent = new Intent(mContext, Password_MainActivity.class);
+                intent.putExtra("isSetting", true);
                 startActivity(intent);
             }
         });
+
+        ((EditText)findViewById(R.id.et_search)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 여기서 검색 이벤트 추가하기
+                getBasicMemoList();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
         setClickTypeEvent();
 //        getBasicMemoList();
     }
@@ -177,14 +195,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ((LinearLayout)findViewById(R.id.ll_drawer_click)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, ClickChange_MainActivity.class);
-                intent.putExtra("ColorMode",colorMode);
-                startActivity(intent);
-            }
-        });
+//        ((LinearLayout)findViewById(R.id.ll_drawer_click)).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(mContext, ClickChange_MainActivity.class);
+//                intent.putExtra("ColorMode",colorMode);
+//                startActivity(intent);
+//            }
+//        });
 
         ((LinearLayout)findViewById(R.id.ll_drawer_bgr)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
 
         ((ImageView)findViewById(R.id.btn_addmemo)).setColorFilter(Color.parseColor(color4));
 
-        ((TextView)findViewById(R.id.tv_right_home)).setText("배경설정");
+        ((TextView)findViewById(R.id.tv_right_home)).setText("환경설정");
         ((TextView)findViewById(R.id.tv_right_home)).setTextColor(Color.parseColor(color4));
         ((TextView)findViewById(R.id.tv_right_home)).setVisibility(View.VISIBLE);
 
@@ -243,13 +261,13 @@ public class MainActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_drawer_login)).setTextColor(Color.parseColor(color3));
         ((TextView)findViewById(R.id.tv_drawer_bgr)).setTextColor(Color.parseColor(color3));
         ((TextView)findViewById(R.id.tv_drawer_pw)).setTextColor(Color.parseColor(color3));
-        ((TextView)findViewById(R.id.tv_drawer_click)).setTextColor(Color.parseColor(color3));
+//        ((TextView)findViewById(R.id.tv_drawer_click)).setTextColor(Color.parseColor(color3));
         ((TextView)findViewById(R.id.tv_drawer_manual)).setTextColor(Color.parseColor(color3));
 
         ((ImageView)findViewById(R.id.iv_drawer_login)).setColorFilter(Color.parseColor(color3));
         ((ImageView)findViewById(R.id.iv_drawer_bgr)).setColorFilter(Color.parseColor(color3));
         ((ImageView)findViewById(R.id.iv_drawer_pw)).setColorFilter(Color.parseColor(color3));
-        ((ImageView)findViewById(R.id.iv_drawer_click)).setColorFilter(Color.parseColor(color3));
+//        ((ImageView)findViewById(R.id.iv_drawer_click)).setColorFilter(Color.parseColor(color3));
         ((ImageView)findViewById(R.id.iv_drawer_manual)).setColorFilter(Color.parseColor(color3));
 
         footer.setBackgroundColor(Color.parseColor(color1));
@@ -305,6 +323,7 @@ public class MainActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("MemID", memID);
+                params.put("SearchText", ((EditText)findViewById(R.id.et_search)).getText().toString());
                 return params;
             }
         };

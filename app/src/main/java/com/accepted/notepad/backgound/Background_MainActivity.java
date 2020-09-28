@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
 import com.accepted.notepad.VolleySingleton;
+import com.accepted.notepad.main.ClickChange_MainActivity;
 import com.accepted.notepad.main.MainActivity;
 import com.accepted.notepad.tutorial.Tutorial_MainActivity;
 import com.android.volley.Request;
@@ -122,7 +123,7 @@ public class Background_MainActivity extends AppCompatActivity {
         });
 
         ((ImageView)findViewById(R.id.img_open_dl)).setImageResource(R.drawable.icon_pre);
-        ((TextView)findViewById(R.id.tv_maintitle_home)).setText("배경설정");
+        ((TextView)findViewById(R.id.tv_maintitle_home)).setText("환경설정");
 
         colorList = new ArrayList<>();
         colorList.add(choosedColor1);
@@ -137,7 +138,13 @@ public class Background_MainActivity extends AppCompatActivity {
 
         switchClick(colorList.get(3));
         background(colorList.get(0),colorList.get(1),colorList.get(2),colorList.get(3));
-
+        ((RelativeLayout)findViewById(R.id.rl_clicktype)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ClickChange_MainActivity.class);
+                startActivity(intent);
+            }
+        });
         ((ImageView)findViewById(R.id.iv_ismenu)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -361,12 +368,14 @@ public class Background_MainActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_bgr)).setTextColor(Color.parseColor(color3));
         ((TextView)findViewById(R.id.tv_ismemo)).setTextColor(Color.parseColor(color3));
         ((TextView)findViewById(R.id.tv_issearch)).setTextColor(Color.parseColor(color3));
+        ((TextView)findViewById(R.id.tv_clicktype)).setTextColor(Color.parseColor(color3));
 
         ((View)findViewById(R.id.v_apptitle)).setBackgroundColor(Color.parseColor(color1));
         ((View)findViewById(R.id.v_ismenu)).setBackgroundColor(Color.parseColor(color1));
         ((View)findViewById(R.id.v_isdate)).setBackgroundColor(Color.parseColor(color1));
         ((View)findViewById(R.id.v_ismemo)).setBackgroundColor(Color.parseColor(color1));
         ((View)findViewById(R.id.v_issearch)).setBackgroundColor(Color.parseColor(color1));
+        ((View)findViewById(R.id.v_clicktype)).setBackgroundColor(Color.parseColor(color1));
 
         ((TextView)findViewById(R.id.tv1)).setBackgroundColor(Color.parseColor(color2));
         ((TextView)findViewById(R.id.tv2)).setBackgroundColor(Color.parseColor(color2));
