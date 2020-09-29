@@ -171,6 +171,7 @@ public class Login_MainActivity extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(context, "아이디와 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 }
             }
         }, SaveSharedPreference.getErrorListener(context)) {
