@@ -82,35 +82,35 @@
                     />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_drawer_click"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center|left"
-                android:paddingRight="120dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                >
+<!--            <LinearLayout-->
+<!--                android:id="@+id/ll_drawer_click"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center|left"-->
+<!--                android:paddingRight="120dp"-->
+<!--                android:paddingTop="20dp"-->
+<!--                android:paddingBottom="20dp"-->
+<!--                >-->
 
-                <ImageView
-                    android:id="@+id/iv_drawer_click"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/icon_click"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_drawer_click"-->
+<!--                    android:layout_width="15dp"-->
+<!--                    android:layout_height="15dp"-->
+<!--                    android:src="@drawable/icon_click"-->
+<!--                    />-->
 
 
-                <TextView
-                    android:id="@+id/tv_drawer_click"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="클릭 방식 변경"
-                    android:textColor="#000"
-                    android:textSize="14dp"
-                    android:layout_marginLeft="10dp"
-                    />
-            </LinearLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_drawer_click"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="클릭 방식 변경"-->
+<!--                    android:textColor="#000"-->
+<!--                    android:textSize="14dp"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    />-->
+<!--            </LinearLayout>-->
 
 
             <LinearLayout

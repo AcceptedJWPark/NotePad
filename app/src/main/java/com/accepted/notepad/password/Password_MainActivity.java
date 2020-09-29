@@ -15,9 +15,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.backgound.Background_MainActivity;
 import com.accepted.notepad.main.MainActivity;
 import com.accepted.notepad.papermemo.Papermemo_MainActivity;
 
@@ -57,6 +59,7 @@ public class Password_MainActivity extends AppCompatActivity {
     int secureType;
     int clickType;
     int memoCode;
+    boolean isSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +77,7 @@ public class Password_MainActivity extends AppCompatActivity {
         secureType = paperMemoIntent.getIntExtra("SecureType", 1);
         clickType = paperMemoIntent.getIntExtra("ClickType", 1);
         memoCode = paperMemoIntent.getIntExtra("MemoCode", -1);
-
+        isSetting = paperMemoIntent.getBooleanExtra("isSetting", false);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -113,20 +116,6 @@ public class Password_MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-//        if(colorMode == 1)
-//        {
-//            choosedColor1 = color1_basic;
-//            choosedColor2 = color2_basic;
-//            choosedColor3 = color3_basic;
-//            choosedColor4 = color4_basic;
-//        }else if(colorMode ==2)
-//        {
-//            choosedColor1 = color1_night;
-//            choosedColor2 = color2_night;
-//            choosedColor3 = color3_night;
-//            choosedColor4 = color4_night;
-//        }
 
         if(isLostLock) {
             ((TextView) findViewById(R.id.tv_password1_main)).setText("잠금 번호를 변경합니다");
@@ -178,35 +167,45 @@ public class Password_MainActivity extends AppCompatActivity {
                             finish();
                         }else
                         {
-                            if(InputPassword.equals(UserPassword))
-                            {
-                                Log.d("input", InputPassword.equals(UserPassword) + "");
-                                Intent intent = new Intent(mContext,Papermemo_MainActivity.class);
-                                intent.putExtra("ColorMode",colorMode);
-                                intent.putExtra("isReal",2);
-                                intent.putExtra("MemoCode", memoCode);
-                                intent.putExtra("Title", fTitle);
-                                intent.putExtra("Content", fContent);
-                                intent.putExtra("RTitle", rTitle);
-                                intent.putExtra("RContent", rContent);
-                                intent.putExtra("SecureType", secureType);
-                                intent.putExtra("ClickType", clickType);
-                                startActivity(intent);
-                                finish();
+                            if (isSetting == true) {
+                                if(InputPassword.equals(UserPassword)) {
+                                    Intent intent = new Intent(mContext, Background_MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(mContext, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                                Log.d("input", InputPassword.equals(UserPassword) + "");
-                                Intent intent = new Intent(mContext,Papermemo_MainActivity.class);
-                                intent.putExtra("isReal",3);
-                                intent.putExtra("ColorMode",colorMode);
-                                intent.putExtra("MemoCode", memoCode);
-                                intent.putExtra("Title", fTitle);
-                                intent.putExtra("Content", fContent);
-                                intent.putExtra("RTitle", rTitle);
-                                intent.putExtra("RContent", rContent);
-                                intent.putExtra("SecureType", secureType);
-                                intent.putExtra("ClickType", clickType);
-                                startActivity(intent);
-                                finish();
+                                if(InputPassword.equals(UserPassword))
+                                {
+                                    Log.d("input", InputPassword.equals(UserPassword) + "");
+                                    Intent intent = new Intent(mContext,Papermemo_MainActivity.class);
+                                    intent.putExtra("ColorMode",colorMode);
+                                    intent.putExtra("isReal",2);
+                                    intent.putExtra("MemoCode", memoCode);
+                                    intent.putExtra("Title", fTitle);
+                                    intent.putExtra("Content", fContent);
+                                    intent.putExtra("RTitle", rTitle);
+                                    intent.putExtra("RContent", rContent);
+                                    intent.putExtra("SecureType", secureType);
+                                    intent.putExtra("ClickType", clickType);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Log.d("input", InputPassword.equals(UserPassword) + "");
+                                    Intent intent = new Intent(mContext,Papermemo_MainActivity.class);
+                                    intent.putExtra("isReal",3);
+                                    intent.putExtra("ColorMode",colorMode);
+                                    intent.putExtra("MemoCode", memoCode);
+                                    intent.putExtra("Title", fTitle);
+                                    intent.putExtra("Content", fContent);
+                                    intent.putExtra("RTitle", rTitle);
+                                    intent.putExtra("RContent", rContent);
+                                    intent.putExtra("SecureType", secureType);
+                                    intent.putExtra("ClickType", clickType);
+                                    startActivity(intent);
+                                    finish();
+                                }
                             }
                         }
                     }
