@@ -99,12 +99,16 @@ public class Join_MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(((EditText)findViewById(R.id.et_id_join)).length() == 0){
                     Toast.makeText(context,"아이디를 입력해주세요",Toast.LENGTH_SHORT).show();
+                }else if(((EditText)findViewById(R.id.et_pw_lostpw)).length() < 6){
+                    Toast.makeText(context,"비밀번호는 6자 이상 입력해주세요",Toast.LENGTH_SHORT).show();
                 }else if(((EditText)findViewById(R.id.et_pw_join)).length() == 0){
                     Toast.makeText(context,"비밀번호를 입력해주세요",Toast.LENGTH_SHORT).show();
                 }else if(!((EditText)findViewById(R.id.et_pw_join)).getText().toString().equals(((EditText)findViewById(R.id.et_pw2_join)).getText().toString()))
                 {
                     Toast.makeText(context,"비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show();
-                }else if(!isChecked)
+                }
+
+                else if(!isChecked)
                 {
                     Toast.makeText(context,"휴대폰 인증을 진행해주세요",Toast.LENGTH_SHORT).show();
                 }else {
@@ -127,18 +131,22 @@ public class Join_MainActivity extends AppCompatActivity {
                     sendSMS();
                 }
             }
-        });
+            });
         ((Button)findViewById(R.id.btn_check_join)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                @Override
+                public void onClick(View view) {
                 // 인증 실행해야하는 구간
                 if(((EditText)findViewById(R.id.et_check_join)).length() != 6) {
                     Toast.makeText(context,"인증 번호를 확인해주세요",Toast.LENGTH_SHORT).show();
+                    InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }else {
                     String inputNum = ((EditText)findViewById(R.id.et_check_join)).getText().toString();
                     if (inputNum.equals(String.valueOf(certNum))) {
                         isChecked = true;
                         Toast.makeText(context,"인증되었습니다.",Toast.LENGTH_SHORT).show();
+                        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     }
                 }
             }

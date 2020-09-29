@@ -71,9 +71,10 @@ public class Background_MainActivity extends AppCompatActivity {
     String sFlag;
     String searchFlag;
 
-    GradientDrawable shape;
+
     GradientDrawable shape1;
     GradientDrawable shape2;
+    GradientDrawable shape3;
 
     Paint mPaint;
 
@@ -339,8 +340,8 @@ public class Background_MainActivity extends AppCompatActivity {
 
         switchClick(color4);
 
-        shape= (GradientDrawable) ContextCompat.getDrawable(this,R.drawable.bgr_edittext_login);
-        shape.setColor(Color.parseColor(color2));
+        shape3= (GradientDrawable) ContextCompat.getDrawable(this,R.drawable.bgr_edittext_tutorial);
+        shape3.setColor(Color.parseColor(color1));
 
         shape1 = (GradientDrawable) ContextCompat.getDrawable(this,R.drawable.bgr_mainbtn);
         shape1.setColor(Color.parseColor(color4));
@@ -351,6 +352,8 @@ public class Background_MainActivity extends AppCompatActivity {
         GradientDrawable shape =  new GradientDrawable();
         shape.setCornerRadius( 30 );
         shape.setColor(Color.parseColor(color1));
+
+
 
 
         ((LinearLayout)findViewById(R.id.containerBgr)).setBackgroundColor(Color.parseColor(color2));
@@ -398,8 +401,15 @@ public class Background_MainActivity extends AppCompatActivity {
         ((ImageView)findViewById(R.id.iv_leftarrow)).setColorFilter(Color.parseColor(color4));
         ((ImageView)findViewById(R.id.iv_rightarrow)).setColorFilter(Color.parseColor(color4));
 
+        ((EditText)findViewById(R.id.et_apptitle)).setBackground(shape3);
+
+        ((EditText)findViewById(R.id.et_apptitle)).setTextColor(Color.parseColor(color3));
         ((EditText)findViewById(R.id.et_apptitle)).setHintTextColor(Color.parseColor(color3));
         ((TextView)findViewById(R.id.tv_bgrmode)).setTextColor(Color.parseColor(color3));
+        (
+
+                (TextView)findViewById(R.id.tv_click)).setTextColor(Color.parseColor(color4));
+
 
 
         ((LinearLayout)findViewById(R.id.ll_container_preview)).setBackground(shape2);

@@ -54,7 +54,11 @@ public class LostPW2_MainActivity extends AppCompatActivity {
                 if(((EditText)findViewById(R.id.et_pw_lostpw)).length() == 0)
                 {
                     Toast.makeText(context,"비밀번호를 입력해주세요",Toast.LENGTH_SHORT).show();
-                }else if(!((EditText)findViewById(R.id.et_pw_lostpw)).getText().toString().equals(((EditText)findViewById(R.id.et_pw2_lostpw)).getText().toString()))
+                }
+                else if(((EditText)findViewById(R.id.et_pw_lostpw)).length() < 6){
+                    Toast.makeText(context,"비밀번호는 6자 이상 입력해주세요",Toast.LENGTH_SHORT).show();
+                }
+                    else if(!((EditText)findViewById(R.id.et_pw_lostpw)).getText().toString().equals(((EditText)findViewById(R.id.et_pw2_lostpw)).getText().toString()))
                 {
                     Toast.makeText(context,"비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show();
                 }else

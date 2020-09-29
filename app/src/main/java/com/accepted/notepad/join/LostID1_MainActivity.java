@@ -61,7 +61,11 @@ public class LostID1_MainActivity extends AppCompatActivity {
         choosedColor3 = SaveSharedPreference.gettxtColor1(context);
         choosedColor4 = SaveSharedPreference.geticonColor1(context);
 
-        background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
+        if(isLostLock)
+        {
+            background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
+        }
+
 
         ((EditText)findViewById(R.id.et_phone_lostid)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

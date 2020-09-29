@@ -110,6 +110,14 @@ public class Password_MainActivity extends AppCompatActivity {
 
         isLostLock = intent.getBooleanExtra("isLostLock",false);
 
+        if(isSetting)
+        {
+            ((TextView)findViewById(R.id.tv_password1_main)).setVisibility(View.GONE);
+        }else
+        {
+            ((TextView)findViewById(R.id.tv_password1_main)).setVisibility(View.VISIBLE);
+        }
+
         ((ImageView)findViewById(R.id.iv_cancel_password)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -164,6 +172,7 @@ public class Password_MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(mContext, MainActivity.class);
                             intent.putExtra("ColorMode",colorMode);
                             startActivity(intent);
+                            Toast.makeText(mContext,"잠금번호가 변경되었습니다.",Toast.LENGTH_SHORT).show();
                             finish();
                         }else
                         {
@@ -174,6 +183,11 @@ public class Password_MainActivity extends AppCompatActivity {
                                     finish();
                                 } else {
                                     Toast.makeText(mContext, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                                    InputPassword = "";
+                                    for(int j=0; j<6; j++)
+                                    {
+                                        password[j].setBackground(shape4);
+                                    }
                                 }
                             } else {
                                 if(InputPassword.equals(UserPassword))

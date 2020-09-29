@@ -171,6 +171,11 @@ public class ClickChange_MainActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_clicktype3)).setTextColor(Color.parseColor(color3));
         ((TextView)findViewById(R.id.tv_clicktype4)).setTextColor(Color.parseColor(color3));
 
+        iv_clicktype[0].setColorFilter(Color.parseColor(color3));
+        iv_clicktype[1].setColorFilter(Color.parseColor(color3));
+        iv_clicktype[2].setColorFilter(Color.parseColor(color3));
+        iv_clicktype[3].setColorFilter(Color.parseColor(color3));
+
         ((Button)findViewById(R.id.btn_next_page2)).setBackground(shape1);
 
     }

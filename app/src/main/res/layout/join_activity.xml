@@ -78,7 +78,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/bgr_edittext_login"
-        android:hint="비밀번호"
+        android:hint="비밀번호 (6자 이상 입력해주세요)"
         android:paddingLeft="10dp"
         android:textSize="14dp"
         android:elevation="3dp"

@@ -50,6 +50,8 @@ public class Tutorial_Page1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mContext=getActivity();
+        // 로그아웃 만들면 지우기
+        SaveSharedPreference.setSecurityCode(mContext, "");
 
         shape1 = (GradientDrawable) ContextCompat.getDrawable(mContext,R.drawable.bgr_password_input);
         shape1.setColor(Color.parseColor("#77F37A00"));
@@ -156,6 +158,7 @@ public class Tutorial_Page1 extends Fragment {
                 try {
                     JSONObject obj = new JSONObject(response);
                     if (obj.get("result").equals("success")) {
+                        SaveSharedPreference.setSecurityCode(mContext, InputPassword);
                         Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
                         mainActivity.nextPage(0);
                     }

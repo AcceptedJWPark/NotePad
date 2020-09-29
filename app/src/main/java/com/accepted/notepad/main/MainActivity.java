@@ -143,14 +143,7 @@ public class MainActivity extends AppCompatActivity {
         listView.addFooterView(footer);
         listView.setAdapter(listAdapter_memo);
 
-        ((TextView)findViewById(R.id.tv_right_home)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, Password_MainActivity.class);
-                intent.putExtra("isSetting", true);
-                startActivity(intent);
-            }
-        });
+
 
         ((EditText)findViewById(R.id.et_search)).addTextChangedListener(new TextWatcher() {
             @Override
@@ -198,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         ((LinearLayout)findViewById(R.id.ll_drawer_login)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dl.closeDrawers();
             }
         });
 
@@ -208,30 +201,26 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(mContext, LostID1_MainActivity.class);
                 intent.putExtra("ColorMode",colorMode);
                 intent.putExtra("isLostLock",true);
+                dl.closeDrawers();
                 startActivity(intent);
             }
         });
 
-//        ((LinearLayout)findViewById(R.id.ll_drawer_click)).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(mContext, ClickChange_MainActivity.class);
-//                intent.putExtra("ColorMode",colorMode);
-//                startActivity(intent);
-//            }
-//        });
 
         ((LinearLayout)findViewById(R.id.ll_drawer_bgr)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(mContext, Password_MainActivity.class);
+                intent.putExtra("isSetting", true);
+                dl.closeDrawers();
+                startActivity(intent);
             }
         });
 
         ((LinearLayout)findViewById(R.id.ll_drawer_manual)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dl.closeDrawers();
             }
         });
 
@@ -271,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
 
         ((TextView)findViewById(R.id.tv_right_home)).setText("환경설정");
         ((TextView)findViewById(R.id.tv_right_home)).setTextColor(Color.parseColor(color4));
-        ((TextView)findViewById(R.id.tv_right_home)).setVisibility(View.VISIBLE);
 
         ((LinearLayout)findViewById(R.id.ll_drawer)).setBackgroundColor(Color.parseColor(color2));
 

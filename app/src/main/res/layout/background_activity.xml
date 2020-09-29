@@ -101,7 +101,7 @@
         >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="#00ffffff"
@@ -110,14 +110,17 @@
             <EditText
                 android:id="@+id/et_apptitle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:hint="App 제목을 입력해주세요."
                 android:textColor="#646464"
                 android:textSize="16dp"
-                android:background="#00ffffff"
+                android:paddingLeft="5dp"
+                android:background="@drawable/bgr_edittext_tutorial"
+                android:elevation="5dp"
                 />
 
 
@@ -133,7 +136,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             >
@@ -175,6 +178,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:visibility="gone"
             >
 
             <TextView
@@ -216,6 +220,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="#00ffffff"
+            android:visibility="gone"
             >
 
             <TextView
@@ -293,11 +298,25 @@
         <RelativeLayout
             android:id="@+id/rl_clicktype"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="#00ffffff"
             >
+
+            <TextView
+                android:id="@+id/tv_click"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일반클릭"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:textSize="14dp"
+                android:textColor="#F37A00"
+                android:textStyle="bold"
+                />
+
 
             <TextView
                 android:id="@+id/tv_clicktype"
