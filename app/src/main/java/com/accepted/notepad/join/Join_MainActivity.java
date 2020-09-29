@@ -107,8 +107,7 @@ public class Join_MainActivity extends AppCompatActivity {
                 }else if(!isChecked)
                 {
                     Toast.makeText(context,"휴대폰 인증을 진행해주세요",Toast.LENGTH_SHORT).show();
-                }else
-                {
+                }else {
                     insertNewMember();
                 }
 
@@ -232,6 +231,8 @@ public class Join_MainActivity extends AppCompatActivity {
 
                         SaveSharedPreference.setPrefUsrId(context, (((EditText)findViewById(R.id.et_id_join)).getText()).toString());
                         memberLogin();
+                    } else if (obj.get("result").equals("has")) {
+                        Toast.makeText(context,"이미 가입된 아이디입니다.",Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
