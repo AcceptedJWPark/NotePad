@@ -147,6 +147,7 @@ public class Login_MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(context, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(context, "아이디와 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                     }
