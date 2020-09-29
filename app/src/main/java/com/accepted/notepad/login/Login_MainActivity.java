@@ -39,6 +39,8 @@ public class Login_MainActivity extends AppCompatActivity {
 
     Context context;
 
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +106,22 @@ public class Login_MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
+
+            finish();
+            super.onBackPressed();
+
+        } else {
+            backPressedTime = tempTime;
+            Toast.makeText(context, "뒤로가기를 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void hideKeyboard(View view) {
