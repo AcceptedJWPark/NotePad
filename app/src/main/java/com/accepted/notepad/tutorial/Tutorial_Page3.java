@@ -1,18 +1,24 @@
 package com.accepted.notepad.tutorial;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.accepted.notepad.LongPressChecker;
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.addmemo.Addmemo_MainActivity;
+import com.accepted.notepad.main.MainActivity;
+import com.accepted.notepad.papermemo.Papermemo_MainActivity;
 
 import androidx.fragment.app.Fragment;
 
@@ -47,75 +53,116 @@ public class Tutorial_Page3 extends Fragment {
     }
 
     public void setClickTypeEvent() {
-        switch (clickType) {
-            case "1":
-                iv_addmemo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
-                        mainActivity.nextPage(2);
-                    }
-                });
-                break;
-            case "2":
-                iv_addmemo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (System.currentTimeMillis() > btnPressTime + 1000) {
-                            btnPressTime = System.currentTimeMillis();
-                            return;
-                        }
-                        if (System.currentTimeMillis() <= btnPressTime + 1000) {
-                            Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
-                            mainActivity.nextPage(2);
-                        }
-                    }
-                });
-                break;
-            case "3":
-                iv_addmemo.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                btnPressTime = (Long) System.currentTimeMillis();
-                                return true;
-                            case MotionEvent.ACTION_UP:
-                                if(((Long) System.currentTimeMillis() - btnPressTime) > 1000){
-                                    handler.sendEmptyMessageAtTime(3, event.getDownTime() + 1000);
-                                } else {
-                                    // 가짜 켜기
-                                }
-                                break;
-                        }
 
-                        return false;
-                    }
-                });
-                break;
-            case "4":
-                iv_addmemo.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                btnPressTime = (Long) System.currentTimeMillis();
-                                return true;
-                            case MotionEvent.ACTION_UP:
-                                if(((Long) System.currentTimeMillis() - btnPressTime) > 3000){
-                                    handler.sendEmptyMessageAtTime(4, event.getDownTime() + 3000);
-                                    return true;
-                                } else {
-                                    // 가짜 켜기
-                                }
-                                break;
-                        }
+        GestureDetector gd; GestureDetector.OnDoubleTapListener listener;
+        gd = new GestureDetector(mContext, new GestureDetector.OnGestureListener() {
 
-                        return false;
-                    }
-                });
-                break;
+            @Override
+            public boolean onDown(MotionEvent e) {
+                Log.d("press", "down");
+                return false;
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+                Log.d("press", "press");
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                Log.d("press", "up");
+                return false;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                return false;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                return false;
+            }
+
+        });
+
+        listener = new GestureDetector.OnDoubleTapListener() {
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                Log.d("press", "Add btn single");
+                if (clickType.equals("1")) {
+                    Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
+                    mainActivity.nextPage(2);
+                } else {
+//                    Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+//                    startActivity(intent);
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                Log.d("press", "Add btn double");
+                if (clickType.equals("2")) {
+                    Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
+                    mainActivity.nextPage(2);
+                } else {
+//                    Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+//                    startActivity(intent);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onDoubleTapEvent(MotionEvent e) {
+                return false;
+            }
+        };
+
+        // 롱클릭 리스너
+        int pressTimeOut = 1000;
+        if (clickType.equals("3") || clickType.equals("4")) {
+            if (clickType.equals("3")) {
+                pressTimeOut = 1000;
+            } else if (clickType.equals("4")) {
+                pressTimeOut = 3000;
+            } else {
+//                Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
+//                startActivity(intent);
+            }
         }
+        LongPressChecker mLongPressChecker = new LongPressChecker(mContext, pressTimeOut);
+        mLongPressChecker.setOnLongPressListener( new LongPressChecker.OnLongPressListener() {
+            @Override
+            public void onLongPressed() {
+                Log.d("press", "Add btn longpress");
+                Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
+                mainActivity.nextPage(2);
+            }
+        });
+
+        iv_addmemo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (clickType.equals("3") || clickType.equals("4")) {
+                    mLongPressChecker.deliverMotionEvent( v, event );
+                }
+
+                if(gd != null) {
+                    gd.onTouchEvent(event);
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+        gd.setOnDoubleTapListener(listener);
     }
 
     private Handler handler = new Handler() {
