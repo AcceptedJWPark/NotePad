@@ -228,6 +228,7 @@ public class Join_MainActivity extends AppCompatActivity {
     }
 
     public void insertNewMember() {
+        String PhoneNum = (((EditText)findViewById(R.id.et_phone_join)).getText()).toString();
         RequestQueue postRequestQueue = VolleySingleton.getInstance(context).getRequestQueue();
         StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Member/insertNewMember.do", new Response.Listener<String>() {
             @Override
@@ -252,6 +253,7 @@ public class Join_MainActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("MemID", (((EditText)findViewById(R.id.et_id_join)).getText()).toString());
                 params.put("Password", (((EditText)findViewById(R.id.et_pw_join)).getText()).toString());
+                params.put("Phone", PhoneNum);
                 return params;
             }
         };
