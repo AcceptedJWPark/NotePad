@@ -32,6 +32,7 @@ import com.accepted.notepad.VolleySingleton;
 import com.accepted.notepad.addmemo.Addmemo_MainActivity;
 import com.accepted.notepad.backgound.Background_MainActivity;
 import com.accepted.notepad.join.LostID1_MainActivity;
+import com.accepted.notepad.login.Login_MainActivity;
 import com.accepted.notepad.papermemo.Papermemo_MainActivity;
 import com.accepted.notepad.password.Password_MainActivity;
 import com.accepted.notepad.tutorial.Tutorial_MainActivity;
@@ -184,8 +185,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
 
-            finish();
-            super.onBackPressed();
+            Intent intent = new Intent(mContext, Login_MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
 
         } else {
             backPressedTime = tempTime;
@@ -198,7 +200,10 @@ public class MainActivity extends AppCompatActivity {
         ((LinearLayout)findViewById(R.id.ll_drawer_login)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(mContext, Login_MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                SaveSharedPreference.setPrefUsrId(mContext, "");
+                startActivity(intent);
             }
         });
 
@@ -313,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
                         long dateTimestamp = obj.getLong("RegDate");
                         Date regDate = new Date(dateTimestamp);
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
                         String regDateStr = sdf.format(regDate);
 
                         int memoCode = obj.getInt("MemoCode");

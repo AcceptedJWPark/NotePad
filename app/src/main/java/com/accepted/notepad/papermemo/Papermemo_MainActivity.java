@@ -68,6 +68,7 @@ public class Papermemo_MainActivity extends AppCompatActivity {
     EditText et_contents;
     Button btn_next_papermemo;
     ImageView iv_pre;
+    TextView tv_maintitle_paper;
 
     GradientDrawable shape1;
     int colorMode = 1;
@@ -95,6 +96,7 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         et_contents = findViewById(R.id.et_contents);
         iv_pre = findViewById(R.id.iv_pre);
         btn_next_papermemo = findViewById(R.id.btn_next_papermemo);
+        tv_maintitle_paper = findViewById(R.id.tv_maintitle_paper);
 
         Intent intent2 = getIntent();
 
@@ -111,6 +113,7 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 //            Toast.makeText(mContext,"real", Toast.LENGTH_SHORT).show();
             String title = intent2.getStringExtra("RTitle");
             String content = intent2.getStringExtra("RContent");
+            tv_maintitle_paper.setText("비밀글");
 //            fTitle = intent2.getStringExtra("Title");
 //            fContent = intent2.getStringExtra("Content");
             et_title.setText(title);
@@ -119,6 +122,11 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 //            Toast.makeText(mContext,"fake", Toast.LENGTH_SHORT).show();
             String title = intent2.getStringExtra("Title");
             String content = intent2.getStringExtra("Content");
+            if(memoCode < 0) {
+                tv_maintitle_paper.setText("비밀글");
+            } else {
+                tv_maintitle_paper.setText("일반글");
+            }
 //            rTitle = intent2.getStringExtra("RTitle");
 //            rContent = intent2.getStringExtra("RContent");
             et_title.setText(title);
@@ -133,6 +141,7 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         if (fTitle == null) {
             fTitle = "";
             fContent = "";
+            tv_maintitle_paper.setText("일반글");
         }
 
         Intent intent = getIntent();

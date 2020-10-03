@@ -48,6 +48,11 @@ public class Login_MainActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
 
         context = getApplicationContext();
+        String userID = SaveSharedPreference.getPrefUserId(context);
+        if (userID != null && !userID.isEmpty()) {
+            Intent intent = new Intent(context, MainActivity.class);
+            startActivity(intent);
+        }
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ((EditText)findViewById(R.id.et_id)).setOnFocusChangeListener(new View.OnFocusChangeListener() {

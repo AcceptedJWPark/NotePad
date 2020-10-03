@@ -19,15 +19,27 @@ import android.widget.Toast;
 
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.VolleySingleton;
 import com.accepted.notepad.password.Password_MainActivity;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
+
 
 public class LostID1_MainActivity extends AppCompatActivity {
 
-
+    String certNum;
     Context context;
     boolean isChecked = false;
 
@@ -128,23 +140,29 @@ public class LostID1_MainActivity extends AppCompatActivity {
         ((Button)findViewById(R.id.btn_phone_lostid)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String PhoneNum = ((EditText)findViewById(R.id.et_phone_lostid)).getText().toString();
 
-                if(((EditText)findViewById(R.id.et_phone_lostid)).length() != 11)
-                {
+                if(!Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", PhoneNum)) {
                     Toast.makeText(context,"휴대폰 번호를 확인해주세요",Toast.LENGTH_SHORT).show();
+                } else {
+                    InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    sendSMS();
                 }
             }
         });
         ((Button)findViewById(R.id.btn_check_lostid)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(((EditText)findViewById(R.id.et_check_lostid)).length() != 6)
-                {
+                // 인증 실행해야하는 구간
+                if(((EditText)findViewById(R.id.et_check_lostid)).length() != 6) {
                     Toast.makeText(context,"인증 번호를 확인해주세요",Toast.LENGTH_SHORT).show();
-                }else
-                {
-                    isChecked = true;
+                }else {
+                    String inputNum = ((EditText)findViewById(R.id.et_check_lostid)).getText().toString();
+                    if (inputNum.equals(String.valueOf(certNum))) {
+                        isChecked = true;
+                        Toast.makeText(context,"인증되었습니다.",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -154,15 +172,21 @@ public class LostID1_MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(isLostLock)
                 {
-                    Intent intent = new Intent(context, Password_MainActivity.class);
-                    intent.putExtra("ColorMode",colorMode);
-                    intent.putExtra("isLostLock",true);
-                    startActivity(intent);
+                    if(isChecked) {
+                        Intent intent = new Intent(context, Password_MainActivity.class);
+                        intent.putExtra("ColorMode", colorMode);
+                        intent.putExtra("isLostLock", true);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(context,"휴대폰 인증을 진행해주세요",Toast.LENGTH_SHORT).show();
+                    }
                 }else
                 {
                     if(isChecked)
                     {
                         Intent intent = new Intent(context,LostID2_MainActivity.class);
+                        String PhoneNum = ((EditText)findViewById(R.id.et_phone_lostid)).getText().toString();
+                        intent.putExtra("Phone", PhoneNum);
                         startActivity(intent);
                     }else
                     {
@@ -204,6 +228,34 @@ public class LostID1_MainActivity extends AppCompatActivity {
         ((EditText)findViewById(R.id.et_phone_lostid)).setTextColor(Color.parseColor(color3));
 
 
+    }
+
+    public void sendSMS() {
+        String PhoneNum = (((EditText)findViewById(R.id.et_phone_lostid)).getText()).toString();
+
+
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(context).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Member/sendJoinSMS.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    certNum = obj.getString("certNum");
+
+                    Toast.makeText(context,"인증번호가 발송되었습니다.",Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(context)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("sRecieveNum", PhoneNum);
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
     }
 
 }

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
 import com.accepted.notepad.VolleySingleton;
+import com.accepted.notepad.login.Login_MainActivity;
 import com.accepted.notepad.main.MainActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -64,6 +65,11 @@ public class Tutorial_MainActivity extends AppCompatActivity {
         {
             viewPager.setCurrentItem(4);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(mContext, "튜토리얼을 완료해주세요.", Toast.LENGTH_SHORT).show();
     }
 
 }

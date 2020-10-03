@@ -41,48 +41,50 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="#544f4f"
-            android:text="회원님의 아이디는"
-            />
 
             <TextView
+                android:id="@+id/tv_memID_begin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
                 android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="#f37a00"
-                android:text="ID"
+                android:text="회원님의 아이디는"
+                android:textColor="#544f4f"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_memID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                />
+                android:gravity="center"
+                android:text="ID"
+                android:textColor="#f37a00"
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_memID_end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
                 android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="#544f4f"
                 android:text="입니다."
-                />
+                android:textColor="#544f4f"
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
         </LinearLayout>
+
         <TextView
+            android:id="@+id/tv_regDate_lostID2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="회원가입 : 2020-09-03"
             android:textColor="#544f4f"
-            android:layout_marginTop="10dp"
-            />
+            android:textSize="14dp" />
 
     </LinearLayout>
     <Button

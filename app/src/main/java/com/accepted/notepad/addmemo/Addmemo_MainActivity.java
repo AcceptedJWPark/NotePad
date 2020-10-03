@@ -147,35 +147,9 @@ public class Addmemo_MainActivity extends AppCompatActivity {
             }
         });
 
-
         recyclerView = findViewById(R.id.rcv);
-        arrayList = new ArrayList<>();
-        fakeTitleList = new ArrayList<>();
-        fakeContentList = new ArrayList<>();
 
-        arrayList.add("직접입력");
-        arrayList.add("Fake 1");
-        arrayList.add("Fake 2");
-        arrayList.add("Fake 3");
-        arrayList.add("Fake 4");
-        arrayList.add("Fake 5");
-        fakeTitleList.add("");
-        fakeTitleList.add("Fake 1 제목");
-        fakeTitleList.add("Fake 2 제목");
-        fakeTitleList.add("Fake 3 제목");
-        fakeTitleList.add("Fake 4 제목");
-        fakeTitleList.add("Fake 5 제목");
-        fakeContentList.add("");
-        fakeContentList.add("Fake 1 내용");
-        fakeContentList.add("Fake 2 내용");
-        fakeContentList.add("Fake 3 내용");
-        fakeContentList.add("Fake 4 내용");
-        fakeContentList.add("Fake 5 내용");
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rcv_adapter = new Rcv_Adapter(arrayList, fakeTitle, fakeContent, fakeTitleList, fakeContentList, shape3, shape4, choosedColor4);
-        recyclerView.setAdapter(rcv_adapter);
-
+        getFakeTemplate();
         clickFakeType();
         clickClickType();
 
@@ -534,6 +508,46 @@ public class Addmemo_MainActivity extends AppCompatActivity {
                 params.put("Content", fakeContent.getText().toString());
                 params.put("SecureType", securityType + "");
                 params.put("ClickType", clickType + "");
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
+    }
+
+    public void getFakeTemplate() {
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(context).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Memo/getFakeTemplate.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    arrayList = new ArrayList<>();
+                    fakeTitleList = new ArrayList<>();
+                    fakeContentList = new ArrayList<>();
+
+                    arrayList.add("직접입력");
+                    fakeTitleList.add("");
+                    fakeContentList.add("");
+
+                    JSONArray array = new JSONArray(response);
+                    for(int i = 0; i < array.length(); i++) {
+                        JSONObject obj = array.getJSONObject(i);
+
+                        arrayList.add("Fake " + (i + 1));
+                        fakeTitleList.add(obj.getString("Title"));
+                        fakeContentList.add(obj.getString("Content"));
+                    }
+
+                    recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                    rcv_adapter = new Rcv_Adapter(arrayList, fakeTitle, fakeContent, fakeTitleList, fakeContentList, shape3, shape4, choosedColor4);
+                    recyclerView.setAdapter(rcv_adapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(context)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
                 return params;
             }
         };
