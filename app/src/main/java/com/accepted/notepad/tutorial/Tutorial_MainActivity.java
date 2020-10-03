@@ -3,8 +3,23 @@ package com.accepted.notepad.tutorial;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.accepted.notepad.R;
+import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.VolleySingleton;
+import com.accepted.notepad.login.Login_MainActivity;
+import com.accepted.notepad.main.MainActivity;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,5 +64,9 @@ public class Tutorial_MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(mContext, "튜토리얼을 완료해주세요.", Toast.LENGTH_SHORT).show();
+    }
 
 }

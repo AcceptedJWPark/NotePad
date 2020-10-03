@@ -99,7 +99,7 @@ public class Join_MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(((EditText)findViewById(R.id.et_id_join)).length() == 0){
                     Toast.makeText(context,"아이디를 입력해주세요",Toast.LENGTH_SHORT).show();
-                }else if(((EditText)findViewById(R.id.et_pw_lostpw)).length() < 6){
+                }else if(((EditText)findViewById(R.id.et_pw_join)).length() < 6){
                     Toast.makeText(context,"비밀번호는 6자 이상 입력해주세요",Toast.LENGTH_SHORT).show();
                 }else if(((EditText)findViewById(R.id.et_pw_join)).length() == 0){
                     Toast.makeText(context,"비밀번호를 입력해주세요",Toast.LENGTH_SHORT).show();
@@ -228,6 +228,7 @@ public class Join_MainActivity extends AppCompatActivity {
     }
 
     public void insertNewMember() {
+        String PhoneNum = (((EditText)findViewById(R.id.et_phone_join)).getText()).toString();
         RequestQueue postRequestQueue = VolleySingleton.getInstance(context).getRequestQueue();
         StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Member/insertNewMember.do", new Response.Listener<String>() {
             @Override
@@ -252,6 +253,7 @@ public class Join_MainActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("MemID", (((EditText)findViewById(R.id.et_id_join)).getText()).toString());
                 params.put("Password", (((EditText)findViewById(R.id.et_pw_join)).getText()).toString());
+                params.put("Phone", PhoneNum);
                 return params;
             }
         };

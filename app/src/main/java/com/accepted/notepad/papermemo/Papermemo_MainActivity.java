@@ -68,6 +68,7 @@ public class Papermemo_MainActivity extends AppCompatActivity {
     EditText et_contents;
     Button btn_next_papermemo;
     ImageView iv_pre;
+    TextView tv_maintitle_paper;
 
     GradientDrawable shape1;
     int colorMode = 1;
@@ -95,6 +96,7 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         et_contents = findViewById(R.id.et_contents);
         iv_pre = findViewById(R.id.iv_pre);
         btn_next_papermemo = findViewById(R.id.btn_next_papermemo);
+        tv_maintitle_paper = findViewById(R.id.tv_maintitle_paper);
 
         Intent intent2 = getIntent();
 
@@ -107,10 +109,22 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         rTitle = intent2.getStringExtra("RTitle");
         rContent = intent2.getStringExtra("RContent");
 
+
+        Intent intent = getIntent();
+        colorMode = intent.getIntExtra("ColorMode",1);
+        choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
+        choosedColor2 = SaveSharedPreference.getBackColor2(mContext);
+        choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
+        choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
+
+        background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
+
+
         if(isReal==2) {
 //            Toast.makeText(mContext,"real", Toast.LENGTH_SHORT).show();
             String title = intent2.getStringExtra("RTitle");
             String content = intent2.getStringExtra("RContent");
+            tv_maintitle_paper.setText("비밀글");
 //            fTitle = intent2.getStringExtra("Title");
 //            fContent = intent2.getStringExtra("Content");
             et_title.setText(title);
@@ -119,6 +133,11 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 //            Toast.makeText(mContext,"fake", Toast.LENGTH_SHORT).show();
             String title = intent2.getStringExtra("Title");
             String content = intent2.getStringExtra("Content");
+            if(memoCode < 0) {
+                tv_maintitle_paper.setText("비밀글");
+            } else {
+                tv_maintitle_paper.setText("일반글");
+            }
 //            rTitle = intent2.getStringExtra("RTitle");
 //            rContent = intent2.getStringExtra("RContent");
             et_title.setText(title);
@@ -133,14 +152,9 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         if (fTitle == null) {
             fTitle = "";
             fContent = "";
+            tv_maintitle_paper.setText("일반글");
         }
 
-        Intent intent = getIntent();
-        colorMode = intent.getIntExtra("ColorMode",1);
-        choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
-        choosedColor2 = SaveSharedPreference.getBackColor2(mContext);
-        choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
-        choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
 //        if(colorMode == 1)
 //        {
 //            choosedColor1 = color1_basic;
@@ -155,7 +169,7 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 //            choosedColor4 = color4_night;
 //        }
 
-        background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
+
 
         btn_next_papermemo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,6 +209,10 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         et_contents.setHintTextColor(Color.parseColor(color3));
 
         iv_pre.setColorFilter(Color.parseColor(color3));
+
+        btn_next_papermemo.setBackground(shape1);
+        btn_next_papermemo.setTextColor(Color.parseColor("#ffffff"));
+        ((TextView)findViewById(R.id.tv_maintitle_paper)).setTextColor(Color.parseColor(color3));
 
         ((LinearLayout)findViewById(R.id.ll_cotainer_paper)).setBackgroundColor(Color.parseColor(color2));
         ((LinearLayout)findViewById(R.id.ll_txtcontainer_paper)).setBackgroundColor(Color.parseColor(color1));

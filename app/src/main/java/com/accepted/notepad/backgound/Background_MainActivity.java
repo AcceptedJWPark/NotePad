@@ -109,6 +109,10 @@ public class Background_MainActivity extends AppCompatActivity {
             ((TextView)findViewById(R.id.tv2)).setVisibility(View.VISIBLE);
         }else
         {
+            String userAppName = SaveSharedPreference.getAppName(mContext);
+            if (!userAppName.isEmpty()) {
+                ((TextView) findViewById(R.id.tv_maintitle_home2)).setText(userAppName);
+            }
             ((ImageView)findViewById(R.id.img_open_dl)).setVisibility(View.VISIBLE);
             ((RelativeLayout)findViewById(R.id.rl_toolbar)).setVisibility(View.VISIBLE);
             ((TextView)findViewById(R.id.tv1)).setVisibility(View.GONE);
