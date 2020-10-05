@@ -53,8 +53,6 @@ public class Tutorial_Page2 extends Fragment {
 
 
         shape1 = (GradientDrawable) ContextCompat.getDrawable(mContext,R.drawable.bgr_mainbtn);
-        shape2 = (GradientDrawable) ContextCompat.getDrawable(mContext,R.drawable.bgr_mainbtn_unactive);
-        btn_next.setBackground(shape2);
 
         for(int i=0; i<ll_clicktype.length; i++)
         {

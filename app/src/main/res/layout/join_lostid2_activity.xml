@@ -98,7 +98,7 @@
         android:textStyle="bold"
         android:textSize="20dp"
         android:textColor="#fff"
-        android:background="@drawable/bgr_mainbtn"
+        android:background="@drawable/bgr_mainbtn_login"
         />
     <Button
         android:id="@+id/btn_join_lostid"
@@ -110,7 +110,7 @@
         android:textSize="18dp"
         android:layout_marginTop="10dp"
         android:textColor="#544f4f"
-        android:background="@drawable/bgr_edittext_login"
+        android:background="@drawable/bgr_joinbtn_login"
         android:layout_alignParentBottom="true"
         android:elevation="5dp"
         />
