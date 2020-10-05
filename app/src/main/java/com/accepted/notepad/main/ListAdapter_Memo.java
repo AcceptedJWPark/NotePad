@@ -215,6 +215,8 @@ public class ListAdapter_Memo extends BaseAdapter {
                 Log.d("press", "double");
                 if (secureType.equals("3") && clickType.equals("1")) {
                     showRealMemo(item);
+                } else if(secureType.equals("1")) {
+                    showInsecureMemo(item);
                 } else {
                     showFakeMemo(item);
                 }
@@ -242,6 +244,8 @@ public class ListAdapter_Memo extends BaseAdapter {
                     Log.d("press", "longpress");
                     if (!clickType.equals("1") && secureType.equals("3")) {
                         showRealMemo(item);
+                    } else if(secureType.equals("1")) {
+                        showInsecureMemo(item);
                     } else {
                         showFakeMemo(item);
                     }

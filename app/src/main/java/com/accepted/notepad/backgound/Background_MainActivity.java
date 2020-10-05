@@ -56,7 +56,7 @@ public class Background_MainActivity extends AppCompatActivity {
     ArrayList<String> colorList;
 
     // 테마리스트 토탈
-    int colorCount = 2;
+    int colorCount = 7;
     int colormode = 1;
 
     boolean isTutorial;
@@ -93,7 +93,7 @@ public class Background_MainActivity extends AppCompatActivity {
         choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
         choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
 
-        ((EditText)findViewById(R.id.et_apptitle)).setText(SaveSharedPreference.getAppName(mContext));
+
 
         isTutorial = intent.getBooleanExtra("isTutorial",false);
 
@@ -101,7 +101,8 @@ public class Background_MainActivity extends AppCompatActivity {
 
         if(isTutorial)
         {
-
+            ((TextView) findViewById(R.id.tv_maintitle_home2)).setText("NotePad");
+            ((EditText)findViewById(R.id.et_apptitle)).setText("NotePad");
             ((ImageView)findViewById(R.id.img_open_dl)).setVisibility(View.GONE);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             ((RelativeLayout)findViewById(R.id.rl_toolbar)).setVisibility(View.GONE);
@@ -112,6 +113,7 @@ public class Background_MainActivity extends AppCompatActivity {
             String userAppName = SaveSharedPreference.getAppName(mContext);
             if (!userAppName.isEmpty()) {
                 ((TextView) findViewById(R.id.tv_maintitle_home2)).setText(userAppName);
+                ((EditText)findViewById(R.id.et_apptitle)).setText(userAppName);
             }
             ((ImageView)findViewById(R.id.img_open_dl)).setVisibility(View.VISIBLE);
             ((RelativeLayout)findViewById(R.id.rl_toolbar)).setVisibility(View.VISIBLE);
@@ -282,9 +284,32 @@ public class Background_MainActivity extends AppCompatActivity {
                 getBackground(colormode);
             }
         });
-
+        getBackground(colormode);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        String clickType = SaveSharedPreference.getPrefClickType(mContext);
+        String clickTitle = "일반클릭";
+        switch(clickType) {
+            case "1":
+                clickTitle = "일반클릭";
+                break;
+            case "2":
+                clickTitle = "더블클릭";
+                break;
+            case "3":
+                clickTitle = "롱클릭(1초)";
+                break;
+            case "4":
+                clickTitle = "롱클릭(3초)";
+                break;
+        }
+
+        ((TextView)findViewById(R.id.tv_click)).setText(clickTitle);
+    }
 
 
     public void switchClick(String color4)
@@ -461,6 +486,7 @@ public class Background_MainActivity extends AppCompatActivity {
                     colorList.add(txtColor);
                     colorList.add(iconColor);
 
+                    ((TextView)findViewById(R.id.tv_bgrmode)).setText(obj.getString("BackgroundTitle"));
                     background(colorList.get(0),colorList.get(1),colorList.get(2),colorList.get(3));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -538,6 +564,7 @@ public class Background_MainActivity extends AppCompatActivity {
                         String iconColor = colorList.get(3);
 
                         SaveSharedPreference.setBackgroundColor(mContext, bg1, bg2, txtColor, iconColor);
+                        SaveSharedPreference.setColorMode(mContext, String.valueOf(colormode));
                         updateSetting();
                     }
                 } catch (JSONException e) {

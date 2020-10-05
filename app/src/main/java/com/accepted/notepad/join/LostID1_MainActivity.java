@@ -76,15 +76,16 @@ public class LostID1_MainActivity extends AppCompatActivity {
             choosedColor2 = SaveSharedPreference.getBackColor2(context);
             choosedColor3 = SaveSharedPreference.gettxtColor1(context);
             choosedColor4 = SaveSharedPreference.geticonColor1(context);
-            background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
         }else
         {
-            choosedColor1 = SaveSharedPreference.getBackColor1(context);
-            choosedColor2 = SaveSharedPreference.getBackColor2(context);
-            choosedColor3 = SaveSharedPreference.gettxtColor1(context);
-            choosedColor4 = SaveSharedPreference.geticonColor1(context);
+            choosedColor1 = "#f5f5f5";
+            choosedColor2 = "#ffffff";
+            choosedColor3 = "#544f4f";
+            choosedColor4 = "#f37a00";
         }
 
+
+        background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
 
         ((EditText)findViewById(R.id.et_phone_lostid)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

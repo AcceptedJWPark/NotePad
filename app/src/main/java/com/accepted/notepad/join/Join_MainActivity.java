@@ -128,7 +128,7 @@ public class Join_MainActivity extends AppCompatActivity {
                 } else {
                     InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
                     inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    sendSMS();
+                    checkDuplicationPhone();
                 }
             }
             });
@@ -147,6 +147,10 @@ public class Join_MainActivity extends AppCompatActivity {
                         Toast.makeText(context,"인증되었습니다.",Toast.LENGTH_SHORT).show();
                         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
                         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    } else {
+                        Toast.makeText(context,"인증 번호를 확인해주세요",Toast.LENGTH_SHORT).show();
+                        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     }
                 }
             }
@@ -162,7 +166,7 @@ public class Join_MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(((EditText)findViewById(R.id.et_phone_join)).length() == 11)
                 {
-                    ((Button)findViewById(R.id.btn_phone_join)).setBackgroundResource(R.drawable.bgr_mainbtn);
+                    ((Button)findViewById(R.id.btn_phone_join)).setBackgroundResource(R.drawable.bgr_mainbtn_login);
                 }
             }
 
@@ -182,7 +186,7 @@ public class Join_MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(((EditText)findViewById(R.id.et_check_join)).length() == 6)
                 {
-                    ((Button)findViewById(R.id.btn_check_join)).setBackgroundResource(R.drawable.bgr_mainbtn);
+                    ((Button)findViewById(R.id.btn_check_join)).setBackgroundResource(R.drawable.bgr_mainbtn_login);
                 }
             }
 
@@ -197,6 +201,39 @@ public class Join_MainActivity extends AppCompatActivity {
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void checkDuplicationPhone() {
+        String PhoneNum = (((EditText)findViewById(R.id.et_phone_join)).getText()).toString();
+
+
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(context).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Member/checkDuplicationPhone.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String result = obj.getString("result");
+
+                    if(result.equals("success")) {
+                        sendSMS();
+                    } else {
+                        Toast.makeText(context,"이미 가입한 휴대폰 번호입니다.",Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(context)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Phone", PhoneNum);
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
     }
 
     public void sendSMS() {
