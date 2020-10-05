@@ -124,7 +124,11 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 //            Toast.makeText(mContext,"real", Toast.LENGTH_SHORT).show();
             String title = intent2.getStringExtra("RTitle");
             String content = intent2.getStringExtra("RContent");
-            tv_maintitle_paper.setText("비밀글");
+            if (secureType == 1) {
+                tv_maintitle_paper.setText("일반글");
+            } else {
+                tv_maintitle_paper.setText("비밀글");
+            }
             fTitle = intent2.getStringExtra("Title");
             fContent = intent2.getStringExtra("Content");
             et_title.setText(title);
