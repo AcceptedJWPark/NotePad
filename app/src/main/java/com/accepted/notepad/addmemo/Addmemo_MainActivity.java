@@ -495,6 +495,10 @@ public class Addmemo_MainActivity extends AppCompatActivity {
                     JSONObject obj = new JSONObject(response);
                     if (obj.get("result").equals("success")) {
                         Toast.makeText(context, "수정되었습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("fTitle", fakeTitle.getText().toString());
+                        intent.putExtra("fContent", fakeContent.getText().toString());
+                        setResult(RESULT_OK, intent);
                         finish();
                     } else {
                         Toast.makeText(context, "수정 실패.", Toast.LENGTH_SHORT).show();

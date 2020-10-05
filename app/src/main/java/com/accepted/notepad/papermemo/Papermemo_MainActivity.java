@@ -153,6 +153,8 @@ public class Papermemo_MainActivity extends AppCompatActivity {
             fTitle = "";
             fContent = "";
             tv_maintitle_paper.setText("일반글");
+        } else if (memoCode < 0 && !fTitle.isEmpty()) {
+            tv_maintitle_paper.setText("비밀글");
         }
 
 //        if(colorMode == 1)
@@ -235,9 +237,21 @@ public class Papermemo_MainActivity extends AppCompatActivity {
                 intent.putExtra("SecureType", secureType);
                 intent.putExtra("ClickType", clickType);
 
-                startActivity(intent);
+                startActivityForResult(intent, 9999);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 9999) {
+            if (resultCode == RESULT_OK) {
+                fTitle = data.getStringExtra("fTitle");
+                fContent = data.getStringExtra("fContent");
+            }
+        }
     }
 
     public void insertMemo() {

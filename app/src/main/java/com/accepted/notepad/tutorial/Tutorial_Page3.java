@@ -42,7 +42,6 @@ public class Tutorial_Page3 extends Fragment {
         * 선택한 클릭 타입 테스트 하는 부분
         * */
         mContext=getActivity();
-        clickType = SaveSharedPreference.getPrefClickType(mContext);
         View view = inflater.inflate(R.layout.tutorial_page3, container, false);
 
         iv_addmemo = (ImageView)view.findViewById(R.id.iv_addmemo_tutorial);
@@ -50,6 +49,11 @@ public class Tutorial_Page3 extends Fragment {
         setClickTypeEvent();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     public void setClickTypeEvent() {
@@ -95,6 +99,7 @@ public class Tutorial_Page3 extends Fragment {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 Log.d("press", "Add btn single");
+                clickType = SaveSharedPreference.getPrefClickType(mContext);
                 if (clickType.equals("1")) {
                     Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
                     mainActivity.nextPage(2);
@@ -108,6 +113,7 @@ public class Tutorial_Page3 extends Fragment {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 Log.d("press", "Add btn double");
+                clickType = SaveSharedPreference.getPrefClickType(mContext);
                 if (clickType.equals("2")) {
                     Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
                     mainActivity.nextPage(2);
@@ -124,32 +130,31 @@ public class Tutorial_Page3 extends Fragment {
             }
         };
 
-        // 롱클릭 리스너
-        int pressTimeOut = 1000;
-        if (clickType.equals("3") || clickType.equals("4")) {
-            if (clickType.equals("3")) {
-                pressTimeOut = 1000;
-            } else if (clickType.equals("4")) {
-                pressTimeOut = 3000;
-            } else {
-//                Intent intent = new Intent(mContext, Papermemo_MainActivity.class);
-//                startActivity(intent);
-            }
-        }
-        LongPressChecker mLongPressChecker = new LongPressChecker(mContext, pressTimeOut);
-        mLongPressChecker.setOnLongPressListener( new LongPressChecker.OnLongPressListener() {
-            @Override
-            public void onLongPressed() {
-                Log.d("press", "Add btn longpress");
-                Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
-                mainActivity.nextPage(2);
-            }
-        });
+
+
 
         iv_addmemo.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                clickType = SaveSharedPreference.getPrefClickType(mContext);
                 if (clickType.equals("3") || clickType.equals("4")) {
+                    // 롱클릭 리스너
+                    int pressTimeOut = 1000;
+                    if (clickType.equals("3")) {
+                        pressTimeOut = 1000;
+                    } else if (clickType.equals("4")) {
+                        pressTimeOut = 3000;
+                    }
+                    
+                    LongPressChecker mLongPressChecker = new LongPressChecker(mContext, pressTimeOut);
+                    mLongPressChecker.setOnLongPressListener( new LongPressChecker.OnLongPressListener() {
+                        @Override
+                        public void onLongPressed() {
+                            Log.d("press", "Add btn longpress");
+                            Tutorial_MainActivity mainActivity = (Tutorial_MainActivity) getActivity();
+                            mainActivity.nextPage(2);
+                        }
+                    });
                     mLongPressChecker.deliverMotionEvent( v, event );
                 }
 

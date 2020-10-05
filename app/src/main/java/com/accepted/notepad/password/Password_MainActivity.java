@@ -19,12 +19,24 @@ import android.widget.Toast;
 
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
+import com.accepted.notepad.VolleySingleton;
 import com.accepted.notepad.backgound.Background_MainActivity;
 import com.accepted.notepad.main.MainActivity;
 import com.accepted.notepad.papermemo.Papermemo_MainActivity;
+import com.accepted.notepad.tutorial.Tutorial_MainActivity;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Password_MainActivity extends AppCompatActivity {
 
@@ -169,11 +181,7 @@ public class Password_MainActivity extends AppCompatActivity {
                     {
                         if(isLostLock)
                         {
-                            Intent intent = new Intent(mContext, MainActivity.class);
-                            intent.putExtra("ColorMode",colorMode);
-                            startActivity(intent);
-                            Toast.makeText(mContext,"잠금번호가 변경되었습니다.",Toast.LENGTH_SHORT).show();
-                            finish();
+                            updateSecurityCode();
                         }else
                         {
                             if (isSetting == true) {
@@ -319,6 +327,37 @@ public class Password_MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void updateSecurityCode() {
+        RequestQueue postRequestQueue = VolleySingleton.getInstance(mContext).getRequestQueue();
+        StringRequest postJsonRequest = new StringRequest(Request.Method.POST, SaveSharedPreference.getServerIp() + "/Member/updateSecurityCode.do", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.get("result").equals("success")) {
+                        SaveSharedPreference.setSecurityCode(mContext, InputPassword);
+                        Intent intent = new Intent(mContext, MainActivity.class);
+                        intent.putExtra("ColorMode",colorMode);
+                        startActivity(intent);
+                        Toast.makeText(mContext,"잠금번호가 변경되었습니다.",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, SaveSharedPreference.getErrorListener(mContext)) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("MemID", SaveSharedPreference.getPrefUserId(mContext));
+                params.put("SecurityCode", InputPassword);
+                return params;
+            }
+        };
+        postRequestQueue.add(postJsonRequest);
     }
 
 
