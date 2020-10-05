@@ -33,6 +33,7 @@ import com.accepted.notepad.addmemo.Addmemo_MainActivity;
 import com.accepted.notepad.backgound.Background_MainActivity;
 import com.accepted.notepad.join.LostID1_MainActivity;
 import com.accepted.notepad.login.Login_MainActivity;
+import com.accepted.notepad.manual.Manual_MainActivity;
 import com.accepted.notepad.papermemo.Papermemo_MainActivity;
 import com.accepted.notepad.password.Password_MainActivity;
 import com.accepted.notepad.tutorial.Tutorial_MainActivity;
@@ -226,6 +227,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dl.closeDrawers();
+                Intent intent = new Intent(mContext, Manual_MainActivity.class);
+                startActivity(intent);
             }
         });
 

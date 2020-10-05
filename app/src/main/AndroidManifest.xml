@@ -34,6 +34,7 @@
         <activity android:name=".backgound.Background_MainActivity" />
         <activity android:name=".password.Password_MainActivity" />
         <activity android:name=".tutorial.Tutorial_MainActivity" />
+        <activity android:name=".manual.Manual_MainActivity" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -236,7 +236,7 @@ public class Join_MainActivity extends AppCompatActivity {
                 try {
                     JSONObject obj = new JSONObject(response);
                     if (obj.get("result").equals("success")) {
-                        Toast.makeText(context,"가입이 완료되었습니다.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,"튜토리얼을 진행해주세요.",Toast.LENGTH_SHORT).show();
 
                         SaveSharedPreference.setPrefUsrId(context, (((EditText)findViewById(R.id.et_id_join)).getText()).toString());
                         memberLogin();

@@ -119,6 +119,7 @@ public class Addmemo_MainActivity extends AppCompatActivity {
         fakeTitle = findViewById(R.id.et_faketitle);
         fakeContent = findViewById(R.id.et_fakecontents);
 
+
         fakeTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -162,7 +163,11 @@ public class Addmemo_MainActivity extends AppCompatActivity {
             }
 
             fakeTitle.setText(intent.getStringExtra("Title"));
-            fakeContent.setText(intent.getStringExtra("Content"));
+
+            String str = intent.getStringExtra("Content");
+            str =  str.replace("\n", System.getProperty("line.separator"));
+
+            fakeContent.setText(str);
             ((Button) findViewById(R.id.btn_next)).setText("저장");
 
             Log.d("memoCode", memoCode+ "");

@@ -68,14 +68,21 @@ public class LostID1_MainActivity extends AppCompatActivity {
         colorMode = intent.getIntExtra("ColorMode",1);
         isLostLock = intent.getBooleanExtra("isLostLock",false);
 
-        choosedColor1 = SaveSharedPreference.getBackColor1(context);
-        choosedColor2 = SaveSharedPreference.getBackColor2(context);
-        choosedColor3 = SaveSharedPreference.gettxtColor1(context);
-        choosedColor4 = SaveSharedPreference.geticonColor1(context);
+
 
         if(isLostLock)
         {
+            choosedColor1 = SaveSharedPreference.getBackColor1(context);
+            choosedColor2 = SaveSharedPreference.getBackColor2(context);
+            choosedColor3 = SaveSharedPreference.gettxtColor1(context);
+            choosedColor4 = SaveSharedPreference.geticonColor1(context);
             background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
+        }else
+        {
+            choosedColor1 = SaveSharedPreference.getBackColor1(context);
+            choosedColor2 = SaveSharedPreference.getBackColor2(context);
+            choosedColor3 = SaveSharedPreference.gettxtColor1(context);
+            choosedColor4 = SaveSharedPreference.geticonColor1(context);
         }
 
 
@@ -214,7 +221,7 @@ public class LostID1_MainActivity extends AppCompatActivity {
     {
         shape1 = (GradientDrawable) ContextCompat.getDrawable(this,R.drawable.bgr_mainbtn);
         shape1.setColor(Color.parseColor(color4));
-        shape2 = (GradientDrawable) ContextCompat.getDrawable(this,R.drawable.bgr_edittext_login);
+        shape2 = (GradientDrawable) ContextCompat.getDrawable(this,R.drawable.bgr_edittext_change);
         shape2.setColor(Color.parseColor(color2));
 
         ((LinearLayout)findViewById(R.id.ll_container_lostid)).setBackgroundColor(Color.parseColor(color1));

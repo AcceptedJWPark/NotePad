@@ -101,7 +101,7 @@ public class LostPW1_MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(((EditText)findViewById(R.id.et_check_lostpw)).length() == 6)
                 {
-                    ((Button)findViewById(R.id.btn_check_lostpw)).setBackgroundResource(R.drawable.bgr_mainbtn);
+                    ((Button)findViewById(R.id.btn_check_lostpw)).setBackgroundResource(R.drawable.bgr_mainbtn_login);
                 }
             }
 

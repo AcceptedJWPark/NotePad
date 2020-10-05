@@ -125,8 +125,8 @@ public class Papermemo_MainActivity extends AppCompatActivity {
             String title = intent2.getStringExtra("RTitle");
             String content = intent2.getStringExtra("RContent");
             tv_maintitle_paper.setText("비밀글");
-//            fTitle = intent2.getStringExtra("Title");
-//            fContent = intent2.getStringExtra("Content");
+            fTitle = intent2.getStringExtra("Title");
+            fContent = intent2.getStringExtra("Content");
             et_title.setText(title);
             et_contents.setText(content);
         } else if(isReal==3) {
@@ -138,8 +138,8 @@ public class Papermemo_MainActivity extends AppCompatActivity {
             } else {
                 tv_maintitle_paper.setText("일반글");
             }
-//            rTitle = intent2.getStringExtra("RTitle");
-//            rContent = intent2.getStringExtra("RContent");
+            rTitle = intent2.getStringExtra("RTitle");
+            rContent = intent2.getStringExtra("RContent");
             et_title.setText(title);
             et_contents.setText(content);
         }
@@ -328,10 +328,17 @@ public class Papermemo_MainActivity extends AppCompatActivity {
                 params.put("MemID", memID);
                 params.put("SecureType", String.valueOf(secureType));
                 params.put("ClickType", String.valueOf(clickType));
-                params.put("RTitle", et_title.getText().toString());
-                params.put("RContent", et_contents.getText().toString());
-                params.put("FTitle", fTitle);
-                params.put("FContent", fContent);
+                if (isReal == 2) {
+                    params.put("RTitle", et_title.getText().toString());
+                    params.put("RContent", et_contents.getText().toString());
+                    params.put("FTitle", fTitle);
+                    params.put("FContent", fContent);
+                } else {
+                    params.put("RTitle", rTitle);
+                    params.put("RContent", rContent);
+                    params.put("FTitle", et_title.getText().toString());
+                    params.put("FContent", et_contents.getText().toString());
+                }
                 params.put("MemoCode", String.valueOf(memoCode));
                 return params;
             }

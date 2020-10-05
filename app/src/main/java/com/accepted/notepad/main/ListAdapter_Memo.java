@@ -42,6 +42,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 
 public class ListAdapter_Memo extends BaseAdapter {
 
@@ -319,7 +321,9 @@ public class ListAdapter_Memo extends BaseAdapter {
         intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
         intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
         intent.putExtra("isReal", 3);
-        mContext.startActivity(intent);
+        mContext.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+
+
     }
 
     public void showRealMemo(Listitem_Memo item) {
@@ -332,7 +336,9 @@ public class ListAdapter_Memo extends BaseAdapter {
         intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
         intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
         intent.putExtra("isTutorial",true);
-        mContext.startActivity(intent);
+        mContext.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+
+
     }
 
     public void showInsecureMemo(Listitem_Memo item) {
@@ -345,6 +351,8 @@ public class ListAdapter_Memo extends BaseAdapter {
         intent.putExtra("RContent", item.getRContent());
         intent.putExtra("SecureType", Integer.parseInt(item.getSecureType()));
         intent.putExtra("ClickType", Integer.parseInt(item.getClickType()));
-        mContext.startActivity(intent);
+        mContext.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+
+
     }
 }

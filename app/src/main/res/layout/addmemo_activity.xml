@@ -344,7 +344,9 @@
         android:padding="10dp"
         android:textSize="12dp"
         android:layout_below="@+id/et_faketitle"
+        android:maxLines="10"
         android:visibility="gone"
+        android:singleLine="false"
         />
 
                 <Button
