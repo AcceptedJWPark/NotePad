@@ -3,6 +3,7 @@ package com.accepted.notepad.tutorial;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.accepted.notepad.R;
 import com.accepted.notepad.SaveSharedPreference;
