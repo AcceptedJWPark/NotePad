@@ -242,6 +242,8 @@ public class Join_MainActivity extends AppCompatActivity {
                         memberLogin();
                     } else if (obj.get("result").equals("has")) {
                         Toast.makeText(context,"이미 가입된 아이디입니다.",Toast.LENGTH_SHORT).show();
+                    } else if (obj.get("result").equals("hasPhone")) {
+                        Toast.makeText(context,"이미 가입된 핸드폰입니다.",Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
