@@ -109,6 +109,17 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         rTitle = intent2.getStringExtra("RTitle");
         rContent = intent2.getStringExtra("RContent");
 
+
+        Intent intent = getIntent();
+        colorMode = intent.getIntExtra("ColorMode",1);
+        choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
+        choosedColor2 = SaveSharedPreference.getBackColor2(mContext);
+        choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
+        choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
+
+        background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
+
+
         if(isReal==2) {
 //            Toast.makeText(mContext,"real", Toast.LENGTH_SHORT).show();
             String title = intent2.getStringExtra("RTitle");
@@ -144,12 +155,6 @@ public class Papermemo_MainActivity extends AppCompatActivity {
             tv_maintitle_paper.setText("일반글");
         }
 
-        Intent intent = getIntent();
-        colorMode = intent.getIntExtra("ColorMode",1);
-        choosedColor1 = SaveSharedPreference.getBackColor1(mContext);
-        choosedColor2 = SaveSharedPreference.getBackColor2(mContext);
-        choosedColor3 = SaveSharedPreference.gettxtColor1(mContext);
-        choosedColor4 = SaveSharedPreference.geticonColor1(mContext);
 //        if(colorMode == 1)
 //        {
 //            choosedColor1 = color1_basic;
@@ -164,7 +169,7 @@ public class Papermemo_MainActivity extends AppCompatActivity {
 //            choosedColor4 = color4_night;
 //        }
 
-        background(choosedColor1,choosedColor2,choosedColor3,choosedColor4);
+
 
         btn_next_papermemo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,6 +209,10 @@ public class Papermemo_MainActivity extends AppCompatActivity {
         et_contents.setHintTextColor(Color.parseColor(color3));
 
         iv_pre.setColorFilter(Color.parseColor(color3));
+
+        btn_next_papermemo.setBackground(shape1);
+        btn_next_papermemo.setTextColor(Color.parseColor("#ffffff"));
+        ((TextView)findViewById(R.id.tv_maintitle_paper)).setTextColor(Color.parseColor(color3));
 
         ((LinearLayout)findViewById(R.id.ll_cotainer_paper)).setBackgroundColor(Color.parseColor(color2));
         ((LinearLayout)findViewById(R.id.ll_txtcontainer_paper)).setBackgroundColor(Color.parseColor(color1));
