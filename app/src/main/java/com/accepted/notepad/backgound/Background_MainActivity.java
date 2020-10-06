@@ -25,6 +25,7 @@ import com.accepted.notepad.SaveSharedPreference;
 import com.accepted.notepad.VolleySingleton;
 import com.accepted.notepad.main.ClickChange_MainActivity;
 import com.accepted.notepad.main.MainActivity;
+import com.accepted.notepad.manual.Manual_MainActivity;
 import com.accepted.notepad.tutorial.Tutorial_MainActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -521,13 +522,24 @@ public class Background_MainActivity extends AppCompatActivity {
 
                         SaveSharedPreference.settingUserOption(mContext, mFlag, rFlag, sFlag, searchFlag, appName);
 
-                        Intent intent = new Intent(mContext,MainActivity.class);
-                        intent.putExtra("ColorMode",colormode);
-                        intent.putExtra("ismemo",isMemo);
-                        intent.putExtra("ismenu",isMenu);
-                        intent.putExtra("isdate",isDate);
-                        intent.putExtra("issearch",isSearch);
-                        startActivity(intent);
+                        if (isTutorial) {
+                            Intent intent = new Intent(mContext, Manual_MainActivity.class);
+                            intent.putExtra("ColorMode", colormode);
+                            intent.putExtra("ismemo", isMemo);
+                            intent.putExtra("ismenu", isMenu);
+                            intent.putExtra("isdate", isDate);
+                            intent.putExtra("issearch", isSearch);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(mContext, MainActivity.class);
+                            intent.putExtra("ColorMode", colormode);
+                            intent.putExtra("ismemo", isMemo);
+                            intent.putExtra("ismenu", isMenu);
+                            intent.putExtra("isdate", isDate);
+                            intent.putExtra("issearch", isSearch);
+                            startActivity(intent);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

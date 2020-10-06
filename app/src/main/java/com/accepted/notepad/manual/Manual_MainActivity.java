@@ -1,6 +1,7 @@
 package com.accepted.notepad.manual;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.accepted.notepad.R;
+import com.accepted.notepad.main.MainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -19,6 +21,7 @@ public class Manual_MainActivity extends AppCompatActivity {
     Context mContext;
     ViewPager viewPager;
     ManualPageAdapter manualPageAdapter;
+    TextView tv_comp_manual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,8 @@ public class Manual_MainActivity extends AppCompatActivity {
         setContentView(R.layout.manual_activity);
         mContext = getApplicationContext();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        tv_comp_manual = findViewById(R.id.tv_comp_manual);
 
         viewPager = findViewById(R.id.vp_manual);
         manualPageAdapter = new ManualPageAdapter(getSupportFragmentManager(),7);
@@ -62,11 +67,26 @@ public class Manual_MainActivity extends AppCompatActivity {
                 {
                     ((TextView)findViewById(R.id.tv_manualtitle)).setText("메모 검색 "+"("+(position+1)+"/"+viewPager.getAdapter().getCount()+")");
                 }
+
+                if (position == 6) {
+                    tv_comp_manual.setVisibility(View.VISIBLE);
+                } else {
+                    tv_comp_manual.setVisibility(View.GONE);
+                }
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        tv_comp_manual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
