@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.accepted.notepad.R;
+import com.accepted.notepad.login.Login_MainActivity;
 import com.accepted.notepad.main.MainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -99,10 +101,11 @@ public class Manual_MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public void onBackPressed() {
-        finish();
+        Intent intent = new Intent(mContext, Login_MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 }
